@@ -1,0 +1,49 @@
+buildscript {
+
+    ext.kotlin_version = '1.0.3'
+    ext.support_version = '23.1.1'
+    ext.anko_version = '0.8.2'
+
+    ext {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        artifactoryUser = properties.getProperty('artifactory.user')
+        artifactoryPassword = properties.getProperty('artifactory.password')
+        artifactoryContextUrl = properties.getProperty('artifactory.contextUrl')
+        mavenLocalDir = properties.getProperty('maven.localDir')
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0-rc2'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'me.tatarka:gradle-retrolambda:3.2.4'
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            url 'https://artifactory.m4ucorp.dmc/app/repo'
+            credentials {
+                username = artifactoryUser
+                password = artifactoryPassword
+            }
+        }
+        jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://mint.splunk.com/gradle/" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
