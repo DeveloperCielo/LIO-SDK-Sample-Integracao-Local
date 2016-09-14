@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="tester.cielo.sdktester.MainActivity">
+    tools:context="tester.sdk.cielo.sdktester.cielo.ordermanager.sdk.sample.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/value_text"
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content"
+        android:hint="Digite o valor"
+        android:inputType="number"
+        android:layout_margin="20dp" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <Button
+        android:id="@+id/payment_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_primary_action_button"
+        android:padding="20dp"
+        android:text="Realizar Pagamento"
+        android:textColor="#FFF"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="233dp" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

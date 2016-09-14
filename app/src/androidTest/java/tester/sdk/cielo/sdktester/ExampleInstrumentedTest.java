@@ -1,4 +1,4 @@
-package tester.cielo.sdktester;
+package tester.sdk.cielo.sdktester;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("tester.cielo.sdktester", appContext.getPackageName());
+        assertEquals("tester.sdk.cielo.sdktester", appContext.getPackageName());
     }
 }

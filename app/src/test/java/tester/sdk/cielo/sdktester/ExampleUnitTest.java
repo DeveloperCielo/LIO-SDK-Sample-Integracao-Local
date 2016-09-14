@@ -1,4 +1,4 @@
-package tester.cielo.sdktester;
+package tester.sdk.cielo.sdktester;
 
 import org.junit.Test;
 
