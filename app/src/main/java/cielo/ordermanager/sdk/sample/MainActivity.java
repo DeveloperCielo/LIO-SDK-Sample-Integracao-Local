@@ -146,6 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void resetState(){
+        order = null;
+        configUi();
+        updatePaymentButton();
+    }
+
     @OnClick(R.id.payment_button)
     public void makePayment() {
 
@@ -164,24 +170,25 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPayment(@NonNull Payment payment) {
                     Log.d(TAG, "ON PAYMENT");
+                    resetState();
                 }
 
                 @Override
                 public void onCancel() {
                     Log.d(TAG, "ON CANCEL");
+                    resetState();
                 }
 
                 @Override
                 public void onSuccess() {
                     Log.d(TAG, "ON SUCCESS");
-                    order = null;
-                    configUi();
-                    updatePaymentButton();
+                    resetState();
                 }
 
                 @Override
                 public void onError(@NonNull PaymentError paymentError) {
                     Log.d(TAG, "ON ERROR");
+                    resetState();
                 }
 
             });

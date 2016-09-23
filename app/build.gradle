@@ -27,8 +27,8 @@ dependencies {
     })
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------  //
-    compile(name:'order-manager-debug', ext:'aar')
-//    compile(name:'order-manager-release', ext:'aar')
+    debugCompile(name:'order-manager-debug', ext:'aar')
+    releaseCompile(name:'order-manager-release', ext:'aar')
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.3"
     // --------------------------------------------------------------------------- //
 
