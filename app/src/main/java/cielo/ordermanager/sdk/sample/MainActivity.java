@@ -1,18 +1,16 @@
 package cielo.ordermanager.sdk.sample;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -22,14 +20,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.sdk.order.Credentials;
 import cielo.sdk.order.Environment;
-import cielo.sdk.order.Item;
 import cielo.sdk.order.Order;
 import cielo.sdk.order.OrderManager;
-import cielo.sdk.order.UnitOfMeasure;
-import cielo.sdk.order.payment.Payment;
+import cielo.sdk.order.ServiceBindListener;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
-import cielo.sdk.order.payment.PaymentOptions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private final long itemValue = 1200;
     private final String itemID = "12345";
 
+    private boolean isServiceBound = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +74,18 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> options = new HashMap<>();
 
         Credentials credentials = new Credentials("1234", "1234");
-        orderManager = new OrderManager(credentials, Environment.SANDBOX, options);
-        orderManager.bind(this);
+        orderManager = new OrderManager(credentials, Environment.SANDBOX);
+        orderManager.bind(this, new ServiceBindListener() {
+            @Override
+            public void onServiceBound() {
+                isServiceBound = true;
+            }
+
+            @Override
+            public void onServiceUnbound() {
+                isServiceBound = false;
+            }
+        });
     }
 
     private void configUi() {
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (order != null) {
-                    order.addItem(itemID, "produto teste", itemValue, 1, UnitOfMeasure.EACH);
+                    order.addItem(itemID, "produto teste", itemValue, 1, "EACH");
                     updatePaymentButton();
                 } else {
                     showCreateOrderMEssage();
@@ -141,12 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
-        placeOrderButton.setEnabled(false);
-        order = orderManager.createDraftOrder("Produto Teste");
-
+        if (isServiceBound) {
+            placeOrderButton.setEnabled(false);
+            order = orderManager.createDraftOrder("Produto Teste");
+        }
     }
 
-    private void resetState(){
+    private void resetState() {
         order = null;
         configUi();
         updatePaymentButton();
@@ -158,9 +166,7 @@ public class MainActivity extends AppCompatActivity {
         if (order != null) {
 
             orderManager.placeOrder(order);
-
-            Map<String, Object> options = new HashMap<>();
-            orderManager.checkoutOrder(order, PaymentOptions.ALLOW_ONLY_CREDIT_PAYMENT.getValue(), new PaymentListener() {
+            orderManager.checkoutOrder(order.getId(), order.getPrice(), new PaymentListener() {
 
                 @Override
                 public void onStart() {
@@ -168,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onPayment(@NonNull Payment payment) {
+                public void onPayment(@NonNull Order order) {
                     Log.d(TAG, "ON PAYMENT");
                     resetState();
                 }
