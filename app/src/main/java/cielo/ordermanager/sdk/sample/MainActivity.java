@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
     private final long itemValue = 1200;
     private final String itemID = "12345";
 
-    private boolean isServiceBound = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,17 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         Credentials credentials = new Credentials("1234", "1234");
         orderManager = new OrderManager(credentials, Environment.SANDBOX);
-        orderManager.bind(this, new ServiceBindListener() {
-            @Override
-            public void onServiceBound() {
-                isServiceBound = true;
-            }
-
-            @Override
-            public void onServiceUnbound() {
-                isServiceBound = false;
-            }
-        });
+        orderManager.bind(this, null);
     }
 
     private void configUi() {
@@ -148,10 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
-        if (isServiceBound) {
-            placeOrderButton.setEnabled(false);
-            order = orderManager.createDraftOrder("Produto Teste");
-        }
+        placeOrderButton.setEnabled(false);
+        order = orderManager.createDraftOrder("Produto Teste");
     }
 
     private void resetState() {
@@ -174,8 +160,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onPayment(@NonNull Order order) {
+                public void onPayment(@NonNull Order paidOrder) {
                     Log.d(TAG, "ON PAYMENT");
+
+                    order = paidOrder;
+                    order.markAsPaid();
+                    orderManager.updateOrder(order);
+
                     resetState();
                 }
 
