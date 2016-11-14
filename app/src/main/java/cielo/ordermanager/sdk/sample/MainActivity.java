@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.payment_button)
     public void makePayment() {
 
+        orderManager.retrieveAvailableProducts(this);
+
         if (order != null) {
 
             orderManager.placeOrder(order);
@@ -173,12 +175,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onCancel() {
                     Log.d(TAG, "ON CANCEL");
-                    resetState();
-                }
-
-                @Override
-                public void onSuccess() {
-                    Log.d(TAG, "ON SUCCESS");
                     resetState();
                 }
 
