@@ -23,19 +23,15 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------  //
-//    debugCompile(name:'order-manager-debug', ext:'aar')
-    compile 'com.cielo.lio:order-manager:0.9.6'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.3"
+    compile 'com.cielo.lio:order-manager:0.9.10'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.4"
     // --------------------------------------------------------------------------- //
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+    compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
 }
