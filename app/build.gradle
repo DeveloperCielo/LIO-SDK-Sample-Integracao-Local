@@ -25,7 +25,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------  //
-    compile 'com.cielo.lio:order-manager:0.9.10'
+    compile 'com.cielo.lio:order-manager:0.10.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.4"
     // --------------------------------------------------------------------------- //
 

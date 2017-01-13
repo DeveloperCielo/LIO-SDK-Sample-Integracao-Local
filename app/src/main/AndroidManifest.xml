@@ -20,6 +20,7 @@
         <activity android:name=".ParcialPaymentActivity"/>
         <activity android:name=".TotalPaymentActivity"/>
         <activity android:name=".SelectPaymentMethodActivity"/>
+        <activity android:name=".SuccessivePaymentActivity"/>
         <activity android:name=".ListOrders"/>
 
     </application>

@@ -35,8 +35,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.list_orders_button)
+    @OnClick(R.id.successive_payment_type_checkout_button)
     public void openExample4() {
+        Intent intent = new Intent(this, SuccessivePaymentActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.list_orders_button)
+    public void openExample5() {
         Intent intent = new Intent(this, ListOrders.class);
         startActivity(intent);
     }

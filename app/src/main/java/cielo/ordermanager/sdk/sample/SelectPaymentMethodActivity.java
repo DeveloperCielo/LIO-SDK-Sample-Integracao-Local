@@ -21,6 +21,7 @@ import cielo.sdk.order.payment.PaymentListener;
 
 public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
+    @Override
     protected void configUi() {
         super.configUi();
 
@@ -29,10 +30,10 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
         try {
             final List<PrimaryProduct> primaryProducts = orderManager.retrievePaymentType(this);
-            primaryAdapter = new PrimarySpinnerAdapter(this, android.R.layout.simple_spinner_item, primaryProducts);
+            primaryAdapter = new PrimarySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, primaryProducts);
 
             ArrayList<SecondaryProduct> secondaryProducts = primaryProducts.get(0).getSecondaryProducts();
-            secondaryAdapter = new SecondarySpinnerAdapter(this, android.R.layout.simple_spinner_item, secondaryProducts);
+            secondaryAdapter = new SecondarySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, secondaryProducts);
 
             primarySpinner.setAdapter(primaryAdapter);
             secondarySpinner.setAdapter(secondaryAdapter);
