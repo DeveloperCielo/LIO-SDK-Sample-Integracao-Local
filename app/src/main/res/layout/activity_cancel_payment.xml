@@ -5,23 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_list_orders"
-        style="@style/PrimaryActionButton"
+    <TextView
+        android:id="@+id/txt_order_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Listar Ordens" />
+        android:gravity="center"
+        android:text="CANCELAR UM PAGAMENTO"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="324dp"
         android:layout_height="433dp"
-        android:layout_below="@+id/btn_list_orders"
+        android:layout_above="@+id/btn_cancel_payment"
+        android:layout_below="@+id/txt_order_details"
         android:layout_centerInParent="true"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp" />
 
 
+    <Button
+        android:id="@+id/btn_cancel_payment"
+        style="@style/PrimaryActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:text="Cancelar Pagamento" />
 
 </RelativeLayout>

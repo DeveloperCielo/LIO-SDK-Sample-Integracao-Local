@@ -21,9 +21,13 @@ import cielo.sdk.order.payment.PaymentListener;
 
 public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
+
     @Override
     protected void configUi() {
         super.configUi();
+
+        productName = "Teste - Direto";
+
 
         primarySpinner.setVisibility(View.VISIBLE);
         secondarySpinner.setVisibility(View.VISIBLE);
@@ -94,7 +98,7 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
                                 Log.d(TAG, "ON PAYMENT");
 
                                 order = paidOrder;
-                                order.markAsPaid();
+                                order.close();
                                 orderManager.updateOrder(order);
 
                                 resetState();

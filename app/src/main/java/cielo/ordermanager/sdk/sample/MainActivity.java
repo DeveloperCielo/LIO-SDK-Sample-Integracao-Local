@@ -43,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.list_orders_button)
     public void openExample5() {
-        Intent intent = new Intent(this, ListOrders.class);
+        Intent intent = new Intent(this, ListOrdersActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.cancel_payment_button)
+    public void openExample6() {
+        Intent intent = new Intent(this, CancellationOrderList.class);
         startActivity(intent);
     }
 

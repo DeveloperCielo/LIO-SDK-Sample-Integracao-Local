@@ -67,7 +67,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     protected Order order;
 
     protected final long itemValue = 1200;
-    protected final String itemID = "12345";
+    protected String itemID = "12345";
+
+    protected String productName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,16 +90,20 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     protected void configUi() {
 
+        itemID = String.valueOf(1 + (Math.random() * 99999));
         itemName.setText("Item de exemplo");
         itemPrice.setText(Util.getAmmount(itemValue));
 
         placeOrderButton.setEnabled(true);
 
+        productName = "produto teste";
+
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (order != null) {
-                    order.addItem(itemID, "produto teste", itemValue, 1, "EACH");
+                    order.addItem(itemID, productName, itemValue, 1, "EACH");
+                    orderManager.updateOrder(order);
                     updatePaymentButton();
                 } else {
                     showCreateOrderMessage();
@@ -110,6 +116,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (order != null && order.getItems().size() > 0) {
                     order.decreaseQuantity(itemID);
+                    orderManager.updateOrder(order);
                     updatePaymentButton();
                 } else {
                     showCreateOrderMessage();
@@ -143,13 +150,19 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
         placeOrderButton.setEnabled(false);
-        order = orderManager.createDraftOrder("Produto Teste");
+        order = orderManager.createDraftOrder(productName);
     }
 
     protected void resetState() {
         order = null;
         configUi();
         updatePaymentButton();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
     }
 
     @OnClick(R.id.payment_button)

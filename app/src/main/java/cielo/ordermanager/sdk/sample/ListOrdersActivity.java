@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,10 +19,10 @@ import cielo.orders.domain.Order;
 import cielo.orders.domain.ResultOrders;
 import cielo.sdk.order.OrderManager;
 
-public class ListOrders extends AppCompatActivity {
+public class ListOrdersActivity extends AppCompatActivity {
 
     OrderManager orderManager;
-    private final String TAG = "PAYMENT_LISTENER";
+    private final String TAG = "ORDER_LIST";
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -40,23 +42,27 @@ public class ListOrders extends AppCompatActivity {
         try {
             ResultOrders resultOrders = orderManager.retrieveOrders(20, 0);
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(ListOrders.this));
+            recyclerView.setLayoutManager(new LinearLayoutManager(ListOrdersActivity.this));
 
             if (resultOrders != null) {
-                recyclerView.setAdapter(
-                        new OrderRecyclerViewAdapter(resultOrders.getResults()));
 
-                Log.i(TAG, "orders: " + resultOrders.getResults());
-                for (Order or : resultOrders.getResults()) {
+                final List<Order> orderList = resultOrders.getResults();
+
+                recyclerView.setAdapter(
+                        new OrderRecyclerViewAdapter(orderList));
+
+                Log.i(TAG, "orders: " + orderList);
+                for (Order or : orderList) {
                     Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
                 }
             }
 
         } catch (UnsupportedOperationException e) {
-            Toast.makeText(ListOrders.this, "FUNCAO NAO SUPORTADA NESSA VERSAO DA LIO", Toast.LENGTH_LONG).show();
+            Toast.makeText(ListOrdersActivity.this, "FUNCAO NAO SUPORTADA NESSA VERSAO DA LIO", Toast.LENGTH_LONG).show();
         }
 
     }
+
 
     public void configSDK() {
         Credentials credentials = new Credentials("1234", "1234");

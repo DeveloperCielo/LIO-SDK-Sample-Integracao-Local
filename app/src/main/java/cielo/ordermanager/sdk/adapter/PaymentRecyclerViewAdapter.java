@@ -9,10 +9,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import cielo.ordermanager.sdk.sample.R;
-import cielo.orders.domain.Order;
+import cielo.ordermanager.sdk.sample.Util;
+import cielo.sdk.order.payment.Payment;
 
-public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.OrderViewHolder> {
-    private List<Order> orderItemList;
+public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecyclerViewAdapter.OrderViewHolder> {
+
+    private List<Payment> paymentList;
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView title;
@@ -26,35 +28,31 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         }
     }
 
-    public OrderRecyclerViewAdapter(List<Order> orderItemList) {
-        this.orderItemList = orderItemList;
+    public PaymentRecyclerViewAdapter(List<Payment> paymentList) {
+        this.paymentList = paymentList;
     }
 
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int index) {
         View view = LayoutInflater.from(parent.getContext())
-                                        .inflate(R.layout.order_item, parent, false);
+                .inflate(R.layout.order_item, parent, false);
 
         return new OrderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
-        if (orderItemList.get(position) != null) {
-            Order order = orderItemList.get(position);
-            String product = "";
+        if (paymentList.get(position) != null) {
+            Payment payment = paymentList.get(position);
+            String product = payment.getPaymentFields().get("primaryProductName") + " - " + payment.getPaymentFields().get("secondaryProductName") + " :: ";
 
-            if (!order.getItems().isEmpty()) {
-                product = order.getReference() + " - ";
-            }
-            if(order.getReleaseDate() != null)
-                holder.title.setText(order.getReleaseDate().toString());
-            holder.summary.setText(product + "R$ " +order.getPrice());
+            holder.title.setText(payment.getCieloCode() + " | Parcelas: " + payment.getInstallments());
+            holder.summary.setText(product + "R$ " + Util.getAmmount(payment.getAmount()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return (null != orderItemList ? orderItemList.size() : 0);
+        return (null != paymentList ? paymentList.size() : 0);
     }
 }
