@@ -42,9 +42,8 @@ public class ListOrdersActivity extends AppCompatActivity {
         try {
             ResultOrders resultOrders = orderManager.retrieveOrders(20, 0);
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(ListOrdersActivity.this));
-
             if (resultOrders != null) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(ListOrdersActivity.this));
 
                 final List<Order> orderList = resultOrders.getResults();
 
@@ -55,6 +54,8 @@ public class ListOrdersActivity extends AppCompatActivity {
                 for (Order or : orderList) {
                     Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
                 }
+            }else{
+                Toast.makeText(ListOrdersActivity.this, "Ainda não há ordens transacionadas nessa LIO.", Toast.LENGTH_LONG).show();
             }
 
         } catch (UnsupportedOperationException e) {

@@ -69,11 +69,16 @@ public class CancellationOrderList extends AppCompatActivity {
                             public void onItemClick(View view, int position) {
                                 order = orderList.get(position);
 
-                                orderManager.unbind();
+                                if (order.getPayments().size() > 0) {
 
-                                Intent intent = new Intent(CancellationOrderList.this, CancelPaymentActivity.class);
-                                intent.putExtra("SELECTED_ORDER", order);
-                                startActivity(intent);
+                                    orderManager.unbind();
+
+                                    Intent intent = new Intent(CancellationOrderList.this, CancelPaymentActivity.class);
+                                    intent.putExtra("SELECTED_ORDER", order);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(CancellationOrderList.this, "Não há pagamentos nessa ordem.", Toast.LENGTH_LONG).show();
+                                }
                             }
 
                             @Override

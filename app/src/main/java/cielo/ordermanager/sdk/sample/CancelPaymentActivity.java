@@ -19,7 +19,6 @@ import cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
 import cielo.sdk.order.OrderManager;
-import cielo.sdk.order.ServiceBindListener;
 import cielo.sdk.order.cancellation.CancellationListener;
 import cielo.sdk.order.payment.Payment;
 import cielo.sdk.order.payment.PaymentError;
@@ -31,7 +30,6 @@ public class CancelPaymentActivity extends AppCompatActivity {
     private Order order;
     private Payment payment;
     private OrderManager orderManager;
-    private boolean isBound = false;
 
     @BindView(R.id.btn_cancel_payment)
     Button cancelButton;
@@ -128,17 +126,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
     private void configSDK() {
         Credentials credentials = new Credentials("1234", "1234");
         orderManager = new OrderManager(credentials, this);
-        orderManager.bind(this, new ServiceBindListener() {
-            @Override
-            public void onServiceBound() {
-                isBound = true;
-            }
-
-            @Override
-            public void onServiceUnbound() {
-                isBound = false;
-            }
-        });
+        orderManager.bind(this, null);
     }
 
 }
