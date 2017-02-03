@@ -26,8 +26,8 @@ dependencies {
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------  //
     compile 'com.cielo.lio:order-manager:0.11.1'
-//    compile(name:'order-manager-debug', ext:'aar')
-
+//    compile 'com.cielo.lio:order-manager:0.11.1-dev'
+    
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.5"
     // --------------------------------------------------------------------------- //
 
