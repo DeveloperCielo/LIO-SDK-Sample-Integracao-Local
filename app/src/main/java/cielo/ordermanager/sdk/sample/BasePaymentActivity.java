@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
 import cielo.orders.domain.Credentials;
+import cielo.orders.domain.Item;
 import cielo.orders.domain.Order;
 import cielo.orders.domain.product.PrimaryProduct;
 import cielo.orders.domain.product.SecondaryProduct;
@@ -67,7 +68,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     protected Order order;
 
     protected final long itemValue = 1200;
-    protected String itemID = "12345";
+    protected String sku = "0000";
 
     protected String productName = "";
 
@@ -90,7 +91,8 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     protected void configUi() {
 
-        itemID = String.valueOf(1 + (Math.random() * 99999));
+        sku = String.valueOf(1 + (Math.random()));
+
         itemName.setText("Item de exemplo");
         itemPrice.setText(Util.getAmmount(itemValue));
 
@@ -102,7 +104,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (order != null) {
-                    order.addItem(itemID, productName, itemValue, 1, "EACH");
+                    order.addItem(sku, productName, itemValue, 1, "EACH");
                     orderManager.updateOrder(order);
                     updatePaymentButton();
                 } else {
@@ -115,7 +117,8 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (order != null && order.getItems().size() > 0) {
-                    order.decreaseQuantity(itemID);
+                    Item item = order.getItems().get(0);
+                    order.decreaseQuantity(item.getId());
                     orderManager.updateOrder(order);
                     updatePaymentButton();
                 } else {

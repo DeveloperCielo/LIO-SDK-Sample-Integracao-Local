@@ -34,7 +34,7 @@ public class ParcialPaymentActivity extends BasePaymentActivity {
                     Log.d(TAG, "ON PAYMENT");
 
                     order = paidOrder;
-                    order.close();
+                    order.markAsPaid();
                     orderManager.updateOrder(order);
 
                     resetState();
