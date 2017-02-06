@@ -10,6 +10,12 @@ import cielo.sdk.order.payment.PaymentListener;
 
 public class ParcialPaymentActivity extends BasePaymentActivity {
 
+    @Override
+    protected void configUi() {
+        super.configUi();
+
+        productName = "Teste - Parcial";
+    }
 
     @Override
     public void makePayment() {

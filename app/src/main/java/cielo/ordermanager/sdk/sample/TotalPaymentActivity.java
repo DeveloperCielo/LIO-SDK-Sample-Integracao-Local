@@ -11,6 +11,14 @@ import cielo.sdk.order.payment.PaymentListener;
 public class TotalPaymentActivity extends BasePaymentActivity {
 
     @Override
+    protected void configUi() {
+        super.configUi();
+
+        productName = "Teste - Valor";
+    }
+
+
+    @Override
     public void makePayment() {
         if (order != null) {
 

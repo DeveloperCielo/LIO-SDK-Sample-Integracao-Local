@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
 import cielo.orders.domain.Credentials;
+import cielo.orders.domain.Item;
 import cielo.orders.domain.Order;
 import cielo.orders.domain.product.PrimaryProduct;
 import cielo.orders.domain.product.SecondaryProduct;
@@ -67,7 +68,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     protected Order order;
 
     protected final long itemValue = 1200;
-    protected final String itemID = "12345";
+    protected String sku = "0000";
+
+    protected String productName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,16 +91,21 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     protected void configUi() {
 
+        sku = String.valueOf(1 + (Math.random()));
+
         itemName.setText("Item de exemplo");
         itemPrice.setText(Util.getAmmount(itemValue));
 
         placeOrderButton.setEnabled(true);
 
+        productName = "produto teste";
+
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (order != null) {
-                    order.addItem(itemID, "produto teste", itemValue, 1, "EACH");
+                    order.addItem(sku, productName, itemValue, 1, "EACH");
+                    orderManager.updateOrder(order);
                     updatePaymentButton();
                 } else {
                     showCreateOrderMessage();
@@ -109,7 +117,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (order != null && order.getItems().size() > 0) {
-                    order.decreaseQuantity(itemID);
+                    Item item = order.getItems().get(0);
+                    order.decreaseQuantity(item.getId());
+                    orderManager.updateOrder(order);
                     updatePaymentButton();
                 } else {
                     showCreateOrderMessage();
@@ -143,13 +153,19 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
         placeOrderButton.setEnabled(false);
-        order = orderManager.createDraftOrder("Produto Teste");
+        order = orderManager.createDraftOrder(productName);
     }
 
     protected void resetState() {
         order = null;
         configUi();
         updatePaymentButton();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
     }
 
     @OnClick(R.id.payment_button)

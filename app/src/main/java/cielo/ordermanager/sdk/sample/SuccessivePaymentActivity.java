@@ -23,6 +23,8 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
     protected void configUi() {
         super.configUi();
 
+        productName = "Teste - Parcelado";
+
         List<String> installmentsArray = Arrays.asList(getResources().getStringArray(R.array.installments_array));
         final ArrayAdapter<String> installmentsAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, installmentsArray);
         installmentsSpinner.setAdapter(installmentsAdapter);
