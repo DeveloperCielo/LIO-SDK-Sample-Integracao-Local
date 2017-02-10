@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -97,6 +98,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     cancelledOrder.cancel();
                     orderManager.updateOrder(cancelledOrder);
 
+                    Toast.makeText(CancelPaymentActivity.this, "CANCELADO", Toast.LENGTH_SHORT).show();
                     order = cancelledOrder;
                     resetUI();
                 }
@@ -124,7 +126,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
     }
 
     private void configSDK() {
-        Credentials credentials = new Credentials("1234", "1234");
+        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }

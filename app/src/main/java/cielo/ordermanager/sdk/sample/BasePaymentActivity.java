@@ -82,9 +82,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         configUi();
     }
 
-    public void conifgSDK() {
+    protected void conifgSDK() {
 
-        Credentials credentials = new Credentials("1234", "1234");
+        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }

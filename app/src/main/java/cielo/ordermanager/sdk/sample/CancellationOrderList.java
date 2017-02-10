@@ -95,7 +95,7 @@ public class CancellationOrderList extends AppCompatActivity {
 
 
     private void configSDK() {
-        Credentials credentials = new Credentials("1234", "1234");
+        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
             @Override

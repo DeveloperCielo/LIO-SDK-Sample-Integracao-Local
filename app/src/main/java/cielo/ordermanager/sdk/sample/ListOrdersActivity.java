@@ -40,7 +40,7 @@ public class ListOrdersActivity extends AppCompatActivity {
     @OnClick(R.id.btn_list_orders)
     public void listOrders() {
         try {
-            ResultOrders resultOrders = orderManager.retrieveOrders(20, 0);
+            ResultOrders resultOrders = orderManager.retrieveOrders(200, 0);
 
             if (resultOrders != null) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(ListOrdersActivity.this));
@@ -66,7 +66,7 @@ public class ListOrdersActivity extends AppCompatActivity {
 
 
     public void configSDK() {
-        Credentials credentials = new Credentials("1234", "1234");
+        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }
