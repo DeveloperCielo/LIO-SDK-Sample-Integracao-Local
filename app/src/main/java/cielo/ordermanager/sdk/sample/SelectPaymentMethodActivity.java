@@ -28,27 +28,31 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
         productName = "Teste - Direto";
 
-
         primarySpinner.setVisibility(View.VISIBLE);
         secondarySpinner.setVisibility(View.VISIBLE);
 
         try {
             final List<PrimaryProduct> primaryProducts = orderManager.retrievePaymentType(this);
-            primaryAdapter = new PrimarySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, primaryProducts);
+            primaryAdapter = new PrimarySpinnerAdapter(this, primaryProducts);
+            primaryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            ArrayList<SecondaryProduct> secondaryProducts = primaryProducts.get(0).getSecondaryProducts();
-            secondaryAdapter = new SecondarySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, secondaryProducts);
-
+            ArrayList<SecondaryProduct> secondaryProducts =
+                    primaryProducts.get(0).getSecondaryProducts();
+            secondaryAdapter =
+                    new SecondarySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+                            secondaryProducts);
             primarySpinner.setAdapter(primaryAdapter);
             secondarySpinner.setAdapter(secondaryAdapter);
 
             primarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position,
+                                           long id) {
                     primaryProduct = primaryAdapter.getItem(position);
 
-                    ArrayList<SecondaryProduct> secondaryProducts = primaryProduct.getSecondaryProducts();
+                    ArrayList<SecondaryProduct> secondaryProducts =
+                            primaryProduct.getSecondaryProducts();
                     secondaryProduct = secondaryProducts.get(0);
                     secondaryAdapter.setValues(secondaryProducts);
                     secondaryAdapter.notifyDataSetChanged();
@@ -63,7 +67,8 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
             secondarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                public void onItemSelected(AdapterView<?> adapterView, View view,
+                                           int position, long id) {
                     secondaryProduct = secondaryAdapter.getItem(position);
                 }
 
@@ -73,7 +78,8 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
             });
 
         } catch (UnsupportedOperationException e) {
-            Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,7 +91,8 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
             try {
 
-                orderManager.checkoutOrder(order.getId(), order.getPrice(), primaryProduct.getCode(),
+                orderManager.checkoutOrder(order.getId(), order.getPrice(),
+                        primaryProduct.getCode(),
                         secondaryProduct.getCode(), new PaymentListener() {
 
                             @Override
@@ -118,7 +125,8 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
                         });
             } catch (UnsupportedOperationException e) {
-                Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

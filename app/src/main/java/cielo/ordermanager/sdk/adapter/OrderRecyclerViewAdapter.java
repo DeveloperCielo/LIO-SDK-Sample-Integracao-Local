@@ -47,6 +47,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             if (!order.getItems().isEmpty()) {
                 product = order.getReference() + " - ";
             }
+
             if(order.getReleaseDate() != null)
                 holder.title.setText(order.getReleaseDate().toString());
             holder.summary.setText(product + "R$ " +order.getPrice());
