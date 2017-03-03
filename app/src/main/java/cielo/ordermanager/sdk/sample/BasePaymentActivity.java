@@ -57,6 +57,15 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     @BindView(R.id.installments)
     Spinner installmentsSpinner;
 
+    @BindView(R.id.content_installments)
+    View contentInstallments;
+
+    @BindView(R.id.content_primary)
+    View contentPrimary;
+
+    @BindView(R.id.content_secondary)
+    View contentSecondary;
+
     protected PrimarySpinnerAdapter primaryAdapter;
     protected SecondarySpinnerAdapter secondaryAdapter;
 
