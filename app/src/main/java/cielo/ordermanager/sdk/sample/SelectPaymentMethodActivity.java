@@ -101,6 +101,9 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
                                 order.markAsPaid();
                                 orderManager.updateOrder(order);
 
+                                Toast.makeText(SelectPaymentMethodActivity.this, "Pagamento efetuado com sucesso.",
+                                        Toast.LENGTH_LONG).show();
+
                                 resetState();
                             }
 

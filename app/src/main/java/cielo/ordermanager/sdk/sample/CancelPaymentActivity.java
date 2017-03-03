@@ -98,7 +98,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     cancelledOrder.cancel();
                     orderManager.updateOrder(cancelledOrder);
 
-                    Toast.makeText(CancelPaymentActivity.this, "CANCELADO", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CancelPaymentActivity.this, "SUCESSO", Toast.LENGTH_SHORT).show();
                     order = cancelledOrder;
                     resetUI();
                 }
@@ -106,12 +106,16 @@ public class CancelPaymentActivity extends AppCompatActivity {
                 @Override
                 public void onCancel() {
                     Log.d(TAG, "ON CANCEL");
+
+                    Toast.makeText(CancelPaymentActivity.this, "CANCELADO", Toast.LENGTH_SHORT).show();
                     resetUI();
                 }
 
                 @Override
                 public void onError(PaymentError paymentError) {
                     Log.d(TAG, "ON ERROR");
+
+                    Toast.makeText(CancelPaymentActivity.this, "ERRO", Toast.LENGTH_SHORT).show();
                     resetUI();
                 }
             });

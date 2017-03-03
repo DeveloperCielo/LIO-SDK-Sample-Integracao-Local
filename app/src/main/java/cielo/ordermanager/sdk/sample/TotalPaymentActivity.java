@@ -3,6 +3,7 @@ package cielo.ordermanager.sdk.sample;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import cielo.orders.domain.Order;
 import cielo.sdk.order.payment.PaymentError;
@@ -37,6 +38,9 @@ public class TotalPaymentActivity extends BasePaymentActivity {
                     order = paidOrder;
                     order.markAsPaid();
                     orderManager.updateOrder(order);
+
+                    Toast.makeText(TotalPaymentActivity.this,"Pagamento efetuado com sucesso.",
+                            Toast.LENGTH_LONG).show();
 
                     resetState();
                 }
