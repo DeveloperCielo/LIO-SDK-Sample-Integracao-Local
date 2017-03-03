@@ -3,6 +3,7 @@ package cielo.ordermanager.sdk.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -57,6 +58,15 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     @BindView(R.id.installments)
     Spinner installmentsSpinner;
 
+    @BindView(R.id.content_installments)
+    View contentInstallments;
+
+    @BindView(R.id.content_primary)
+    View contentPrimary;
+
+    @BindView(R.id.content_secondary)
+    View contentSecondary;
+
     protected PrimarySpinnerAdapter primaryAdapter;
     protected SecondarySpinnerAdapter secondaryAdapter;
 
@@ -80,6 +90,17 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
         conifgSDK();
         configUi();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Pagamento");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     protected void conifgSDK() {

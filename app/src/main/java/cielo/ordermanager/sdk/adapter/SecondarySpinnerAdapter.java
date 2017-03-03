@@ -2,6 +2,7 @@ package cielo.ordermanager.sdk.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cielo.ordermanager.sdk.sample.R;
 import cielo.orders.domain.product.PrimaryProduct;
 import cielo.orders.domain.product.SecondaryProduct;
 
@@ -16,11 +18,16 @@ public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
 
     private Context context;
     private List<SecondaryProduct> values;
+    LayoutInflater inflater;
+    SecondaryProduct tempProduct = null;
 
-    public SecondarySpinnerAdapter(Context context, int textViewResourceId, List<SecondaryProduct> values) {
+    public SecondarySpinnerAdapter(Context context, int textViewResourceId,
+                                   List<SecondaryProduct> values) {
         super(context, textViewResourceId, values);
         this.context = context;
         this.values = values;
+
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void setValues(List<SecondaryProduct> values) {
@@ -44,19 +51,24 @@ public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView label = new TextView(context);
-        label.setTextColor(Color.BLACK);
-        label.setText(values.get(position).getName());
-
-        return label;
+        return getCustomView(position, convertView, parent);
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        TextView label = new TextView(context);
-        label.setTextColor(Color.BLACK);
-        label.setText(values.get(position).getName());
+        return getCustomView(position, convertView, parent);
+    }
 
-        return label;
+    public View getCustomView(int position, View convertView, ViewGroup parent) {
+
+        View row = inflater.inflate(R.layout.spinner_item, parent, false);
+
+        tempProduct = null;
+        tempProduct = values.get(position);
+
+        TextView label = (TextView) row.findViewById(R.id.simple_title);
+        label.setText(tempProduct.getName());
+
+        return row;
     }
 }

@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 import cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
 import cielo.orders.domain.Credentials;
@@ -26,19 +28,13 @@ public class CancellationOrderList extends AppCompatActivity {
     private final String TAG = "CANCELLATION_LIST";
 
     @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    RecyclerViewEmptySupport recyclerView;
+
+    @BindView(R.id.empty_view)
+    TextView txtEmptyValue;
 
     private Order order;
     OrderManager orderManager;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cancellation_order_list);
-        ButterKnife.bind(this);
-
-
-    }
 
     @Override
     protected void onResume() {
@@ -46,11 +42,32 @@ public class CancellationOrderList extends AppCompatActivity {
         configSDK();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cancellation_order_list);
+        ButterKnife.bind(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Cancelamento de Transação");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void listOrders() {
         try {
             ResultOrders resultOrders = orderManager.retrieveOrders(20, 0);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(CancellationOrderList.this));
+            txtEmptyValue.setText(R.string.empty_orders_cancellation);
+            recyclerView.setEmptyView(txtEmptyValue);
 
             if (resultOrders != null) {
                 final List<Order> orderList = resultOrders.getResults();
@@ -58,13 +75,15 @@ public class CancellationOrderList extends AppCompatActivity {
                 recyclerView.setAdapter(
                         new OrderRecyclerViewAdapter(orderList));
 
+
                 Log.i(TAG, "orders: " + orderList);
                 for (Order or : orderList) {
                     Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
                 }
 
                 recyclerView.addOnItemTouchListener(
-                        new RecyclerItemClickListener(CancellationOrderList.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                        new RecyclerItemClickListener(CancellationOrderList.this, recyclerView,
+                                new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
                                 order = orderList.get(position);
@@ -73,11 +92,14 @@ public class CancellationOrderList extends AppCompatActivity {
 
                                     orderManager.unbind();
 
-                                    Intent intent = new Intent(CancellationOrderList.this, CancelPaymentActivity.class);
+                                    Intent intent = new Intent(CancellationOrderList.this,
+                                            CancelPaymentActivity.class);
                                     intent.putExtra("SELECTED_ORDER", order);
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(CancellationOrderList.this, "Não há pagamentos nessa ordem.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(CancellationOrderList.this,
+                                            "Não há pagamentos nessa ordem.",
+                                            Toast.LENGTH_LONG).show();
                                 }
                             }
 
@@ -89,7 +111,8 @@ public class CancellationOrderList extends AppCompatActivity {
             }
 
         } catch (UnsupportedOperationException e) {
-            Toast.makeText(CancellationOrderList.this, "FUNCAO NAO SUPORTADA NESSA VERSAO DA LIO", Toast.LENGTH_LONG).show();
+            Toast.makeText(CancellationOrderList.this, "FUNCAO NAO SUPORTADA NESSA VERSAO DA LIO",
+                    Toast.LENGTH_LONG).show();
         }
     }
 

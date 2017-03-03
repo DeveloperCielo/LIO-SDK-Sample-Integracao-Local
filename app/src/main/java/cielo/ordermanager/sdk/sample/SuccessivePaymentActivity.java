@@ -32,7 +32,7 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
                         installmentsArray);
 
         installmentsSpinner.setAdapter(installmentsAdapter);
-        installmentsSpinner.setVisibility(View.VISIBLE);
+        contentInstallments.setVisibility(View.VISIBLE);
         installmentsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView,
