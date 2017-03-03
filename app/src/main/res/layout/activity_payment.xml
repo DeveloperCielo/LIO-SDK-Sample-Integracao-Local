@@ -9,17 +9,18 @@
     <Button
         android:id="@+id/place_order_button"
         style="@style/PrimaryActionButton"
-        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:padding="20dp"
-        android:text="Criar ordem"
+        android:text="@string/create_order"
         android:textColor="#FFF"
         tools:layout_editor_absoluteX="145dp"
         tools:layout_editor_absoluteY="233dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/place_order_button"
+        android:background="@color/black_alpha19" />
 
     <RelativeLayout
         android:id="@+id/add_item_row"
@@ -49,7 +50,6 @@
                 android:id="@+id/item_quantity"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_centerVertical="true"
                 android:background="@drawable/bg_product_quantity"
                 android:gravity="center"
                 android:text="0"
@@ -128,53 +128,76 @@
 
     </RelativeLayout>
 
-    <Spinner
-        android:id="@+id/primary"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/add_item_row"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/add_item_row"
+        android:background="@color/black_alpha19" />
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
-        android:visibility="gone" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_item_row"
+        android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/secondary"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/primary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="28dp"
-        android:visibility="gone" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Produto Primário" />-->
 
-    <Spinner
-        android:id="@+id/installments"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/secondary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:entries="@array/installments_array"
-        android:layout_marginTop="28dp"
-        android:visibility="gone" />
+        <Spinner
+            android:id="@+id/primary"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
 
+        <!--<TextView-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Produto Secundário" />-->
+
+        <Spinner
+            android:id="@+id/secondary"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="28dp"
+            android:visibility="gone" />
+
+        <!--<TextView-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Parcelas" />-->
+
+        <Spinner
+            android:id="@+id/installments"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="28dp"
+            android:entries="@array/installments_array"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/payment_button"
         style="@style/PrimaryActionButton"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:enabled="false"
-        android:padding="20dp"
-        android:text="Pagar"
+        android:text="@string/checkout"
         android:textColor="#FFF"
         tools:layout_editor_absoluteX="145dp"
         tools:layout_editor_absoluteY="233dp" />
