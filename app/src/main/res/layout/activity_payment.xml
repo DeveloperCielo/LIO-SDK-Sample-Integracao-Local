@@ -16,185 +16,218 @@
         tools:layout_editor_absoluteX="145dp"
         tools:layout_editor_absoluteY="233dp" />
 
-    <View
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/place_order_button"
-        android:background="@color/black_alpha19" />
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/add_item_row"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_below="@+id/place_order_button"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rectangle_ripple"
-        tools:ignore="MissingPrefix">
-
-        <LinearLayout
-            android:id="@+id/item_highlight"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.5"
-            android:background="?android:attr/colorPrimary"
-            android:orientation="vertical"
-            android:visibility="invisible" />
+            android:layout_height="2dp"
+            android:layout_below="@id/place_order_button"
+            android:background="@color/black_alpha19" />
 
-        <LinearLayout
-            android:layout_width="72dp"
-            android:layout_height="match_parent"
-            android:gravity="center">
+        <RelativeLayout
+            android:id="@+id/add_item_row"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_below="@+id/place_order_button"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_ripple"
+            tools:ignore="MissingPrefix">
 
-            <TextView
-                android:id="@+id/item_quantity"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_product_quantity"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/textProductsCounter"
-                android:textStyle="bold" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/item_highlight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="?android:attr/colorPrimary"
+                android:orientation="vertical"
+                android:visibility="invisible" />
 
+            <LinearLayout
+                android:layout_width="72dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/item_quantity"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_product_quantity"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/textProductsCounter"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="72dp"
+                android:layout_toStartOf="@+id/button_minus_new_item"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:maxLines="1"
+                    android:textColor="@color/blue_grey_900"
+                    android:textSize="16sp"
+                    tools:text="Produto" />
+
+                <TextView
+                    android:id="@+id/item_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:maxLines="1"
+                    android:textColor="@color/textSubtitle"
+                    android:textSize="14sp"
+                    tools:text="R$12,00" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/button_minus_new_item"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/button_plus_new_item"
+                android:background="?selectableItemBackgroundBorderless"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_round_button"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_remove" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/button_plus_new_item"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_round_button"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_add" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/add_item_row"
+            android:background="@color/black_alpha19" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="72dp"
-            android:layout_toStartOf="@+id/button_minus_new_item"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_item_row"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/item_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:gravity="bottom"
-                android:maxLines="1"
-                android:textColor="@color/blue_grey_900"
-                android:textSize="16sp"
-                tools:text="Produto" />
-
-            <TextView
-                android:id="@+id/item_price"
+            <LinearLayout
+                android:id="@+id/content_primary"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:maxLines="1"
-                android:textColor="@color/textSubtitle"
-                android:textSize="14sp"
-                tools:text="R$12,00" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Produto Primário" />
+
+                <Spinner
+                    android:id="@+id/primary"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/content_secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Produto Secundário" />
+
+                <Spinner
+                    android:id="@+id/secondary"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/content_installments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Parcelas"
+                    android:textStyle="" />
+
+                <Spinner
+                    android:id="@+id/installments"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/installments_array" />
+            </LinearLayout>
 
         </LinearLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/button_minus_new_item"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/button_plus_new_item"
-            android:background="?selectableItemBackgroundBorderless"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_round_button"
-                android:padding="8dp"
-                android:src="@drawable/ic_remove" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/button_plus_new_item"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_round_button"
-                android:padding="8dp"
-                android:src="@drawable/ic_add" />
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/add_item_row"
-        android:background="@color/black_alpha19" />
-
-    <LinearLayout
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_item_row"
-        android:orientation="vertical">
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Produto Primário" />-->
-
-        <Spinner
-            android:id="@+id/primary"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone" />
-
-        <!--<TextView-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Produto Secundário" />-->
-
-        <Spinner
-            android:id="@+id/secondary"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="28dp"
-            android:visibility="gone" />
-
-        <!--<TextView-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Parcelas" />-->
-
-        <Spinner
-            android:id="@+id/installments"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="28dp"
-            android:entries="@array/installments_array"
-            android:visibility="gone" />
     </LinearLayout>
+
 
     <Button
         android:id="@+id/payment_button"
         style="@style/PrimaryActionButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:enabled="false"
         android:text="@string/checkout"

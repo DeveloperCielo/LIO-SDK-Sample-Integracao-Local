@@ -10,6 +10,9 @@
     <string name="create_order">Criar ordem</string>
     <string name="cancel_payment_title">CANCELAR UM PAGAMENTO</string>
     <string name="select_order_to_cancel">Selecione uma ordem para cancelar</string>
+    <string name="select_option">Selecione uma das opções abaixo</string>
+    <string name="empty_orders">Não há ordens a serem listadas</string>
+    <string name="empty_orders_cancellation">Não há ordens para cancelamento</string>
 
     <string-array name="installments_array">
         <item>01</item>
@@ -23,5 +26,7 @@
         <item>09</item>
         <item>10</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="refresh_list">Atualizar Lista</string>
 
 </resources>

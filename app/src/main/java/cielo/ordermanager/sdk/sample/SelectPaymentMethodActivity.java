@@ -28,20 +28,21 @@ public class SelectPaymentMethodActivity extends BasePaymentActivity {
 
         productName = "Teste - Direto";
 
-        primarySpinner.setVisibility(View.VISIBLE);
-        secondarySpinner.setVisibility(View.VISIBLE);
+        contentPrimary.setVisibility(View.VISIBLE);
+        contentSecondary.setVisibility(View.VISIBLE);
 
         try {
             final List<PrimaryProduct> primaryProducts = orderManager.retrievePaymentType(this);
-            primaryAdapter = new PrimarySpinnerAdapter(this, primaryProducts);
-            primaryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            primaryAdapter = new PrimarySpinnerAdapter(this, R.layout.spinner_item,
+                    primaryProducts);
+            primarySpinner.setAdapter(primaryAdapter);
 
             ArrayList<SecondaryProduct> secondaryProducts =
                     primaryProducts.get(0).getSecondaryProducts();
+
             secondaryAdapter =
-                    new SecondarySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+                    new SecondarySpinnerAdapter(this, R.layout.spinner_item,
                             secondaryProducts);
-            primarySpinner.setAdapter(primaryAdapter);
             secondarySpinner.setAdapter(secondaryAdapter);
 
             primarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
