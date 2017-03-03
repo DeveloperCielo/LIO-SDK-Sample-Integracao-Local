@@ -23,6 +23,7 @@ import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
 import cielo.orders.domain.ResultOrders;
 import cielo.sdk.order.OrderManager;
+import cielo.sdk.order.ServiceBindListener;
 
 public class ListOrdersActivity extends AppCompatActivity {
 
@@ -68,7 +69,17 @@ public class ListOrdersActivity extends AppCompatActivity {
     public void configSDK() {
         Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
         orderManager = new OrderManager(credentials, this);
-        orderManager.bind(this, null);
+        orderManager.bind(this, new ServiceBindListener() {
+            @Override
+            public void onServiceBound() {
+                listOrders();
+            }
+
+            @Override
+            public void onServiceUnbound() {
+
+            }
+        });
     }
 
     private void listOrders() {
