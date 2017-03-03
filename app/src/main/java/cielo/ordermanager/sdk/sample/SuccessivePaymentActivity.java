@@ -25,16 +25,18 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
 
         productName = "Teste - Parcelado";
 
-        List<String> installmentsArray = Arrays.asList(getResources().getStringArray(R.array.installments_array));
-        final ArrayAdapter<String> installmentsAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, installmentsArray);
+        List<String> installmentsArray = Arrays.asList(getResources()
+                .getStringArray(R.array.installments_array));
+        final ArrayAdapter<String> installmentsAdapter =
+                new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+                        installmentsArray);
+
         installmentsSpinner.setAdapter(installmentsAdapter);
-
         installmentsSpinner.setVisibility(View.VISIBLE);
-
         installmentsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> adapterView,
+                                       View view, int position, long id) {
                 installments = Integer.parseInt(installmentsAdapter.getItem(position));
             }
 
@@ -86,7 +88,8 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
 
                         });
             } catch (UnsupportedOperationException e) {
-                Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

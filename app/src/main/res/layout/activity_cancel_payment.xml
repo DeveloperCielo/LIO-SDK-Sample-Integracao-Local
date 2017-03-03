@@ -11,20 +11,29 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:text="CANCELAR UM PAGAMENTO"
+        android:text="@string/cancel_payment_title"
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <View
+        android:layout_below="@id/txt_order_details"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black_alpha19" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="324dp"
-        android:layout_height="433dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/btn_cancel_payment"
         android:layout_below="@+id/txt_order_details"
-        android:layout_centerInParent="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp" />
+        android:layout_centerInParent="true"/>
 
+    <View
+        android:layout_below="@id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black_alpha19" />
 
     <Button
         android:id="@+id/btn_cancel_payment"
