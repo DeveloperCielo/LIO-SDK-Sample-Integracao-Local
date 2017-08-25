@@ -4,7 +4,6 @@ package cielo.ordermanager.sdk.sample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +15,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 import cielo.orders.domain.Credentials;

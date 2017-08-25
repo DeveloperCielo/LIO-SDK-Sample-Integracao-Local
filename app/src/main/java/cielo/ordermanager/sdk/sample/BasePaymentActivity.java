@@ -22,6 +22,7 @@ import cielo.orders.domain.Order;
 import cielo.orders.domain.product.PrimaryProduct;
 import cielo.orders.domain.product.SecondaryProduct;
 import cielo.sdk.order.OrderManager;
+import cielo.sdk.order.ServiceBindListener;
 
 public abstract class BasePaymentActivity extends AppCompatActivity {
 
@@ -88,7 +89,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         ButterKnife.bind(this);
 
-        conifgSDK();
+        configSDK();
         configUi();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Pagamento");
@@ -103,11 +104,21 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         }
     }
 
-    protected void conifgSDK() {
+    protected void configSDK() {
 
         Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
         orderManager = new OrderManager(credentials, this);
-        orderManager.bind(this, null);
+        orderManager.bind(this, new ServiceBindListener() {
+            @Override
+            public void onServiceBound() {
+                orderManager.createDraftOrder("teste");
+            }
+
+            @Override
+            public void onServiceUnbound() {
+
+            }
+        });
     }
 
     protected void configUi() {

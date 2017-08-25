@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#00AEEF</color>
+    <color name="colorPrimaryDark">#009cd7</color>
     <color name="colorAccent">#3E249F</color>
 
     <color name="black_alpha19">#30000000</color>
@@ -11,5 +11,6 @@
     <color name="textSubtitle">#B8C6CC</color>
     <color name="gray_button">#4F575C</color>
     <color name="blue_grey_200">#FFB0BEC5</color>
+
 
 </resources>

@@ -19,9 +19,11 @@
         <activity android:name=".TotalPaymentActivity" />
         <activity android:name=".SelectPaymentMethodActivity" />
         <activity android:name=".SuccessivePaymentActivity" />
+        <activity android:name=".PayInformingEmail" />
         <activity android:name=".ListOrdersActivity" />
         <activity android:name=".CancelPaymentActivity" />
         <activity android:name=".CancellationOrderList" />
+        <activity android:name=".PrintSampleActivity"></activity>
     </application>
 
 </manifest>

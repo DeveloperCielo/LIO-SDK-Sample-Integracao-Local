@@ -4,8 +4,11 @@
     <string name="value_payment">Pagamento Valor</string>
     <string name="direct_payment">Pagamento Direto</string>
     <string name="successive_payment">Pagamento Parcelado</string>
+    <string name="email_payment">Pagamento informando Email</string>
     <string name="orders_list">Listagem de Ordens</string>
     <string name="cancel_payment">Cancelar Pagamento</string>
+    <string name="print_sample">Teste Impressão (V2)</string>
+    <string name="print_button">IMPRIMIR</string>
     <string name="checkout">Pagar</string>
     <string name="create_order">Criar ordem</string>
     <string name="cancel_payment_title">CANCELAR UM PAGAMENTO</string>
@@ -13,6 +16,7 @@
     <string name="select_option">Selecione uma das opções abaixo</string>
     <string name="empty_orders">Não há ordens a serem listadas</string>
     <string name="empty_orders_cancellation">Não há ordens para cancelamento</string>
+    <string name="print_sample_text">A Cielo LIO é uma plataforma aberta com sistema operacional baseado em Android. Com biblioteca de códigos, ambiente de testes e APIs abertas, é muito fácil desenvolver apps ou integrar com um sistema de automação. É DEV e ficou interessado? Acesso nosso portal para desenvolvedores.</string>
 
     <string-array name="installments_array">
         <item>01</item>
