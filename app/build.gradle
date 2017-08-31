@@ -23,6 +23,8 @@ android {
 
     packagingOptions {
         exclude 'META-INF/*'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 
 }
@@ -31,7 +33,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------  //
-    compile 'com.cielo.lio:order-manager:0.14.0'
+    compile 'com.cielo.lio:order-manager:0.14.1'
     // --------------------------------------------------------------------------- //
 
     compile 'com.jakewharton:butterknife:8.4.0'
