@@ -33,7 +33,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK ------------x-  //
-    compile 'com.cielo.lio:order-manager:0.14.4'
+    compile 'com.cielo.lio:order-manager:0.14.5'
     // --------------------------------------------------------------------------- //
 
     compile 'com.jakewharton:butterknife:8.4.0'
