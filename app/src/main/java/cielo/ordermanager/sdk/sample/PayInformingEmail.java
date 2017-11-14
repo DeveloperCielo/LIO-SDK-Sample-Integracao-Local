@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Order;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;

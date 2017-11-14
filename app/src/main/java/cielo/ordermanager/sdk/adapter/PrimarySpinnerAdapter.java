@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cielo.ordermanager.sdk.sample.R;
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.product.PrimaryProduct;
 
 public class PrimarySpinnerAdapter extends ArrayAdapter<PrimaryProduct> {

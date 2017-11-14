@@ -14,6 +14,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cielo.ordermanager.sdk.R;
 import cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
 import cielo.orders.domain.Credentials;
@@ -197,7 +198,6 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
     }
 
     @OnClick(R.id.payment_button)

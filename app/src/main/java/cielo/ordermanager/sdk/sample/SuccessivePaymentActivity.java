@@ -8,12 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Order;
-import cielo.orders.domain.product.SecondaryProduct;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 

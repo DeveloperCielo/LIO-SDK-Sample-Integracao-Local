@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.OnClick;
+import cielo.ordermanager.sdk.R;
 import cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
 import cielo.orders.domain.Order;

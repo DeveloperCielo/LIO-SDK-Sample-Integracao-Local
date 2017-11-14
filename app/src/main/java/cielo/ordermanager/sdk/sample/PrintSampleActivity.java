@@ -1,6 +1,5 @@
 package cielo.ordermanager.sdk.sample;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Credentials;
 import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.PrinterListener;

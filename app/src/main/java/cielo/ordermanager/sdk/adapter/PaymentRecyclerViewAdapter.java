@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cielo.ordermanager.sdk.sample.R;
+import cielo.ordermanager.sdk.R;
 import cielo.ordermanager.sdk.sample.Util;
 import cielo.sdk.order.payment.Payment;
 

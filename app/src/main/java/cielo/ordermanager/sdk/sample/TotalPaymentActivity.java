@@ -36,6 +36,7 @@ public class TotalPaymentActivity extends BasePaymentActivity {
                     Log.d(TAG, "ON PAYMENT");
 
                     order = paidOrder;
+
                     order.markAsPaid();
                     orderManager.updateOrder(order);
 
@@ -59,5 +60,11 @@ public class TotalPaymentActivity extends BasePaymentActivity {
 
             });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        orderManager.unbind();
+        super.onDestroy();
     }
 }

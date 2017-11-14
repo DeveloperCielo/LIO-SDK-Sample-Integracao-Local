@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cielo.ordermanager.sdk.sample.R;
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Order;
 
 public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.OrderViewHolder> {

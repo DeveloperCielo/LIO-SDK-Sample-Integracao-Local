@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cielo.ordermanager.sdk.R;
 import cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 import cielo.ordermanager.sdk.listener.RecyclerItemClickListener;

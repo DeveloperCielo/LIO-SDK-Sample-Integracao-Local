@@ -2,17 +2,15 @@ package cielo.ordermanager.sdk.sample;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Settings;
 import cielo.sdk.order.OrderManager;

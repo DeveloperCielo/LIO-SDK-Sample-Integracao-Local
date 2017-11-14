@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cielo.ordermanager.sdk.R;
 import cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 import cielo.orders.domain.Credentials;
@@ -22,6 +23,7 @@ import cielo.orders.domain.Order;
 import cielo.orders.domain.ResultOrders;
 import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.ServiceBindListener;
+
 
 public class ListOrdersActivity extends AppCompatActivity {
 

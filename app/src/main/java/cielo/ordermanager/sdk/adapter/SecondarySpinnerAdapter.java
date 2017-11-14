@@ -1,7 +1,6 @@
 package cielo.ordermanager.sdk.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cielo.ordermanager.sdk.sample.R;
-import cielo.orders.domain.product.PrimaryProduct;
+import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.product.SecondaryProduct;
 
 public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
