@@ -119,9 +119,16 @@ public class CancellationOrderList extends AppCompatActivity {
 
 
     private void configSDK() {
-        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
+        //Credentials credentials = new Credentials("<<Seu client id aqui>>", "<<Seu access token aqui>>");
+        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
+
+            @Override public void onServiceBoundError(Throwable throwable) {
+                Toast.makeText(getApplicationContext(),
+                    String.format("Erro fazendo bind do serviço de ordem -> %s",
+                        throwable.getMessage()), Toast.LENGTH_LONG).show();
+            }
             @Override
             public void onServiceBound() {
                 listOrders();

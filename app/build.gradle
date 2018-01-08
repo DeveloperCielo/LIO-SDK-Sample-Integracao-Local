@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
+
+    lintOptions { abortOnError false }
+
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     defaultConfig {
@@ -33,7 +36,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK ------------x-  //
-    compile 'com.cielo.lio:order-manager:0.15.2'
+    compile 'com.cielo.lio:order-manager:0.17.3'
     // --------------------------------------------------------------------------- //
 
     compile 'com.jakewharton:butterknife:8.4.0'

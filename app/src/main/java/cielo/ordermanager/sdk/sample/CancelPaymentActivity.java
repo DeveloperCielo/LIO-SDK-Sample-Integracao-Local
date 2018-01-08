@@ -139,7 +139,8 @@ public class CancelPaymentActivity extends AppCompatActivity {
     }
 
     private void configSDK() {
-        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
+        //Credentials credentials = new Credentials("<<Seu client id aqui>>", "<<Seu access token aqui>>");
+        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }

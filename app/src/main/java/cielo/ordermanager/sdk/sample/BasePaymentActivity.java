@@ -106,19 +106,23 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     }
 
     protected void configSDK() {
-
-        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
+        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
+
+            @Override public void onServiceBoundError(Throwable throwable) {
+                Toast.makeText(getApplicationContext(),
+                    String.format("Erro fazendo bind do serviço de ordem -> %s",
+                        throwable.getMessage()), Toast.LENGTH_LONG).show();
+            }
+
             @Override
             public void onServiceBound() {
                 orderManager.createDraftOrder("teste");
             }
 
             @Override
-            public void onServiceUnbound() {
-
-            }
+            public void onServiceUnbound() {}
         });
     }
 

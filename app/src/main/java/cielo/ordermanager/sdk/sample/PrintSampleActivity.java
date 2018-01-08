@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import cielo.sdk.printer.PrinterManager;
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import cielo.sdk.order.PrinterListener;
 
 public class PrintSampleActivity extends AppCompatActivity {
 
-    private OrderManager orderManager;
+    private PrinterManager printerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,21 +35,17 @@ public class PrintSampleActivity extends AppCompatActivity {
     }
 
     protected void configSDK() {
-        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
-        orderManager = new OrderManager(credentials, this);
+        printerManager = new PrinterManager(this);
     }
 
     @OnClick(R.id.print_sample_button)
     public void printSample() {
-
         //Imprime Imagem
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cielo);
 
-        orderManager.printImage(bitmap, new HashMap<String, Integer>(), new PrinterListener() {
+        printerManager.printImage(bitmap, new HashMap<String, Integer>(), new PrinterListener() {
             @Override
-            public void onWithoutPaper() {
-
-            }
+            public void onWithoutPaper() {}
 
             @Override
             public void onPrintSuccess() {
@@ -59,12 +56,11 @@ public class PrintSampleActivity extends AppCompatActivity {
             public void onError(Throwable throwable) {
                 Log.d("ERROR", "ERROR");
             }
-
         });
 
         //Imprime Texto
         String textToPrint = getResources().getString(R.string.print_sample_text);
-        orderManager.printText("\n \n" + textToPrint + "\n \n \n \n \n", new HashMap<String, Integer>(), new PrinterListener() {
+        printerManager.printText("\n \n" + textToPrint + "\n \n \n \n \n", new HashMap<String, Integer>(), new PrinterListener() {
             @Override
             public void onPrintSuccess() {
                 Log.d("SUCCESS", "SUCCESS");
@@ -76,9 +72,7 @@ public class PrintSampleActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onWithoutPaper() {
-
-            }
+            public void onWithoutPaper() {}
         });
     }
 

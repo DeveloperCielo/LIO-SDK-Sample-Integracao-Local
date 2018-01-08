@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 
     protected void conifgSDK() {
 
-        Credentials credentials = new Credentials("cielo.sdk.sample", "cielo.sample");
+        Credentials credentials = new Credentials("<<Seu client id aqui>>", "<<Seu access token aqui>>");
         orderManager = new OrderManager(credentials, this);
     }
 
