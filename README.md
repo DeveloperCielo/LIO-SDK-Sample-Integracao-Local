@@ -1,4 +1,4 @@
-# Integração Local
+# Integração Local - SDK v0.17.7-beta
 
 ## Apresentação
 
