@@ -11,6 +11,7 @@ Nesse modelo de integração, toda a gestão do estabelecimento comercial e da a
 * O aplicativo do parceiro recebe as informações do pagamento e continua sua execução.
 
 As seções abaixo possuem todas as informações necessárias para realizar a integração de forma rápida e segura.
+Caso queira entender melhor todo o ambiente de desenvolvimento Cielo LIO, acesso nossa [documentação completa](https://developercielo.github.io/manual/cielo-lio)
 
 ## Cielo Lio Order Manager SDK
 
@@ -52,7 +53,7 @@ Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas de
 compile 'com.cielo.lio:order-manager:0.17.7-beta
 ```
 
-> A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
+> A partir da versão 0.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
 Adicione essa permissão ao `AndroidManifest.xml` da sua aplicação.
 
 ### Credenciais
