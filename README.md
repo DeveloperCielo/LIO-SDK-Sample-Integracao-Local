@@ -185,9 +185,7 @@ Existem 4 formas diferentes de chamar o método checkoutOrder:
 
 ![checkoutorder formas](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/checkoutOrder.jpg)
 
-Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `checkoutOrder()` para receber os estados relacionados ao pagamento.
-
-> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. As seguintes ações podem ser notificadas:  * onStart - Quando se dá o início do pagamento. * onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um * pagamento. * onCancel - Quando o pagamento é cancelado. * onError - Quando acontece um erro no pagamento do pedido.
+Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `checkoutOrder()` para receber os estados relacionados ao pagamento:
 
 ```
 PaymentListener paymentListener = new PaymentListener() {
@@ -210,6 +208,8 @@ PaymentListener paymentListener = new PaymentListener() {
     }
 };
 ```
+> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. As seguintes ações podem ser notificadas:  * onStart - Quando se dá o início do pagamento. * onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um * pagamento. * onCancel - Quando o pagamento é cancelado. * onError - Quando acontece um erro no pagamento do pedido.
+
 ### 1. Pagamento Parcial
 No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas da Cielo LIO. Na sequência, o fluxo de pagamento da Cielo LIO é iniciado (definir o valor a ser pago, escolher a forma de pagamento, inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail o comprovante).
 
@@ -334,24 +334,17 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com 
 
 Existem 2 formas de cancelar um pagamento na Cielo LIO:
 
-[Cancelar Pagamento Total](https://developercielo.github.io/manual/cielo-lio#cancelar-pagamento-total)
+Cancelar Pagamento Total
+Cancelar Parte do Valor do Pagamento
 
-[Cancelar Parte do Valor do Pagamento](https://developercielo.github.io/manual/cielo-lio#cancelar-parte-do-valor-de-um-pagamento)
-
-Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento.
-
-> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
-As seguintes ações pode ser notificadas: 
-• onSuccess - Quando um cancelamento é realizado com sucesso. 
-• onCancel - Quando o usuário cancela a operação. 
-• onError - Quando acontece um erro no cancelamento do pedido.
+Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento: 
 
 ```
 
 CancellationListener cancellationListener = new CancellationListener() {
     @Override
     public void onSuccess(Order cancelledOrder) {
-        Log.d("SDKClient", "O pagamento for cancelado.");
+        Log.d("SDKClient", "O pagamento foi cancelado.");
     }
     
     @Override
@@ -366,6 +359,11 @@ CancellationListener cancellationListener = new CancellationListener() {
 });
 
 ```
+> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
+As seguintes ações pode ser notificadas: 
+• onSuccess - Quando um cancelamento é realizado com sucesso. 
+• onCancel - Quando o usuário cancela a operação. 
+• onError - Quando acontece um erro no cancelamento do pedido.
 
 ### Cancelar Pagamento Total
 
