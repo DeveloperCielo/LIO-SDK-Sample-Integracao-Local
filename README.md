@@ -379,7 +379,6 @@ Abaixo é detalhado cada um dos parâmetros enviados no método:
 | context         | Contexto da sua aplicação. | String   |
 | orderID         | O identificador do pedido a ser pago. | Long   |
 | payment         | O pagamento a ser cancelado. | cielo.sdk.order.payment.Payment
-   |
 | cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. | cielo.sdk.order.payment.CancellationListener |
 
 ### Cancelar parte do valor de um pagamento
