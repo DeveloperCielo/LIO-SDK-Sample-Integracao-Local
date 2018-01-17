@@ -260,14 +260,14 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 > Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. Os outros objetos possuem documentação própria que 
 pode ser visualizada pelo Android Studio quando a classe é declarada.
 
-| Lista de Tipos de Captura                                    |
+| Lista de Tipos de Captura |                                  |
 |---------------------------|----------------------------------|
 | 0                         | Transação com cartão de chip     |
 | 1                         | Transação digitada               |
 | 2                         | Transação com cartão de tarja    |
 | 3                         | Transação com cartão contactless |
 
-| Lista de Tipos de Transação                                    |
+| Lista de Tipos de Transação |                                  |
 |-----------------------------|----------------------------------|
 | 4                           | Crédito à vista                  |
 | 5                           | Crédito parcelado administrativo |
