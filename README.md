@@ -185,7 +185,14 @@ Existem 4 formas diferentes de chamar o método checkoutOrder:
 
 ![checkoutorder formas](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/checkoutOrder.jpg)
 
-Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `checkoutOrder()` para receber os estados relacionados ao pagamento:
+Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `checkoutOrder()` para receber os estados relacionados ao pagamento.
+
+> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. 
+As seguintes ações podem ser notificadas:  
+• onStart - Quando se dá o início do pagamento. 
+• onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um pagamento. 
+• onCancel - Quando o pagamento é cancelado. 
+• onError - Quando acontece um erro no pagamento do pedido.
 
 ```
 PaymentListener paymentListener = new PaymentListener() {
@@ -208,7 +215,70 @@ PaymentListener paymentListener = new PaymentListener() {
     }
 };
 ```
-> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. As seguintes ações podem ser notificadas:  * onStart - Quando se dá o início do pagamento. * onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um * pagamento. * onCancel - Quando o pagamento é cancelado. * onError - Quando acontece um erro no pagamento do pedido.
+
+O método `onPayment()` retorna um objeto `Order` com uma lista de `Payment` que possui um HashMap `PaymentFields` com a maioria dos dados da transação.
+Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
+
+| Nome do Campo            | Descrição do Campo                                                 | Valor Exemplo                            |
+|--------------------------|--------------------------------------------------------------------|------------------------------------------|
+| clientName               | Nome do Portador                                                   | VISA ACQUIRER TEST CARD 03               |
+| hasPassword              | Validar se a operação pediu senha                                  | true                                     |
+| primaryProductCode       | Código do produto primário                                         | 4                                        |
+| primaryProductName       | Nome do produto primário                                           | CREDITO                                  |
+| upFrontAmount            | Valor da entrada da transação                                      | 2500                                     |
+| creditAdminTax           | Valor da taxa de administração de crédito                          | 0                                        |
+| firstQuotaDate           | Data de débito da primeira parcela                                 | 25/12/2018 (dd/MM/yyy)                   |
+| externalCallMerchantCode | Número do Estabelecimento Comercial                                | 0010000244470001                         |
+| hasSignature             | Validar se a operação pediu assinatura                             | false                                    |
+| hasPrintedClientReceipt  | Validar se imprimiu a via do cliente                               | false                                    |
+| applicationName          | Pacote da aplicação                                                | cielo.launcher                           |
+| interestAmount           | Valor de juros                                                     | 5000                                     |
+| changeAmount             | Valor de troco                                                     | 4500                                     |
+| serviceTax               | Taxa de serviço                                                    | 2000                                     |
+| cityState                | Cidade - Estado                                                    | Barueri - SP                             |
+| v40Code                  | Tipo da transação                                                  | 5 (Lista de Tipos de transação)   |
+| secondaryProductName     | Nome do produto secundario                                         | PARC. ADM                                |
+| paymentTransactionId     | ID da transação de pagamento                                       | 98437.29102507174                        |
+| pan                      | Número cartão tokenizado (6 primeiros dígitos – 4 últimos dígitos) | 476173-0036                              |
+| originalTransactionId    | ID da transação original, nos casos de cancelamento                | “0”                                      |
+| cardLabelApplication     | Tipo de aplicação utilizada pelo cartão na transação               | CREDITO DE VISA                          |
+| secondaryProductCode     | Código do produto secundário                                       | 205                                      |
+| documentType             | (J) = Pessoa Jurídica (F) = Pessoa Física                          | J                                        |
+| statusCode               | Status da transação1 - Autorizada 2 - Cancelada                    | 1                                        |
+| merchantAddress          | Endereço do estabelecimento comercial (lojista)                    | Alameda Grajau, 219                      |
+| merchantCode             | Número do Estabelecimento Comercial                                | 0010000244470001                         |
+| hasConnectivity          | Valida se a transação foi online                                   | true                                     |
+| productName              | forma de pagamento compilada                                       | CREDITO PARCELADO ADM - I                |
+| merchantName             | Nome Fantasia do Estabelecimento Comercial                         | LOJA ON                                  |
+| firstQuotaAmout          | Valor da primeira parcela                                          | 0                                        |
+| cardCaptureType          | Código do tipo de captura do cartão                                | 0 (Lista de Tipos de Captura) |
+| requestDate              | Data da requisição em milisegundos                                 | 1293857600000                            |
+| boardingTax              | Taxa de embarque                                                   | 1200                                     |
+| applicationId            | Pacote de aplicação                                                | cielo.launcher                           |
+| numberOfQuotas           | Número de parcelas                                                 | 2                                        |
+
+> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. Os outros objetos possuem documentação própria que 
+pode ser visualizada pelo Android Studio quando a classe é declarada.
+
+| Lista de Tipos de Captura                                    |
+|---------------------------|----------------------------------|
+| 0                         | Transação com cartão de chip     |
+| 1                         | Transação digitada               |
+| 2                         | Transação com cartão de tarja    |
+| 3                         | Transação com cartão contactless |
+
+| Lista de Tipos de Transação                                    |
+|-----------------------------|----------------------------------|
+| 4                           | Crédito à vista                  |
+| 5                           | Crédito parcelado administrativo |
+| 6                           | Crédito parcelado loja           |
+| 7                           | Pré autorização                  |
+| 8                           | Débito à vista                   |
+| 9                           | Débito pré datado                |
+| 10                          | Crediário venda                  |
+| 11                          | Crediário simulação              |
+| 13                          | Voucher alimentação/refeição     |
+| 28                          | Cancelamento de venda            |
 
 ### 1. Pagamento Parcial
 No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas da Cielo LIO. Na sequência, o fluxo de pagamento da Cielo LIO é iniciado (definir o valor a ser pago, escolher a forma de pagamento, inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail o comprovante).
