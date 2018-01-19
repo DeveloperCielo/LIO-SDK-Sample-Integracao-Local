@@ -128,6 +128,7 @@ public class CancellationOrderList extends AppCompatActivity {
                     String.format("Erro fazendo bind do serviço de ordem -> %s",
                         throwable.getMessage()), Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void onServiceBound() {
                 listOrders();

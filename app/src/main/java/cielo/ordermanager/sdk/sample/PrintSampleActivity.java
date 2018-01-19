@@ -18,6 +18,7 @@ import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Credentials;
 import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.PrinterListener;
+import cielo.sdk.printer.PrinterManager;
 import java.util.List;
 import java.util.Map;
 

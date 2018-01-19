@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -12,10 +14,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Credentials;
+import cielo.orders.domain.DeviceModel;
 import cielo.orders.domain.Settings;
+import cielo.sdk.info.InfoManager;
 import cielo.sdk.order.OrderManager;
 
 public class MainActivity extends Activity {
+
+    @BindView(R.id.device_model_text)
+    TextView deviceModelText;
 
     @BindView(R.id.merchant_code_txt)
     TextView merchantCodeText;
@@ -23,7 +30,11 @@ public class MainActivity extends Activity {
     @BindView(R.id.logic_number_txt)
     TextView logicNumberText;
 
+    @BindView(R.id.print_sample_button)
+    Button printerButton;
+
     protected OrderManager orderManager;
+    protected InfoManager infoManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +43,20 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
 
         conifgSDK();
-        Settings settings = orderManager.getSettings(this);
+        Settings settings = infoManager.getSettings(this);
 
         merchantCodeText.setText(settings.getMerchantCode());
         logicNumberText.setText(settings.getLogicNumber());
+        Float batteryLevel = infoManager.getBatteryLevel (this);
+
+        DeviceModel deviceModel = infoManager.getDeviceModel();
+        if(deviceModel == DeviceModel.LIO_V1){
+            printerButton.setVisibility(View.GONE);
+            deviceModelText.setText("LIO V1 - Bateria: " + (int)(batteryLevel * 100) + "%");
+        }else{
+            printerButton.setVisibility(View.VISIBLE);
+            deviceModelText.setText("LIO V2- Bateria: " + (int)(batteryLevel * 100) + "%");
+        }
 
         Log.i("TAG", "SERIAL: " + Build.SERIAL);
         Log.i("TAG", "MODEL: " + Build.MODEL);
@@ -58,7 +79,7 @@ public class MainActivity extends Activity {
     }
 
     protected void conifgSDK() {
-
+        infoManager = new InfoManager();
         Credentials credentials = new Credentials("<<Seu client id aqui>>", "<<Seu access token aqui>>");
         orderManager = new OrderManager(credentials, this);
     }

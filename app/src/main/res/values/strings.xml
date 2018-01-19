@@ -19,6 +19,7 @@
     <string name="print_sample_text">A Cielo LIO é uma plataforma aberta com sistema operacional baseado em Android. Com biblioteca de códigos, ambiente de testes e APIs abertas, é muito fácil desenvolver apps ou integrar com um sistema de automação. É DEV e ficou interessado? Acesso nosso portal para desenvolvedores.</string>
 
     <string-array name="installments_array">
+        <item>00</item>
         <item>01</item>
         <item>02</item>
         <item>03</item>
