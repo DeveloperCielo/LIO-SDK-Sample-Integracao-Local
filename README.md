@@ -1,4 +1,4 @@
-# Integração Local - SDK v0.17.7-beta
+# Integração Local - SDK v0.17.11
 
 ## Apresentação
 
@@ -50,7 +50,7 @@ Após configurar um novo projeto no Android Studio, é necessário incluir a dep
 Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
 
 ```
-compile 'com.cielo.lio:order-manager:0.17.7-beta
+compile 'com.cielo.lio:order-manager:0.17.11
 ```
 
 > A partir da versão 0.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
@@ -472,6 +472,47 @@ Abaixo é detalhado cada um dos parâmetros enviados no método:
 | value           | O valor a ser cancelado. | Long   |
 | cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. |  cielo.sdk.order.payment.CancellationListener |
 
+## Informações do terminal
+
+Todas as informações referentes ao terminal, que foram expostas, estão disponíveis no InfoManager
+
+```InfoManager infoManager = new InfoManager();```
+
+### Nível de Bateria
+
+Para consultar o nível de carga da LIO, basta utilizar o métdo abaixo:
+
+```
+infoManager.getBatteryLevel(context);
+```
+    
+> O valor da bateria será retornado em uma `String` contendo um valor de 0 a 100 em caso de sucesso.  
+Em caso de erro a `String` "---" será retornada. 
+
+### Verificar Modelo da LIO
+
+O SDK disponibiliza um método para verificar se seu aplicativo está instalado numa LIO V1 ou V2. Basta acessar da seguinte forma:
+
+``` infoManager.getDeviceModel(); ```
+
+O mesmo irá retornar um enum do tipo `DeviceModel` com o modelo correspondente (`LIO_V1` || `LIO_V2` ).
+
+### Obtendo informações do usuário (EC e Número Lógico)
+
+Através do SDK, é possível recuperar os dados do cliente e número lógico de maneira simples utilizando o método abaixo:
+
+```
+infoManager.getSettings(context);
+``` 
+
+> Esta função, retornará um objeto do tipo Settings onde é possível recuperar as informações do usuário. 
+Abaixo, segue um descritivo de atributos do objeto Setttings.
+
+| ATRIBUTO     | DESCRIÇÃO            | DOMÍNIO |
+|--------------|----------------------|---------|
+| merchantCode | Código do cliente    | String  |
+| logicNumber  | Número lógico da LIO | String  |
+
 ## Impressão [Apenas LIO V2]
 
 A nova versão da Cielo LIO V2 permite que aplicações parceiras utilizem os métodos disponíveis da impressora para imprimir dados importantes ou necessários para o negócio do cliente. Para realizar estas operações, basta utilizar um dos métodos listados abaixo que permite a impressão de uma única linha, uma sequência de linhas, ou imagens.
@@ -506,15 +547,15 @@ Você pode formatar a sua impressão criando mapas de estilos utilizando os par�
 
 | Atributo        | Descrição | Valores  |
 |-----------------|-----------|----------|
-|PrinterManager.KEY_ALIGN| Alinhamento da impressão | PrinterManager.VAL_ALIGN_CENTER  PrinterManager.VAL_ALIGN_LEFT PrinterManager.VAL_ALIGN_RIGHT|
-|PrinterManager.KEY_TEXTSIZE| Tamanho do texto | Valores inteiros | 
-|PrinterManager.KEY_TYPEFACE| Fonte do texto | Trabalha com um inteiro de 0 a 8, onde cada um é uma fonte diferente.|
-|PrinterManager.KEY_MARGINLEFT| Margem esquerda |Valores inteiros | 
-|PrinterManager.KEY_MARGINRIGHT| Margem direia | Valores inteiros | 
-|PrinterManager.KEY_MARGINTOP| Margem superior | Valores inteiros | 
-|PrinterManager.KEY_MARGINBOTTOM| Margem inferior | Valores inteiros | 
-|PrinterManager.KEY_LINESPACE| Espaçamento entre as linhas | Valores inteiros | 
-|PrinterManager.KEY_WEIGHT| Varíavel utilizada quando se trbaalho com impressão de múltiplas colunas, para escolher o peso de cada coluna | Valores inteiros | 
+|`PrinterAttributes.KEY_ALIGN` | Alinhamento da impressão | `PrinterAttributes.VAL_ALIGN_CENTER`  `PrinterAttributes.VAL_ALIGN_LEFT` `PrinterAttributes.VAL_ALIGN_RIGHT` |
+|`PrinterAttributes.KEY_TEXTSIZE` | Tamanho do texto | Valores inteiros | 
+|`PrinterAttributes.KEY_TYPEFACE` | Fonte do texto | Trabalha com um inteiro de 0 a 8, onde cada um é uma fonte diferente.|
+|`PrinterAttributes.KEY_MARGINLEFT` | Margem esquerda |Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINRIGHT` | Margem direia | Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINTOP` | Margem superior | Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINBOTTOM` | Margem inferior | Valores inteiros | 
+|`PrinterAttributes.KEY_LINESPACE` | Espaçamento entre as linhas | Valores inteiros | 
+|`PrinterAttributes.KEY_WEIGHT` | Varíavel utilizada quando se trbaalho com impressão de múltiplas colunas, para escolher o peso de cada coluna | Valores inteiros | 
 
 Exemplo de mapas de estilos:
 
