@@ -1,4 +1,4 @@
-# Integração Local - SDK v0.17.7-beta
+# Integração Local - SDK v0.17.12
 
 ## Apresentação
 
@@ -50,10 +50,10 @@ Após configurar um novo projeto no Android Studio, é necessário incluir a dep
 Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
 
 ```
-compile 'com.cielo.lio:order-manager:0.17.7-beta
+compile 'com.cielo.lio:order-manager:0.17.12
 ```
 
-> A partir da versão 0.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
+> A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
 Adicione essa permissão ao `AndroidManifest.xml` da sua aplicação.
 
 ### Credenciais
@@ -70,7 +70,7 @@ Identificação de acesso. Sua geração ocorre no momento da criação pelo pai
 * Access-Token
 Identificação do token de acesso, que armazena as regras de acesso permitidas ao Client ID. Sua geração ocorre no momento da criação do Client ID pelo painel do desenvolvedor. Seu valor pode ser visualizado clicando em 'detalhes' na coluna 'Access Tokens', dentro do menu 'Desenvolvedor' -> 'Client ID Cadastrados'.
 
-### Utilização
+## Criação e Gerenciamento de Ordens
 
 O fluxo básico para utilização do SDK pode ser dividido em 7 etapas, conforme o diagrama abaixo:
 
@@ -78,7 +78,7 @@ O fluxo básico para utilização do SDK pode ser dividido em 7 etapas, conforme
 
 Abaixo, iremos mostrar como realizar cada uma dessas etapas.
 
-#### Criar OrderManager
+### Criar OrderManager
 
 Este método permite iniciar o OrderManager, que é responsável pelas principais operações do Cielo LIO Order Manager SDK. O OrderManager representa a interface com a API REST do Order Manager.
 
@@ -90,14 +90,14 @@ OrderManager orderManager = new OrderManager(credentials, context);
 
 O construtor do OrderManager recebe 2 parâmetros:
 
-| Atributo    | Descrição                                                                                                                                                                                                                                                                                              | Domínio                     |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
-| credentials | Credenciais de acesso do Parceiro/Desenvolvedor. Depois de se registrar no Portal de Desenvolvedores e criar seu app, o Parceiro/Desenvolvedor recebe as credenciais (Client-Id e Access-Token). Elas servem para identificá-lo unicamente na plataforma LIO e diferenciar as ordens da sua aplicação. | cielo.sdk.order.Credentials |
-| context     | O contexto da aplicação                                                                                                                                                                                                                                                                                | android.content.Context     |
+| Atributo    | Descrição  | Domínio                     |
+|-------------|------------|-----------------------------|
+| credentials | Credenciais de acesso do Parceiro/Desenvolvedor. Depois de se registrar no Portal de Desenvolvedores e criar seu app, o Parceiro/Desenvolvedor recebe as credenciais (Client-Id e Access-Token). Elas servem para identificá-lo unicamente na plataforma LIO e diferenciar as ordens da sua aplicação. | `cielo.sdk.order.Credentials` |
+| context     | O contexto da aplicação. | `android.content.Context` |
 
 >**Atenção:** Recomendamos criar/inicializar o OrderManager no aplicativo do parceiro no momento em que for utilizar as funcionalidades, visando otimizar o desempenho do aplicativo
 
-#### Vincular o contexto da aplicação ao SDK
+### Vincular o contexto da aplicação ao SDK
 
 Com o método `bind()`, é possível vincular o contexto da aplicação ao SDK. Este serviço é responsável por gerenciar as funções relacionadas com as ordens da LIO
 
@@ -133,7 +133,7 @@ O método Bind recebe dois parâmetros:
 
 Com o OrderManager inicializado e após a execução do método onServiceBound, se torna possível ir para a próxima etapa e criar um pedido (classe Order).
 
-#### Criar um pedido
+### Criar um pedido
 
 A Cielo LIO trabalha com o conceito de Order (pedido). É necessário possuir um pedido para então realizar o(s) pagamento(s).
 
@@ -143,7 +143,7 @@ Este método permite criar uma Order (classe Order). Para realizar essa criaçã
 Order order = orderManager.createDraftOrder("REFERÊNCIA_DO_PEDIDO");
 ```
 
-#### Adicionar itens em um pedido
+### Adicionar itens em um pedido
 
 Este método permite que sejam adicionados itens em um pedido.
 
@@ -164,11 +164,11 @@ unityOfMeasure = "UNIDADE";
 order.addItem(sku, name, unitPrice, quantity, unityOfMeasure);
 ```
 
-#### Liberar pedido para pagamento
+### Liberar pedido para pagamento
 
 Este método permite atualizar o status de um pedido e liberá-lo para pagamento. O objetivo é utilizar este método depois de adicionar todos os itens no pedido.
 
-```
+``` 
 orderManager.placeOrder(order);
 ```
 
@@ -236,7 +236,7 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | changeAmount             | Valor de troco                                                     | 4500                                     |
 | serviceTax               | Taxa de serviço                                                    | 2000                                     |
 | cityState                | Cidade - Estado                                                    | Barueri - SP                             |
-| v40Code                  | Tipo da transação                                                  | 5 (Lista de Tipos de transação)   |
+| v40Code                  | Tipo da transação                                                  | 5 (Lista de Tipos de transação)          |
 | secondaryProductName     | Nome do produto secundario                                         | PARC. ADM                                |
 | paymentTransactionId     | ID da transação de pagamento                                       | 98437.29102507174                        |
 | pan                      | Número cartão tokenizado (6 primeiros dígitos – 4 últimos dígitos) | 476173-0036                              |
@@ -251,14 +251,14 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | productName              | forma de pagamento compilada                                       | CREDITO PARCELADO ADM - I                |
 | merchantName             | Nome Fantasia do Estabelecimento Comercial                         | LOJA ON                                  |
 | firstQuotaAmout          | Valor da primeira parcela                                          | 0                                        |
-| cardCaptureType          | Código do tipo de captura do cartão                                | 0 (Lista de Tipos de Captura) |
+| cardCaptureType          | Código do tipo de captura do cartão                                | 0 (Lista de Tipos de Captura)            |
 | requestDate              | Data da requisição em milisegundos                                 | 1293857600000                            |
 | boardingTax              | Taxa de embarque                                                   | 1200                                     |
 | applicationId            | Pacote de aplicação                                                | cielo.launcher                           |
 | numberOfQuotas           | Número de parcelas                                                 | 2                                        |
 
-> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. Os outros objetos possuem documentação própria que 
-pode ser visualizada pelo Android Studio quando a classe é declarada.
+> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. 
+> Os outros objetos - como `Order` e `Payment` - possuem documentação própria que pode ser visualizada pelo Android Studio quando a classe é declarada.
 
 | Lista de Tipos de Captura |                                  |
 |---------------------------|----------------------------------|
@@ -281,6 +281,7 @@ pode ser visualizada pelo Android Studio quando a classe é declarada.
 | 28                          | Cancelamento de venda            |
 
 ### 1. Pagamento Parcial
+
 No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas da Cielo LIO. Na sequência, o fluxo de pagamento da Cielo LIO é iniciado (definir o valor a ser pago, escolher a forma de pagamento, inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail o comprovante).
 
 ```orderManager.checkoutOrder(orderId, paymentListener);```
@@ -288,9 +289,9 @@ No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas
 Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | String   |
-| paymentListener | Callback de pagamento. | cielo.sdk.order.payment.PaymentListener |
+|-----------------|-----------------------------------------|-----------------------------------------|
+| orderId         | O identificador do pedido a ser pago. | `String` |
+| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento parcial da Cielo LIO**
 
@@ -298,6 +299,7 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parc
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcial.jpg)
 
 ### 2. Pagamento de valor
+
 No pagamento de Valores, o valor a ser pago é informado pelo aplicativo e a forma de pagamento (crédito, débito, parcelado) é escolhida dentro do fluxo de telas da Cielo LIO.
 
 ```orderManager.checkoutOrder(orderId, value, paymentListener);```
@@ -305,10 +307,10 @@ No pagamento de Valores, o valor a ser pago é informado pelo aplicativo e a for
 Nessa forma de pagamento é possível enviar qualquer valor a ser pago (valor total ou valor parcial do pedido), tudo depende do modelo de negócio adotado pelo aplicativo do parceiro. Para fazer a chamada é necessário enviar os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | String   |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | Long   |
-| paymentListener | Callback de pagamento. | cielo.sdk.order.payment.PaymentListener |
+|-----------------|-------------------------------------|-----------------------------------------|
+| orderId         | O identificador do pedido a ser pago. | `String` |
+| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
+| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento de valor da Cielo LIO**
 
@@ -316,6 +318,7 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento de v
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-valor.jpg)
 
 ### 3. Pagamento direto
+
 No Pagamento Direto, o valor a ser pago e a forma de pagamento (crédito, débito, parcelado) será definido dentro da aplicação do parceiro. Na sequência o fluxo de pagamento da Cielo LIO é iniciado (inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail comprovante).
 
 Para realizar o pagamento direto é necessário, primeiramente, verificar os tipos de pagamento habilitados para Cielo LIO do estabelecimento comercial utilizando a função de consulta de formas de pagamentos habilitadas para LIO:
@@ -327,31 +330,35 @@ Esta função disponibilizará uma lista de objetos do tipo PrimaryProduct onde 
 Os seguintes campos serão retornados por essa função:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| id         |identificador do código no sistema. | Long   |
-| code         | utilizado na função de pagamento. | String   |
-| name         | Nome do método de pagamento para efeitos de exibição. | String   |
-| secondaryProducts         | Listagem de códigos de pagamento secundário. ex.: À Vista, Parcelado, etc. | ArrayList<SecondaryProduct>   |
+|-----------------|-------------------------------------------------------------------|-----------------------------------------|
+| id         |identificador do código no sistema. | `Long` |
+| code         | utilizado na função de pagamento. | `String` |
+| name         | Nome do método de pagamento para efeitos de exibição. | `String` |
+| secondaryProducts         | Listagem de códigos de pagamento secundário. ex.: À Vista, Parcelado, etc. | `ArrayList<SecondaryProduct>`   |
 
 Com os códigos de pagamentos disponíveis para a Cielo LIO do estabelecimento comercial, basta realizar a chamada de Pagamento Direto informando os códigos dos produtos:
 
 ```
-  PrimaryProduct primaryProduct = paymentTypes.get(0);
-  SecondaryProduct secondaryProduct = primaryProduct.getSecondaryProducts().get(0);
-  String primaryCode = primaryProduct.getCode();
-  String secondaryCode = secondaryProduct.getCode();
-  orderManager.checkoutOrder(orderId, primaryCode, secondaryCode paymentListener);
+
+PrimaryProduct primaryProduct = paymentTypes.get(0);
+SecondaryProduct secondaryProduct = primaryProduct.getSecondaryProducts().get(0);
+
+String primaryCode = primaryProduct.getCode();
+String secondaryCode = secondaryProduct.getCode();
+
+orderManager.checkoutOrder(orderId, primaryCode, secondaryCode paymentListener);
+
 ```
 
 Nessa forma de pagamento é possível enviar qualquer valor a ser pago e a forma de pagamento. Para fazer a chamada é necessário enviar os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | String   |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | Long   |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | String   |
-| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | String   |
-| paymentListener | Callback de pagamento. | cielo.sdk.order.payment.PaymentListener |
+|-----------------|-------------------------------------------|-----------------------------------------|
+| orderId         | O identificador do pedido a ser pago. | `String` |
+| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
+| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
+| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
+| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
@@ -361,17 +368,18 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento de v
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-direto.jpg)
 
 ### 4. Pagamento parcelado
+
 Para efetuar um pagamento parcelado, é preciso consultar as formas de pagamento utilizando a função disponibilizada no SDK, escolher crédito no produto primário e crédito no produto secundário **obrigatoriamente** e informar o número de parcelas no momento do checkout. É importante lembrar que se os códigos de pagamento forem informados incorretamente ou se o número de parcelas não for maior do que **0**, o sistema acusará erro.
 Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | String   |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | Long   |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | String   |
-| secondaryCode | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | String   |
-| installments | Número de parcelas. | Long   |
-| paymentListener | Callback de pagamento. | cielo.sdk.order.payment.PaymentListener |
+|-----------------|--------------------|-----------------------------------------|
+| orderId         | O identificador do pedido a ser pago. | `String` |
+| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
+| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
+| secondaryCode | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
+| installments | Número de parcelas. | `Long` |
+| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento parcelado da Cielo LIO**
 
@@ -381,17 +389,18 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parc
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
 
 ### 5. Pagamento informando email
+
 Exatamente como o método anterior, com a diferença que neste caso é possível informar o email para facilitar o preenchimento na hora de enviar o comprovante para o cliente. Caso queira utilizar essa função para realizar outro tipo de pagamento que não o parcelado, basta informar os códigos primários desejados e informar **0** no número de parcelas.
 Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | String   |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | Long   |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | String   |
-| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | String   |
-| installments | Número de parcelas. | Long   |
-| paymentListener | Callback de pagamento | cielo.sdk.order.payment.PaymentListener |
+|-----------------|--------------------------------------------------------------------------------------------------|-----------------------------------------|
+| orderId         | O identificador do pedido a ser pago. | `String` |
+| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
+| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
+| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
+| installments | Número de parcelas. | `Long` |
+| paymentListener | Callback de pagamento | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
@@ -404,10 +413,17 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com 
 
 Existem 2 formas de cancelar um pagamento na Cielo LIO:
 
-Cancelar Pagamento Total
-Cancelar Parte do Valor do Pagamento
+[Cancelar Pagamento Total](https://developercielo.github.io/manual/cielo-lio#cancelar-pagamento-total)
 
-Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento: 
+[Cancelar Parte do Valor do Pagamento](https://developercielo.github.io/manual/cielo-lio#cancelar-parte-do-valor-de-um-pagamento)
+
+Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento.
+
+> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
+As seguintes ações pode ser notificadas: 
+• onSuccess - Quando um cancelamento é realizado com sucesso. 
+• onCancel - Quando o usuário cancela a operação. 
+• onError - Quando acontece um erro no cancelamento do pedido.
 
 ```
 
@@ -429,11 +445,6 @@ CancellationListener cancellationListener = new CancellationListener() {
 });
 
 ```
-> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
-As seguintes ações pode ser notificadas: 
-• onSuccess - Quando um cancelamento é realizado com sucesso. 
-• onCancel - Quando o usuário cancela a operação. 
-• onError - Quando acontece um erro no cancelamento do pedido.
 
 ### Cancelar Pagamento Total
 
@@ -445,11 +456,11 @@ Assim que possuir a instância da Order, utilize o método abaixo passando os pa
 Abaixo é detalhado cada um dos parâmetros enviados no método:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| context         | Contexto da sua aplicação. | String   |
-| orderID         | O identificador do pedido a ser pago. | Long   |
-| payment         | O pagamento a ser cancelado. | cielo.sdk.order.payment.Payment
-| cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. | cielo.sdk.order.payment.CancellationListener |
+|-----------------|-----------------------------------------------------------------------|-----------------------------------------|
+| context         | Contexto da sua aplicação. | `String` |
+| orderID         | O identificador do pedido a ser pago. | `Long` |
+| payment         | O pagamento a ser cancelado. | `cielo.sdk.order.payment.Payment` |
+| cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. | `cielo.sdk.order.payment.CancellationListener` |
 
 ### Cancelar parte do valor de um pagamento
 
@@ -465,12 +476,12 @@ Portanto, assim que possuir a instância da Order, utilize o método abaixo pass
 Abaixo é detalhado cada um dos parâmetros enviados no método:
 
 | Atributo        | Descrição  | Domínio|
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| context         | Contexto da sua aplicação. | String   |
-| orderID         | O identificador do pedido a ser pago. | Long   |
-| payment         | O pagamento a ser cancelado. | cielo.sdk.order.payment.Payment |
-| value           | O valor a ser cancelado. | Long   |
-| cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. |  cielo.sdk.order.payment.CancellationListener |
+|-----------------|--------------------------|-----------------------------------------|
+| context         | Contexto da sua aplicação. | `String` |
+| orderID         | O identificador do pedido a ser pago. | `Long` |
+| payment         | O pagamento a ser cancelado. | `cielo.sdk.order.payment.Payment` |
+| value           | O valor a ser cancelado. | `Long` |
+| cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. |  `cielo.sdk.order.payment.CancellationListener` |
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
@@ -496,6 +507,172 @@ Fique atento ao local onde o ``` unbind() ``` será executado para evitar proble
 Utilize o método abaixo para finalizar o uso do OrderManager:
 
 ``` orderManager.unbind(); ```
+
+## Informações do terminal
+
+Todas as informações referentes ao terminal, que foram expostas, estão disponíveis no InfoManager
+
+```InfoManager infoManager = new InfoManager();```
+
+### Nível de Bateria
+
+Para consultar o nível de carga da LIO, basta utilizar o métdo abaixo:
+
+```
+infoManager.getBatteryLevel(context);
+```
+
+> O valor da bateria será retornado em uma `Float` contendo um valor de 0 a 1 em caso de sucesso e -1 em caso de erro.
+
+### Verificar Modelo da LIO
+
+O SDK disponibiliza um método para verificar se seu aplicativo está instalado numa LIO V1 ou V2. Basta acessar da seguinte forma:
+
+``` infoManager.getDeviceModel(); ```
+
+O mesmo irá retornar um enum do tipo `DeviceModel` com o modelo correspondente (`LIO_V1` || `LIO_V2` ).
+
+### Obtendo informações do usuário (EC e Número Lógico)
+
+Através do SDK, é possível recuperar os dados do cliente e número lógico de maneira simples utilizando o método abaixo:
+
+```
+infoManager.getSettings(context);
+``` 
+
+> Esta função, retornará um objeto do tipo Settings onde é possível recuperar as informações do usuário. 
+Abaixo, segue um descritivo de atributos do objeto Setttings.
+
+| ATRIBUTO     | DESCRIÇÃO            | DOMÍNIO |
+|--------------|----------------------|---------|
+| merchantCode | Código do cliente    | `String` |
+| logicNumber  | Número lógico da LIO | `String` |
+
+## Impressão [Apenas LIO V2]
+
+A nova versão da Cielo LIO V2 permite que aplicações parceiras utilizem os métodos disponíveis da impressora para imprimir dados importantes ou necessários para o negócio do cliente. Para realizar estas operações, basta utilizar um dos métodos listados abaixo que permite a impressão de uma única linha, uma sequência de linhas, ou imagens.
+
+```PrinterManager printerManager = new PrinterManager(context)```
+
+Independende da forma de impressão escolhida, você deverá utilizar o seguinte callback como parâmetro do método de para receber os estados relacionados à impressão:
+
+> PrinterListener: Um callback que informa sobre todas as ações tomadas durante o processo de impressão. 
+As seguintes ações pode ser notificadas: 
+• onSuccess - Quando uma impressão é realizada com sucesso. 
+• onError - Quando acontece um erro na impressão.
+• onWithoutPaper - Quando não há papel suficiente para realizar a impressão.
+
+```
+PrinterListerner printerListener = new PrinterListener() {
+    @Override public void onPrintSuccess(int printedLines) { 
+        Log.d(TAG, "onPrintSuccess");
+    }
+    
+    @Override public void onError(@Nullable Throwable e) { 
+        Log.d(TAG, "onError"); 
+    }
+    
+    @Override public void onWithoutPaper() { 
+        Log.d(TAG,"onWithoutPaper"); 
+    } 
+});
+```
+
+### Mapa de Estilos de Impressão
+
+Você pode formatar a sua impressão criando mapas de estilos utilizando os parâmetros disponíveis:
+
+| Atributo        | Descrição | Valores  |
+|-----------------|-----------|----------|
+|`PrinterAttributes.KEY_ALIGN` | Alinhamento da impressão | `PrinterAttributes.VAL_ALIGN_CENTER`  `PrinterAttributes.VAL_ALIGN_LEFT` `PrinterAttributes.VAL_ALIGN_RIGHT` |
+|`PrinterAttributes.KEY_TEXTSIZE` | Tamanho do texto | Valores inteiros | 
+|`PrinterAttributes.KEY_TYPEFACE` | Fonte do texto | Trabalha com um inteiro de 0 a 8, onde cada um é uma fonte diferente.|
+|`PrinterAttributes.KEY_MARGINLEFT` | Margem esquerda |Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINRIGHT` | Margem direia | Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINTOP` | Margem superior | Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINBOTTOM` | Margem inferior | Valores inteiros | 
+|`PrinterAttributes.KEY_LINESPACE` | Espaçamento entre as linhas | Valores inteiros | 
+|`PrinterAttributes.KEY_WEIGHT` | Varíavel utilizada quando se trbaalho com impressão de múltiplas colunas, para escolher o peso de cada coluna | Valores inteiros | 
+
+Exemplo de mapas de estilos:
+
+```
+HashMap<String, Integer> alignLeft =  new HashMap<>();
+alignLeft.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_LEFT);
+alignLeft.put(PrinterAttributes.KEY_MARGIN_TOP, 50);
+alignLeft.put(PrinterAttributes.KEY_MARGIN_BOTTOM, 50);
+alignLeft.put(PrinterAttributes.KEY_TYPEFACE, 0);
+alignLeft.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
+
+HashMap<String, Integer> alignCenter =  new HashMap<>();
+alignCenter.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_CENTER);
+alignCenter.put(PrinterAttributes.KEY_MARGIN_TOP, 50);
+alignCenter.put(PrinterAttributes.KEY_MARGIN_BOTTOM, 50);        
+alignCenter.put(PrinterAttributes.KEY_TYPEFACE, 1);
+alignCenter.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
+
+HashMap<String, Integer> alignRight =  new HashMap<>();
+alignRight.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_RIGHT);
+alignRight.put(PrinterAttributes.KEY_MARGIN_TOP, 50);
+alignRight.put(PrinterAttributes.KEY_MARGIN_BOTTOM, 50);
+alignRight.put(PrinterAttributes.KEY_TYPEFACE, 2);
+alignRight.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
+```
+
+### Impressão de texto simples
+
+Para imprimir textos simples utilize o método ```printText()``` do PrinterManager. 
+O método recebe como parâmetro o texto a ser impresso, um mapa de estilo de impressão e um listener para tratar o retorno da impressão.
+
+```
+String textToPrint = "Texto simples a ser impresso.\n Com múltiplas linhas";
+printerManager.printText(textToPrint, alignLeft, printerListener);
+```
+
+| Atributo | Descrição | Domínio |
+|----------|-----------|---------|
+| text     | Texto a ser impresso. | `String` |
+| style    | Mapa de estilos de impressão | `Map<String, Int>` |
+| printerListener | Callback de impressão. | `cielo.sdk.order.PrinterListener` |
+
+### Impressão de múltiplas colunas
+
+Para imprimir textos em múltiplas colunas utilize o método ```printMultipleColumnText()``` do PrinterManager. 
+O método recebe como parâmetro um array de texts a serem impresso, um array com mapas de estilos de impressão, respectivamente e um listener para tratar o retorno da impressão.
+
+```
+String[] textsToPrint = new String[] { "ALIGN LEFT", "ALIGN CENTER", "ALIGN RIGHT" }
+
+List<Map<String, Integer>> styles =  new ArrayList<>();
+styles.add(alignLeft);
+styles.add(alignCenter);
+styles.add(alignRight);
+
+printerManager.printMultipleColumnText(textsToPrint, styles, printerListener);
+
+```
+
+| Atributo | Descrição | Domínio |
+|----------|-----------|---------|
+| stringArray     | Lista de textos a serem impressos. | `String[]` |
+| style    | Lista de mapa de estilos de impressão | `List<Map<String, Int>>` |
+| printerListener | Callback de impressão. | `cielo.sdk.order.PrinterListener` |
+
+### Impressão de imagem
+
+Para imprimir imagens utilize o método ```printImage()``` do PrinterManager. 
+O método recebe como parâmetro o `bitmap` a ser impresso, um mapa de estilos de impressão e um listener para tratar o retorno da impressão.
+
+```
+Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cielo);
+printerManager.printImage(bitmap, alignCenter, printerListener);
+```
+
+| Atributo | Descrição | Domínio |
+|----------|-----------|---------|
+| bitmap     | Imagem a ser impressa. | `Bitmap` |
+| style    | Mapa de estilos de impressão | `Map<String, Int>` |
+| printerListener | Callback de impressão. | `cielo.sdk.order.PrinterListener` |
 
 ---
 
