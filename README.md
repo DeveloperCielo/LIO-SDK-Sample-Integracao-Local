@@ -486,7 +486,7 @@ Para consultar o nível de carga da LIO, basta utilizar o métdo abaixo:
 infoManager.getBatteryLevel(context);
 ```
     
-> O valor da bateria será retornado em uma `String` contendo um valor de 0 a 100 em caso de sucesso.  
+> O valor da bateria será retornado em uma `String` contendo um valor de 0 a 1 em caso de sucesso.  
 Em caso de erro a `String` "---" será retornada. 
 
 ### Verificar Modelo da LIO
