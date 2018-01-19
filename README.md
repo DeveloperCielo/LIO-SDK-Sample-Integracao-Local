@@ -1,4 +1,4 @@
-# Integração Local - SDK v0.17.11
+# Integração Local - SDK v0.17.12
 
 ## Apresentação
 
@@ -50,7 +50,7 @@ Após configurar um novo projeto no Android Studio, é necessário incluir a dep
 Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
 
 ```
-compile 'com.cielo.lio:order-manager:0.17.11
+compile 'com.cielo.lio:order-manager:0.17.12
 ```
 
 > A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
@@ -545,8 +545,8 @@ Abaixo, segue um descritivo de atributos do objeto Setttings.
 
 | ATRIBUTO     | DESCRIÇÃO            | DOMÍNIO |
 |--------------|----------------------|---------|
-| merchantCode | Código do cliente    | String  |
-| logicNumber  | Número lógico da LIO | String  |
+| merchantCode | Código do cliente    | `String` |
+| logicNumber  | Número lógico da LIO | `String` |
 
 ## Impressão [Apenas LIO V2]
 
