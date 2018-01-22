@@ -267,7 +267,7 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | 2                         | Transação com cartão de tarja    |
 | 3                         | Transação com cartão contactless |
 
-| Lista de Tipos de Transação |                                  |
+| Lista de Tipos de Transação | (Isto não é válido como código primário) |
 |-----------------------------|----------------------------------|
 | 4                           | Crédito à vista                  |
 | 5                           | Crédito parcelado administrativo |
@@ -694,6 +694,11 @@ O método recebe como parâmetro o texto a ser impresso, um mapa de estilo de im
 String textToPrint = "Texto simples a ser impresso.\n Com múltiplas linhas";
 printerManager.printText(textToPrint, alignLeft, printerListener);
 ```
+Exemplo de impressão de texto simples:
+</br>
+<p align="center">
+    <img src="print-text.png" width="30%">
+</p>
 
 | Atributo | Descrição | Domínio |
 |----------|-----------|---------|
@@ -716,6 +721,11 @@ styles.add(alignRight);
 
 printerManager.printMultipleColumnText(textsToPrint, styles, printerListener);
 ```
+Resultado final da impressão:
+</br>
+<p align="center">
+    <img src="print-columns.png" width="30%">
+</p>
 
 | Atributo | Descrição | Domínio |
 |----------|-----------|---------|
@@ -732,6 +742,9 @@ O método recebe como parâmetro o `bitmap` a ser impresso, um mapa de estilos d
 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cielo);
 printerManager.printImage(bitmap, alignCenter, printerListener);
 ```
+| Imagem a ser impressa | Resultado final |
+|-----------------------|-----------------|
+| <p align="center"><img src="cielo.png" width="80%"></p>| <p align="center"><img src="print-image.png" width="50%"></p> |
 
 | Atributo | Descrição | Domínio |
 |----------|-----------|---------|
