@@ -60,7 +60,7 @@ Adicione essa permissão ao `AndroidManifest.xml` da sua aplicação.
 
 Para utilizar o Cielo LIO Order Manager SDK, é necessário inserir as seguintes credenciais na inicialização do OrderManager:
 
-```
+```java
 Credentials credentials = new Credentials("Seu client id aqui", "Seu accessToken aqui");
 ```
 
@@ -84,7 +84,7 @@ Este método permite iniciar o OrderManager, que é responsável pelas principai
 
 Tudo começa com a criação do OrderManager!
 
-```
+```java
 OrderManager orderManager = new OrderManager(credentials, context);
 ```
 
@@ -101,7 +101,7 @@ O construtor do OrderManager recebe 2 parâmetros:
 
 Com o método `bind()`, é possível vincular o contexto da aplicação ao SDK. Este serviço é responsável por gerenciar as funções relacionadas com as ordens da LIO
 
-```
+```java
 ServiceBindListener serviceBindListener = new ServiceBindListener() {
 
     @Override public void onServiceBoundError(Throwable throwable) {
@@ -139,7 +139,7 @@ A Cielo LIO trabalha com o conceito de Order (pedido). É necessário possuir um
 
 Este método permite criar uma Order (classe Order). Para realizar essa criação, utilize o método createDraftOrder, que disponibilizará uma Order com status DRAFT:
 
-```
+```java
 Order order = orderManager.createDraftOrder("REFERÊNCIA_DO_PEDIDO");
 ```
 
@@ -149,7 +149,7 @@ Este método permite que sejam adicionados itens em um pedido.
 
 > **Atenção:** É necessário adicionar no mínimo um item a um pedido para que seja possível dar continuidade ao pagamento.
 
-```
+```java
 // Identificação do produto (Stock Keeping Unit)
 String sku = "2891820317391823";
 String name = "Coca-cola lata";
@@ -168,7 +168,7 @@ order.addItem(sku, name, unitPrice, quantity, unityOfMeasure);
 
 Este método permite atualizar o status de um pedido e liberá-lo para pagamento. O objetivo é utilizar este método depois de adicionar todos os itens no pedido.
 
-``` 
+```java
 orderManager.placeOrder(order);
 ```
 
@@ -194,7 +194,7 @@ As seguintes ações podem ser notificadas:
 • onCancel - Quando o pagamento é cancelado. 
 • onError - Quando acontece um erro no pagamento do pedido.
 
-```
+```java
 PaymentListener paymentListener = new PaymentListener() {
     @Override
     public void onStart() {
@@ -284,7 +284,9 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 
 No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas da Cielo LIO. Na sequência, o fluxo de pagamento da Cielo LIO é iniciado (definir o valor a ser pago, escolher a forma de pagamento, inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail o comprovante).
 
-```orderManager.checkoutOrder(orderId, paymentListener);```
+```java
+orderManager.checkoutOrder(orderId, paymentListener);
+```
 
 Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
 
@@ -302,7 +304,9 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parc
 
 No pagamento de Valores, o valor a ser pago é informado pelo aplicativo e a forma de pagamento (crédito, débito, parcelado) é escolhida dentro do fluxo de telas da Cielo LIO.
 
-```orderManager.checkoutOrder(orderId, value, paymentListener);```
+```java
+orderManager.checkoutOrder(orderId, value, paymentListener);
+```
 
 Nessa forma de pagamento é possível enviar qualquer valor a ser pago (valor total ou valor parcial do pedido), tudo depende do modelo de negócio adotado pelo aplicativo do parceiro. Para fazer a chamada é necessário enviar os seguintes parâmetros:
 
@@ -323,7 +327,9 @@ No Pagamento Direto, o valor a ser pago e a forma de pagamento (crédito, débit
 
 Para realizar o pagamento direto é necessário, primeiramente, verificar os tipos de pagamento habilitados para Cielo LIO do estabelecimento comercial utilizando a função de consulta de formas de pagamentos habilitadas para LIO:
 
-```ArrayList<PrimaryProduct> paymentTypes = orderManager.retrievePaymentType();```
+```java
+ArrayList<PrimaryProduct> paymentTypes = orderManager.retrievePaymentType();
+```
 
 Esta função disponibilizará uma lista de objetos do tipo PrimaryProduct onde será possível recuperar os códigos de pagamento habilitados.
 
@@ -338,8 +344,7 @@ Os seguintes campos serão retornados por essa função:
 
 Com os códigos de pagamentos disponíveis para a Cielo LIO do estabelecimento comercial, basta realizar a chamada de Pagamento Direto informando os códigos dos produtos:
 
-```
-
+```java
 PrimaryProduct primaryProduct = paymentTypes.get(0);
 SecondaryProduct secondaryProduct = primaryProduct.getSecondaryProducts().get(0);
 
@@ -362,7 +367,9 @@ Nessa forma de pagamento é possível enviar qualquer valor a ser pago e a forma
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
-```orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, paymentListener);```
+```java
+orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, paymentListener);
+```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento de valor:
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-direto.jpg)
@@ -383,7 +390,9 @@ Nessa forma de pagamento, é necessário apenas fazer a chamada do método envia
 
 **Fluxo da transação utilizando o pagamento parcelado da Cielo LIO**
 
-```orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);```
+```java
+orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);
+```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parcelado:
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
@@ -404,7 +413,9 @@ Nessa forma de pagamento, é necessário apenas fazer a chamada do método envia
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
-```orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);```
+```java
+orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);
+```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com email:
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
@@ -425,8 +436,7 @@ As seguintes ações pode ser notificadas:
 • onCancel - Quando o usuário cancela a operação. 
 • onError - Quando acontece um erro no cancelamento do pedido.
 
-```
-
+```java
 CancellationListener cancellationListener = new CancellationListener() {
     @Override
     public void onSuccess(Order cancelledOrder) {
@@ -443,7 +453,6 @@ CancellationListener cancellationListener = new CancellationListener() {
         Log.d("SDKClient", "Houve um erro no cancelamento");
     }
 });
-
 ```
 
 ### Cancelar Pagamento Total
@@ -451,7 +460,9 @@ CancellationListener cancellationListener = new CancellationListener() {
 No método Cancelar um Pagamento, é necessário ter salvo uma instância da Order que contém as informações da Order. Essa Order pode ser recuperada no sucesso do callback do pagamento ou usando o método de Listagem de Pedidos (Orders) (link para método). 
 Assim que possuir a instância da Order, utilize o método abaixo passando os parâmetros conforme o exemplo abaixo:
 
-```orderManager.cancelOrder(context, orderId, payment, cancellationListener);```
+```java
+orderManager.cancelOrder(context, orderId, payment, cancellationListener);
+```
 
 Abaixo é detalhado cada um dos parâmetros enviados no método:
 
@@ -471,7 +482,9 @@ Os parâmetros do método anterior, com a inclusão de um parâmetro que é o va
 
 Portanto, assim que possuir a instância da Order, utilize o método abaixo passando os parâmetros conforme o exemplo abaixo:
 
-```orderManager.cancelOrder(context, orderId, payment, value, cancellationListener);```
+```java
+orderManager.cancelOrder(context, orderId, payment, value, cancellationListener);
+```
 
 Abaixo é detalhado cada um dos parâmetros enviados no método:
 
@@ -485,16 +498,61 @@ Abaixo é detalhado cada um dos parâmetros enviados no método:
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
-```orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);```
+```java
+orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);
+```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parcelado:
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
+
+### Receber aviso de cancelamento feito na LIO
+
+Toda vez que é feito um cancelamento na LIO utilizando o launcher, o sistema envia um broadcast notificando quaisquer aplicações que estejam registradas sobre o mesmo. Para que sua aplicação seja notificada de um cancelamento, atualize o arquivo `AndroidManifest.xml` conforme o exemplo abaixo:
+
+```xml
+
+<application>
+  ...
+  <receiver android:name=".receiver.LIOCancelationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL">
+                </action>
+            </intent-filter>
+        </receiver>
+</aplication> 
+
+```
+
+em seguida, é necessário implementar um `BroadcastReceiver` para tratar o evento da maneira que for pertinente a sua aplicação:
+
+```java
+public class LIOCancelationBroadcastReceiver extends BroadcastReceiver {
+
+    String MY_CLIENT_ID = "Seu client id aqui";
+    String MY_ACCESS_KEY = "Seu access key aqui";
+    
+    String INTENT_ORDER_KEY = "ORDER";
+    String INTENT_TRANSACTION_KEY = "TRANSACTION";
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        ParcelableOrder order = intent.getExtras().getParcelable(INTENT_ORDER_KEY);
+        
+        if(MY_ACCESS_KEY.equalsIgnoreCase(order.getAccessKey()) && MY_CLIENT_ID.equalsIgnoreCase(order.getSecretAccessKey())) {
+            ParcelableTransaction transaction  = intent.getExtras().getParcelable(INTENT_TRANSACTION_KEY);
+        }
+    }
+}
+
+```
 
 ## Listagem de Pedidos
 
 Na listagem de pedidos, é possível obter todas os pedidos (Orders) abertas na Cielo LIO pelo aplicativo do parceiro. Para isso, basta utilizar a função abaixo:
 
-``` ResultOrders resultOrders = orderManager.retrieveOrders(10, 0); ```
+```java
+ResultOrders resultOrders = orderManager.retrieveOrders(10, 0); 
+```
 
 O objeto ResultOrders contém uma lista com todas as ordens abertas assinadas com as credenciais da aplicação.
 
@@ -506,19 +564,23 @@ Fique atento ao local onde o ``` unbind() ``` será executado para evitar proble
 É importante lembrar que se o contexto for alterado, é preciso desvincular o serviço (ex.: troca de Activity)
 Utilize o método abaixo para finalizar o uso do OrderManager:
 
-``` orderManager.unbind(); ```
+```java
+orderManager.unbind(); 
+```
 
 ## Informações do terminal
 
 Todas as informações referentes ao terminal, que foram expostas, estão disponíveis no InfoManager
 
-```InfoManager infoManager = new InfoManager();```
+```java
+InfoManager infoManager = new InfoManager();
+```
 
 ### Nível de Bateria
 
 Para consultar o nível de carga da LIO, basta utilizar o métdo abaixo:
 
-```
+```java
 infoManager.getBatteryLevel(context);
 ```
 
@@ -528,7 +590,9 @@ infoManager.getBatteryLevel(context);
 
 O SDK disponibiliza um método para verificar se seu aplicativo está instalado numa LIO V1 ou V2. Basta acessar da seguinte forma:
 
-``` infoManager.getDeviceModel(); ```
+```java
+infoManager.getDeviceModel(); 
+```
 
 O mesmo irá retornar um enum do tipo `DeviceModel` com o modelo correspondente (`LIO_V1` || `LIO_V2` ).
 
@@ -536,7 +600,7 @@ O mesmo irá retornar um enum do tipo `DeviceModel` com o modelo correspondente 
 
 Através do SDK, é possível recuperar os dados do cliente e número lógico de maneira simples utilizando o método abaixo:
 
-```
+```java
 infoManager.getSettings(context);
 ``` 
 
@@ -552,7 +616,9 @@ Abaixo, segue um descritivo de atributos do objeto Setttings.
 
 A nova versão da Cielo LIO V2 permite que aplicações parceiras utilizem os métodos disponíveis da impressora para imprimir dados importantes ou necessários para o negócio do cliente. Para realizar estas operações, basta utilizar um dos métodos listados abaixo que permite a impressão de uma única linha, uma sequência de linhas, ou imagens.
 
-```PrinterManager printerManager = new PrinterManager(context)```
+```java
+PrinterManager printerManager = new PrinterManager(context)
+```
 
 Independende da forma de impressão escolhida, você deverá utilizar o seguinte callback como parâmetro do método de para receber os estados relacionados à impressão:
 
@@ -562,7 +628,7 @@ As seguintes ações pode ser notificadas:
 • onError - Quando acontece um erro na impressão.
 • onWithoutPaper - Quando não há papel suficiente para realizar a impressão.
 
-```
+```java
 PrinterListerner printerListener = new PrinterListener() {
     @Override public void onPrintSuccess(int printedLines) { 
         Log.d(TAG, "onPrintSuccess");
@@ -596,7 +662,7 @@ Você pode formatar a sua impressão criando mapas de estilos utilizando os par�
 
 Exemplo de mapas de estilos:
 
-```
+```java
 HashMap<String, Integer> alignLeft =  new HashMap<>();
 alignLeft.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_LEFT);
 alignLeft.put(PrinterAttributes.KEY_MARGIN_TOP, 50);
@@ -624,7 +690,7 @@ alignRight.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
 Para imprimir textos simples utilize o método ```printText()``` do PrinterManager. 
 O método recebe como parâmetro o texto a ser impresso, um mapa de estilo de impressão e um listener para tratar o retorno da impressão.
 
-```
+```java
 String textToPrint = "Texto simples a ser impresso.\n Com múltiplas linhas";
 printerManager.printText(textToPrint, alignLeft, printerListener);
 ```
@@ -640,7 +706,7 @@ printerManager.printText(textToPrint, alignLeft, printerListener);
 Para imprimir textos em múltiplas colunas utilize o método ```printMultipleColumnText()``` do PrinterManager. 
 O método recebe como parâmetro um array de texts a serem impresso, um array com mapas de estilos de impressão, respectivamente e um listener para tratar o retorno da impressão.
 
-```
+```java
 String[] textsToPrint = new String[] { "ALIGN LEFT", "ALIGN CENTER", "ALIGN RIGHT" }
 
 List<Map<String, Integer>> styles =  new ArrayList<>();
@@ -649,7 +715,6 @@ styles.add(alignCenter);
 styles.add(alignRight);
 
 printerManager.printMultipleColumnText(textsToPrint, styles, printerListener);
-
 ```
 
 | Atributo | Descrição | Domínio |
@@ -663,7 +728,7 @@ printerManager.printMultipleColumnText(textsToPrint, styles, printerListener);
 Para imprimir imagens utilize o método ```printImage()``` do PrinterManager. 
 O método recebe como parâmetro o `bitmap` a ser impresso, um mapa de estilos de impressão e um listener para tratar o retorno da impressão.
 
-```
+```java
 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cielo);
 printerManager.printImage(bitmap, alignCenter, printerListener);
 ```
