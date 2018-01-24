@@ -1,45 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context="cielo.ordermanager.sdk.sample.PrintSampleActivity">
+    tools:context="cielo.ordermanager.sdk.sample.PrintSampleActivity"
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/cielo" />
+    <Button
+        android:id="@+id/print_simple_text"
+        android:text="@string/print_simple_text"
+        style="@style/PrimaryActionButton"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/print_sample_text"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/print_multi_columns"
+        android:text="@string/print_multi_columns"
+        style="@style/PrimaryActionButton"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/print_sample_button"
-            style="@style/PrimaryActionButton"
-            android:text="@string/print_button" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/print_image"
+        android:text="@string/print_image"
+        style="@style/PrimaryActionButton"/>
+  </LinearLayout>
 
 </LinearLayout>

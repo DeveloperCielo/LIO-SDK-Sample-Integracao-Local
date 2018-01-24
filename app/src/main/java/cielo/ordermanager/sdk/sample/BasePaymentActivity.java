@@ -84,6 +84,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     protected String sku = "0000";
 
     protected String productName = "";
+    protected boolean orderManagerServiceBinded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,8 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         orderManager.bind(this, new ServiceBindListener() {
 
             @Override public void onServiceBoundError(Throwable throwable) {
+                orderManagerServiceBinded = false;
+
                 Toast.makeText(getApplicationContext(),
                     String.format("Erro fazendo bind do serviço de ordem -> %s",
                         throwable.getMessage()), Toast.LENGTH_LONG).show();
@@ -119,11 +122,14 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
             @Override
             public void onServiceBound() {
+                orderManagerServiceBinded = true;
                 orderManager.createDraftOrder("teste");
             }
 
             @Override
-            public void onServiceUnbound() {}
+            public void onServiceUnbound() {
+                orderManagerServiceBinded = false;
+            }
         });
     }
 
@@ -190,6 +196,12 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
+        if (!orderManagerServiceBinded) {
+            Toast.makeText(this, "Serviço de ordem ainda não recebeu retorno do método bind().\n"
+                + "Verifique sua internet e tente novamente", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         placeOrderButton.setEnabled(false);
         order = orderManager.createDraftOrder(productName);
     }

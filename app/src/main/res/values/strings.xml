@@ -8,7 +8,11 @@
     <string name="orders_list">Listagem de Ordens</string>
     <string name="cancel_payment">Cancelar Pagamento</string>
     <string name="print_sample">Teste Impressão (V2)</string>
-    <string name="print_button">IMPRIMIR</string>
+
+    <string name="print_simple_text">Imprimir texto simples</string>
+    <string name="print_multi_columns">Imprimir múltplas colunas</string>
+    <string name="print_image">Imprimir imagem</string>
+
     <string name="checkout">Pagar</string>
     <string name="create_order">Criar ordem</string>
     <string name="cancel_payment_title">CANCELAR UM PAGAMENTO</string>
