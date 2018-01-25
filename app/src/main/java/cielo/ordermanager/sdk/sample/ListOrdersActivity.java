@@ -44,7 +44,6 @@ public class ListOrdersActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Listagem de Ordens");
         configSDK();
-        listOrders();
     }
 
     @Override
