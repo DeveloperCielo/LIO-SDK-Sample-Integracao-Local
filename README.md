@@ -1,4 +1,5 @@
-# Integração Local - SDK v0.17.13
+# Integração Local - SDK v0.17.15
+última versão 0.17.14 - lançada em 15/02/2017
 
 ## Apresentação
 
@@ -50,7 +51,7 @@ Após configurar um novo projeto no Android Studio, é necessário incluir a dep
 Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
 
 ```
-compile 'com.cielo.lio:order-manager:0.17.13
+compile 'com.cielo.lio:order-manager:0.17.15'
 ```
 
 > A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
@@ -409,12 +410,13 @@ Nessa forma de pagamento, é necessário apenas fazer a chamada do método envia
 | primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
 | secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
 | installments | Número de parcelas. | `Long` |
+| email | Email informado | `String` |
 | paymentListener | Callback de pagamento | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
 ```java
-orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);
+orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments, email, paymentListener);
 ```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com email:
