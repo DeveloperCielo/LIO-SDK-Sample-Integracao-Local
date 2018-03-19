@@ -59,6 +59,11 @@
                 android:text="@string/email_payment" />
 
             <Button
+                android:id="@+id/payment_for_merchant_code"
+                style="@style/PrimaryActionButton"
+                android:text="@string/merchantcode_payment" />
+
+            <Button
                 android:id="@+id/list_orders_button"
                 style="@style/PrimaryActionButton"
                 android:text="@string/orders_list" />
