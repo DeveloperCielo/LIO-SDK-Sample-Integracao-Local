@@ -22,6 +22,7 @@
         <activity android:name=".sample.SelectPaymentMethodActivity" />
         <activity android:name=".sample.SuccessivePaymentActivity" />
         <activity android:name=".sample.PayInformingEmail" />
+        <activity android:name=".sample.PayInformingMerchantCode" />
         <activity android:name=".sample.ListOrdersActivity" />
         <activity android:name=".sample.CancelPaymentActivity" />
         <activity android:name=".sample.CancellationOrderList" />
