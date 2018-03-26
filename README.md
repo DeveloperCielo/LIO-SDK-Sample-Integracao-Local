@@ -1,4 +1,4 @@
-# Integração Local - SDK v0.17.19
+# Integração Local - SDK v0.18.2
 última versão 0.17.15 - lançada em 19/02/2018
 
 ## Apresentação
