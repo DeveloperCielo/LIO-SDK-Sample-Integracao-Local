@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.payment_for_merchant_code)
     public void openExample6() {
-        Intent intent = new Intent(this, PayInformingEmail.class);
+        Intent intent = new Intent(this, PayInformingMerchantCode.class);
         startActivity(intent);
     }
 
