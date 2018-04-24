@@ -1,4 +1,4 @@
-package cielo.ordermanager.sdk.sample;
+package cielo.ordermanager.sdk.sample.deprecated;
 
 
 import android.support.annotation.NonNull;
@@ -16,7 +16,7 @@ import cielo.orders.domain.Order;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
-public class PayInformingMerchantCode extends SelectPaymentMethodActivity {
+public class PayInformingMerchantCodeOld extends SelectPaymentMethodActivityOld {
 
     @Override
     protected void configUi() {
@@ -54,7 +54,8 @@ public class PayInformingMerchantCode extends SelectPaymentMethodActivity {
 
             try {
 
-                orderManager.checkoutOrder(order.getId(), order.getPrice(), paymentCode, installments, "teste@email.com","0000000000000003", new PaymentListener() {
+                orderManager.checkoutOrder(order.getId(), order.getPrice(), primaryProduct.getCode(),
+                        secondaryProduct.getCode(), installments, "teste@email.com","0000000000000003", new PaymentListener() {
 
                             @Override
                             public void onStart() {

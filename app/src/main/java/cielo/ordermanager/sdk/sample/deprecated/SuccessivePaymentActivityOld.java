@@ -1,8 +1,6 @@
-package cielo.ordermanager.sdk.sample;
+package cielo.ordermanager.sdk.sample.deprecated;
 
 
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,16 +11,17 @@ import java.util.List;
 
 import cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Order;
+import cielo.sdk.order.payment.PaymentCode;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
-public class PayInformingEmail extends SelectPaymentMethodActivity {
+public class SuccessivePaymentActivityOld extends SelectPaymentMethodActivityOld {
 
     @Override
     protected void configUi() {
         super.configUi();
 
-        productName = "Teste - Email";
+        productName = "Teste - Parcelado";
 
         List<String> installmentsArray = Arrays.asList(getResources()
                 .getStringArray(R.array.installments_array));
@@ -54,38 +53,27 @@ public class PayInformingEmail extends SelectPaymentMethodActivity {
 
             try {
 
-                orderManager.checkoutOrder(order.getId(), order.getPrice(), primaryProduct.getCode(),
-                        secondaryProduct.getCode(), installments, "teste@email.com", new PaymentListener() {
+                orderManager.checkoutOrder(order.getId(), order.getPrice(), PaymentCode.CREDITO_AVISTA, 0, "", "", new PaymentListener() {
+                    @Override
+                    public void onStart() {
 
-                            @Override
-                            public void onStart() {
-                                Log.d(TAG, "ON START");
-                            }
+                    }
 
-                            @Override
-                            public void onPayment(@NonNull Order paidOrder) {
-                                Log.d(TAG, "ON PAYMENT");
+                    @Override
+                    public void onPayment(Order order) {
 
-                                order = paidOrder;
-                                order.markAsPaid();
-                                orderManager.updateOrder(order);
+                    }
 
-                                resetState();
-                            }
+                    @Override
+                    public void onCancel() {
 
-                            @Override
-                            public void onCancel() {
-                                Log.d(TAG, "ON CANCEL");
-                                resetState();
-                            }
+                    }
 
-                            @Override
-                            public void onError(@NonNull PaymentError paymentError) {
-                                Log.d(TAG, "ON ERROR");
-                                resetState();
-                            }
+                    @Override
+                    public void onError(PaymentError paymentError) {
 
-                        });
+                    }
+                });
             } catch (UnsupportedOperationException e) {
                 Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.",
                         Toast.LENGTH_SHORT).show();

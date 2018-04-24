@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.ordermanager.sdk.R;
+import cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
 import cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
 import cielo.orders.domain.Credentials;
@@ -25,66 +26,69 @@ import cielo.orders.domain.product.PrimaryProduct;
 import cielo.orders.domain.product.SecondaryProduct;
 import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.ServiceBindListener;
+import cielo.sdk.order.payment.PaymentCode;
 
 public abstract class BasePaymentActivity extends AppCompatActivity {
 
-    protected OrderManager orderManager;
-    protected final String TAG = "PAYMENT_LISTENER";
+    public OrderManager orderManager;
+    public final String TAG = "PAYMENT_LISTENER";
 
     @BindView(R.id.button_plus_new_item)
-    RelativeLayout addItemButton;
+    public RelativeLayout addItemButton;
 
     @BindView(R.id.button_minus_new_item)
-    RelativeLayout removeItemButton;
+    public RelativeLayout removeItemButton;
 
     @BindView(R.id.item_quantity)
-    TextView itemQuantity;
+    public TextView itemQuantity;
 
     @BindView(R.id.item_name)
-    TextView itemName;
+    public TextView itemName;
 
     @BindView(R.id.item_price)
-    TextView itemPrice;
+    public TextView itemPrice;
 
     @BindView(R.id.payment_button)
-    Button paymentButton;
+    public Button paymentButton;
 
     @BindView(R.id.place_order_button)
-    Button placeOrderButton;
+    public Button placeOrderButton;
 
     @BindView(R.id.primary)
-    Spinner primarySpinner;
+    public Spinner primarySpinner;
 
     @BindView(R.id.secondary)
-    Spinner secondarySpinner;
+    public Spinner secondarySpinner;
 
     @BindView(R.id.installments)
-    Spinner installmentsSpinner;
+    public Spinner installmentsSpinner;
 
     @BindView(R.id.content_installments)
-    View contentInstallments;
+    public View contentInstallments;
 
     @BindView(R.id.content_primary)
-    View contentPrimary;
+    public View contentPrimary;
 
     @BindView(R.id.content_secondary)
-    View contentSecondary;
+    public View contentSecondary;
 
-    protected PrimarySpinnerAdapter primaryAdapter;
-    protected SecondarySpinnerAdapter secondaryAdapter;
+    public PrimarySpinnerAdapter primaryAdapter;
+    public SecondarySpinnerAdapter secondaryAdapter;
+    public PaymentCodeSpinnerAdapter paymentCodeAdapter;
 
-    protected PrimaryProduct primaryProduct;
-    protected SecondaryProduct secondaryProduct;
+    public PrimaryProduct primaryProduct;
+    public SecondaryProduct secondaryProduct;
+    public PaymentCode paymentCode;
 
-    protected int installments;
+    public int installments;
 
-    protected Order order;
+    public Order order;
 
-    protected final long itemValue = 1200;
-    protected String sku = "0000";
+    final long itemValue = 1200;
+    public String sku = "0000";
 
-    protected String productName = "";
-    protected boolean orderManagerServiceBinded = false;
+    public String productName = "";
+    public boolean orderManagerServiceBinded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +116,13 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
 
-            @Override public void onServiceBoundError(Throwable throwable) {
+            @Override
+            public void onServiceBoundError(Throwable throwable) {
                 orderManagerServiceBinded = false;
 
                 Toast.makeText(getApplicationContext(),
-                    String.format("Erro fazendo bind do serviço de ordem -> %s",
-                        throwable.getMessage()), Toast.LENGTH_LONG).show();
+                        String.format("Erro fazendo bind do serviço de ordem -> %s",
+                                throwable.getMessage()), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -198,7 +203,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     public void placeOrder() {
         if (!orderManagerServiceBinded) {
             Toast.makeText(this, "Serviço de ordem ainda não recebeu retorno do método bind().\n"
-                + "Verifique sua internet e tente novamente", Toast.LENGTH_LONG).show();
+                    + "Verifique sua internet e tente novamente", Toast.LENGTH_LONG).show();
             return;
         }
 

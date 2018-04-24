@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.ordermanager.sdk.R;
+import cielo.ordermanager.sdk.sample.deprecated.PayInformingEmailOld;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.DeviceModel;
 import cielo.orders.domain.Settings;
@@ -110,10 +111,9 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.payment_with_email_button)
     public void openExample5() {
-        Intent intent = new Intent(this, PayInformingEmail.class);
+        Intent intent = new Intent(this, PayInformingEmailOld.class);
         startActivity(intent);
     }
-
 
     @OnClick(R.id.payment_for_merchant_code)
     public void openExample6() {
@@ -122,19 +122,19 @@ public class MainActivity extends Activity {
     }
 
     @OnClick(R.id.list_orders_button)
-    public void openExample7() {
+    public void openExample8() {
         Intent intent = new Intent(this, ListOrdersActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.cancel_payment_button)
-    public void openExample8() {
+    public void openExample9() {
         Intent intent = new Intent(this, CancellationOrderList.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.print_sample_button)
-    public void openExample9() {
+    public void openExample10() {
         Intent intent = new Intent(this, PrintSampleActivity.class);
         startActivity(intent);
     }

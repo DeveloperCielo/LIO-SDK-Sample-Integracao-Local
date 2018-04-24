@@ -89,7 +89,7 @@ public class PrintSampleActivity extends AppCompatActivity {
     private void setStyles() {
         alignLeft.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_LEFT);
         alignLeft.put(PrinterAttributes.KEY_TYPEFACE, 0);
-        alignLeft.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
+        alignLeft.put(PrinterAttributes.KEY_TEXT_SIZE, 30);
 
         alignCenter.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_CENTER);
         alignCenter.put(PrinterAttributes.KEY_TYPEFACE, 1);
@@ -97,7 +97,7 @@ public class PrintSampleActivity extends AppCompatActivity {
 
         alignRight.put(PrinterAttributes.KEY_ALIGN, PrinterAttributes.VAL_ALIGN_RIGHT);
         alignRight.put(PrinterAttributes.KEY_TYPEFACE, 2);
-        alignRight.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
+        alignRight.put(PrinterAttributes.KEY_TEXT_SIZE, 10);
     }
 
     @Override
