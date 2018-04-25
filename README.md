@@ -220,46 +220,45 @@ As seguintes ações podem ser notificadas:
 O método `onPayment()` retorna um objeto `Order` com uma lista de `Payment` que possui um HashMap `PaymentFields` com a maioria dos dados da transação.
 Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 
-|PaymentFields-(**atributodoobjetoPayment**)|
-|NomedoCampo|DescriçãodoCampo|ValorExemplo|
-|--------------------------|---------------------------------------------------|---------------------------------------------|
-|clientName|NomedoPortador|VISAACQUIRERTESTCARD03|
-|hasPassword|Validarseaoperaçãopediusenha|true|
-|primaryProductCode|Códigodoprodutoprimário|4|
-|primaryProductName|Nomedoprodutoprimário|CREDITO|
-|upFrontAmount|Valordaentradadatransação|2500|
-|creditAdminTax|Valordataxadeadministraçãodecrédito|0|
-|firstQuotaDate|Datadedébitodaprimeiraparcela|25/12/2018(dd/MM/yyy)|
-|externalCallMerchantCode|NúmerodoEstabelecimentoComercial|0010000244470001|
-|hasSignature|Validarseaoperaçãopediuassinatura|false|
-|hasPrintedClientReceipt|Validarseimprimiuaviadocliente|false|
-|applicationName|Pacotedaaplicação|cielo.launcher|
-|interestAmount|Valordejuros|5000|
-|changeAmount|Valordetroco|4500|
-|serviceTax|Taxadeserviço|2000|
-|cityState|Cidade-Estado|Barueri-SP|
-|v40Code|Tipodatransação|5(ListadeTiposdetransaçãoabaixo)|
-|secondaryProductName|Nomedoprodutosecundario|PARC.ADM|
-|paymentTransactionId|IDdatransaçãodepagamento|98437.29102507174|
-|pan|Númerocartãotokenizado(6primeirosdígitos–4últimosdígitos)|476173-0036|
-|originalTransactionId|IDdatransaçãooriginal,noscasosdecancelamento|“0”|
-|cardLabelApplication|Tipodeaplicaçãoutilizadapelocartãonatransação|CREDITODEVISA|
-|secondaryProductCode|Códigodoprodutosecundário|205|
-|documentType|(J)=PessoaJurídica(F)=PessoaFísica|J|
-|statusCode|Statusdatransação1-Autorizada2-Cancelada|1|
-|merchantAddress|Endereçodoestabelecimentocomercial(lojista)|AlamedaGrajau,219|
-|merchantCode|NúmerodoEstabelecimentoComercial|0010000244470001|
-|hasConnectivity|Validaseatransaçãofoionline|true|
-|productName|formadepagamentocompilada|CREDITOPARCELADOADM-I|
-|merchantName|NomeFantasiadoEstabelecimentoComercial|LOJAON|
-|firstQuotaAmout|Valordaprimeiraparcela|0|
-|cardCaptureType|Códigodotipodecapturadocartão|0(ListadeTiposdeCapturaabaixo)|
-|requestDate|Datadarequisiçãoemmilisegundos|1293857600000|
-|boardingTax|Taxadeembarque|1200|
-|applicationId|Pacotedeaplicação|cielo.launcher|
-|numberOfQuotas|Númerodeparcelas|2|
+| Nome do Campo| Descrição do Campo| Valor Exemplo|
+|---|---|---|
+| clientName | Nome do Portador | VISA ACQUIRER TEST CARD 03 |
+| hasPassword | Validar se a operação pediu senha | true |
+| primaryProductCode | Código do produto primário | 4 |
+| primaryProductName | Nome do produto primário | CREDITO |
+| upFrontAmount | Valor da entrada da transação | 2500 |
+| creditAdminTax | Valor da taxa de administração de crédito | 0 |
+| firstQuotaDate | Data de débito da primeira parcela | 25/12/2018 (dd/MM/yyy) |
+| externalCallMerchantCode | Número do Estabelecimento Comercial | 0010000244470001 |
+| hasSignature | Validar se a operação pediu assinatura | false |
+| hasPrintedClientReceipt | Validar se imprimiu a via do cliente | false |
+| applicationName | Pacote da aplicação | cielo.launcher |
+| interestAmount | Valor de juros | 5000 |
+| changeAmount | Valor de troco | 4500 |
+| serviceTax | Taxa de serviço | 2000 |
+| cityState | Cidade - Estado | Barueri - SP |
+| v40Code | Tipo da transação | 5 (Lista de Tipos de transação abaixo ) |
+| secondaryProductName | Nome do produto secundario | PARC. ADM |
+| paymentTransactionId | ID da transação de pagamento | 98437.29102507174 |
+| pan | Número cartão tokenizado (6 primeiros dígitos – 4 últimos dígitos) | 476173-0036 |
+| originalTransactionId | ID da transação original, nos casos de cancelamento | “0” |
+| cardLabelApplication | Tipo de aplicação utilizada pelo cartão na transação | CREDITO DE VISA |
+| secondaryProductCode | Código do produto secundário | 205 |
+| documentType | (J) = Pessoa Jurídica (F) = Pessoa Física | J |
+| statusCode | Status da transação1 - Autorizada 2 - Cancelada | 1 |
+| merchantAddress | Endereço do estabelecimento comercial (lojista) | Alameda Grajau, 219 |
+| merchantCode | Número do Estabelecimento Comercial | 0010000244470001 |
+| hasConnectivity | Valida se a transação foi online | true |
+| productName | forma de pagamento compilada | CREDITO PARCELADO ADM - I |
+| merchantName | Nome Fantasia do Estabelecimento Comercial | LOJA ON |
+| firstQuotaAmout | Valor da primeira parcela | 0 |
+| cardCaptureType | Código do tipo de captura do cartão | 0 (Lista de Tipos de Captura abaixo)|
+| requestDate | Data da requisição em milisegundos | 1293857600000 |
+| boardingTax | Taxa de embarque | 1200 |
+| applicationId | Pacote de aplicação | cielo.launcher |
+| numberOfQuotas | Número de parcelas | 2 |
 
-| Lista de Tipos de Captura                                    |
+| Lista de Tipos de Captura |                                  |
 | Código                    | Valor                            |
 |---------------------------|----------------------------------|
 | 0                         | Transação com cartão de chip     |
@@ -267,7 +266,7 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | 2                         | Transação com cartão de tarja    |
 | 3                         | Transação com cartão contactless |
 
-| Lista de Tipos de Transação - (**Isto não é válido como código primário**) |
+| Lista de Tipos de Transação | (Isto não é válido como código primário) |
 | Código                      | Valor                            |
 |-----------------------------|----------------------------------|
 | 4                           | Crédito à vista                  |
