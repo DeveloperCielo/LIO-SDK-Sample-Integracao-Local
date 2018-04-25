@@ -259,7 +259,6 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | numberOfQuotas | Número de parcelas | 2 |
 
 | Lista de Tipos de Captura |                                  |
-| Código                    | Valor                            |
 |---------------------------|----------------------------------|
 | 0                         | Transação com cartão de chip     |
 | 1                         | Transação digitada               |
@@ -267,7 +266,6 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | 3                         | Transação com cartão contactless |
 
 | Lista de Tipos de Transação | (Isto não é válido como código primário) |
-| Código                      | Valor                            |
 |-----------------------------|----------------------------------|
 | 4                           | Crédito à vista                  |
 | 5                           | Crédito parcelado administrativo |
