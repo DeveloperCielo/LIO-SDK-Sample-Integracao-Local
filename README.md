@@ -1,5 +1,5 @@
-# Integração Local - SDK v0.18.3
-última versão 0.17.15 - lançada em 19/02/2018
+# Integração Local - SDK v0.19.0
+última versão 0.18.3 - lançada em 21/03/2018
 
 ## Apresentação
 
@@ -51,7 +51,7 @@ Após configurar um novo projeto no Android Studio, é necessário incluir a dep
 Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
 
 ```
-compile 'com.cielo.lio:order-manager:0.17.15'
+compile 'com.cielo.lio:order-manager:0.19.0'
 ```
 
 > A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
@@ -182,18 +182,11 @@ Este método permite iniciar o processo de pagamento na Cielo LIO.
 
 ## Processo de Pagamento
 
-Existem 4 formas diferentes de chamar o método checkoutOrder:
+Estão disponíveis algumas formas de chamar o método checkoutOrder:
 
 ![checkoutorder formas](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/checkoutOrder.jpg)
 
-Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `checkoutOrder()` para receber os estados relacionados ao pagamento.
-
-> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. 
-As seguintes ações podem ser notificadas:  
-• onStart - Quando se dá o início do pagamento. 
-• onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um pagamento. 
-• onCancel - Quando o pagamento é cancelado. 
-• onError - Quando acontece um erro no pagamento do pedido.
+Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `checkoutOrder()` para receber os estados relacionados ao pagamento.:
 
 ```java
 PaymentListener paymentListener = new PaymentListener() {
@@ -217,49 +210,53 @@ PaymentListener paymentListener = new PaymentListener() {
 };
 ```
 
+> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. 
+As seguintes ações podem ser notificadas:  
+• onStart - Quando se dá o início do pagamento. 
+• onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um pagamento. 
+• onCancel - Quando o pagamento é cancelado. 
+• onError - Quando acontece um erro no pagamento do pedido.
+
 O método `onPayment()` retorna um objeto `Order` com uma lista de `Payment` que possui um HashMap `PaymentFields` com a maioria dos dados da transação.
 Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 
-| Nome do Campo            | Descrição do Campo                                                 | Valor Exemplo                            |
-|--------------------------|--------------------------------------------------------------------|------------------------------------------|
-| clientName               | Nome do Portador                                                   | VISA ACQUIRER TEST CARD 03               |
-| hasPassword              | Validar se a operação pediu senha                                  | true                                     |
-| primaryProductCode       | Código do produto primário                                         | 4                                        |
-| primaryProductName       | Nome do produto primário                                           | CREDITO                                  |
-| upFrontAmount            | Valor da entrada da transação                                      | 2500                                     |
-| creditAdminTax           | Valor da taxa de administração de crédito                          | 0                                        |
-| firstQuotaDate           | Data de débito da primeira parcela                                 | 25/12/2018 (dd/MM/yyy)                   |
-| externalCallMerchantCode | Número do Estabelecimento Comercial                                | 0010000244470001                         |
-| hasSignature             | Validar se a operação pediu assinatura                             | false                                    |
-| hasPrintedClientReceipt  | Validar se imprimiu a via do cliente                               | false                                    |
-| applicationName          | Pacote da aplicação                                                | cielo.launcher                           |
-| interestAmount           | Valor de juros                                                     | 5000                                     |
-| changeAmount             | Valor de troco                                                     | 4500                                     |
-| serviceTax               | Taxa de serviço                                                    | 2000                                     |
-| cityState                | Cidade - Estado                                                    | Barueri - SP                             |
-| v40Code                  | Tipo da transação                                                  | 5 (Lista de Tipos de transação)          |
-| secondaryProductName     | Nome do produto secundario                                         | PARC. ADM                                |
-| paymentTransactionId     | ID da transação de pagamento                                       | 98437.29102507174                        |
-| pan                      | Número cartão tokenizado (6 primeiros dígitos – 4 últimos dígitos) | 476173-0036                              |
-| originalTransactionId    | ID da transação original, nos casos de cancelamento                | “0”                                      |
-| cardLabelApplication     | Tipo de aplicação utilizada pelo cartão na transação               | CREDITO DE VISA                          |
-| secondaryProductCode     | Código do produto secundário                                       | 205                                      |
-| documentType             | (J) = Pessoa Jurídica (F) = Pessoa Física                          | J                                        |
-| statusCode               | Status da transação1 - Autorizada 2 - Cancelada                    | 1                                        |
-| merchantAddress          | Endereço do estabelecimento comercial (lojista)                    | Alameda Grajau, 219                      |
-| merchantCode             | Número do Estabelecimento Comercial                                | 0010000244470001                         |
-| hasConnectivity          | Valida se a transação foi online                                   | true                                     |
-| productName              | forma de pagamento compilada                                       | CREDITO PARCELADO ADM - I                |
-| merchantName             | Nome Fantasia do Estabelecimento Comercial                         | LOJA ON                                  |
-| firstQuotaAmout          | Valor da primeira parcela                                          | 0                                        |
-| cardCaptureType          | Código do tipo de captura do cartão                                | 0 (Lista de Tipos de Captura)            |
-| requestDate              | Data da requisição em milisegundos                                 | 1293857600000                            |
-| boardingTax              | Taxa de embarque                                                   | 1200                                     |
-| applicationId            | Pacote de aplicação                                                | cielo.launcher                           |
-| numberOfQuotas           | Número de parcelas                                                 | 2                                        |
-
-> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. 
-> Os outros objetos - como `Order` e `Payment` - possuem documentação própria que pode ser visualizada pelo Android Studio quando a classe é declarada.
+| Nome do Campo| Descrição do Campo| Valor Exemplo|
+|---|---|---|
+| clientName | Nome do Portador | VISA ACQUIRER TEST CARD 03 |
+| hasPassword | Validar se a operação pediu senha | true |
+| primaryProductCode | Código do produto primário | 4 |
+| primaryProductName | Nome do produto primário | CREDITO |
+| upFrontAmount | Valor da entrada da transação | 2500 |
+| creditAdminTax | Valor da taxa de administração de crédito | 0 |
+| firstQuotaDate | Data de débito da primeira parcela | 25/12/2018 (dd/MM/yyy) |
+| externalCallMerchantCode | Número do Estabelecimento Comercial | 0010000244470001 |
+| hasSignature | Validar se a operação pediu assinatura | false |
+| hasPrintedClientReceipt | Validar se imprimiu a via do cliente | false |
+| applicationName | Pacote da aplicação | cielo.launcher |
+| interestAmount | Valor de juros | 5000 |
+| changeAmount | Valor de troco | 4500 |
+| serviceTax | Taxa de serviço | 2000 |
+| cityState | Cidade - Estado | Barueri - SP |
+| v40Code | Tipo da transação | 5 (Lista de Tipos de transação abaixo ) |
+| secondaryProductName | Nome do produto secundario | PARC. ADM |
+| paymentTransactionId | ID da transação de pagamento | 98437.29102507174 |
+| pan | Número cartão tokenizado (6 primeiros dígitos – 4 últimos dígitos) | 476173-0036 |
+| originalTransactionId | ID da transação original, nos casos de cancelamento | “0” |
+| cardLabelApplication | Tipo de aplicação utilizada pelo cartão na transação | CREDITO DE VISA |
+| secondaryProductCode | Código do produto secundário | 205 |
+| documentType | (J) = Pessoa Jurídica (F) = Pessoa Física | J |
+| statusCode | Status da transação1 - Autorizada 2 - Cancelada | 1 |
+| merchantAddress | Endereço do estabelecimento comercial (lojista) | Alameda Grajau, 219 |
+| merchantCode | Número do Estabelecimento Comercial | 0010000244470001 |
+| hasConnectivity | Valida se a transação foi online | true |
+| productName | forma de pagamento compilada | CREDITO PARCELADO ADM - I |
+| merchantName | Nome Fantasia do Estabelecimento Comercial | LOJA ON |
+| firstQuotaAmout | Valor da primeira parcela | 0 |
+| cardCaptureType | Código do tipo de captura do cartão | 0 (Lista de Tipos de Captura abaixo)|
+| requestDate | Data da requisição em milisegundos | 1293857600000 |
+| boardingTax | Taxa de embarque | 1200 |
+| applicationId | Pacote de aplicação | cielo.launcher |
+| numberOfQuotas | Número de parcelas | 2 |
 
 | Lista de Tipos de Captura |                                  |
 |---------------------------|----------------------------------|
@@ -280,6 +277,8 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | 11                          | Crediário simulação              |
 | 13                          | Voucher alimentação/refeição     |
 | 28                          | Cancelamento de venda            |
+
+> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. 
 
 ### 1. Pagamento Parcial
 
@@ -326,7 +325,9 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento de v
 
 No Pagamento Direto, o valor a ser pago e a forma de pagamento (crédito, débito, parcelado) será definido dentro da aplicação do parceiro. Na sequência o fluxo de pagamento da Cielo LIO é iniciado (inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail comprovante).
 
-Para realizar o pagamento direto é necessário, primeiramente, verificar os tipos de pagamento habilitados para Cielo LIO do estabelecimento comercial utilizando a função de consulta de formas de pagamentos habilitadas para LIO:
+#### Códigos de Pagamento
+
+Para realizar o pagamento direto é necessário, primeiramente, verificar os tipos de pagamento habilitados para Cielo LIO do estabelecimento comercial utilizando a função de consulta abaixo:
 
 ```java
 ArrayList<PrimaryProduct> paymentTypes = orderManager.retrievePaymentType();
@@ -341,20 +342,34 @@ Os seguintes campos serão retornados por essa função:
 | id         |identificador do código no sistema. | `Long` |
 | code         | utilizado na função de pagamento. | `String` |
 | name         | Nome do método de pagamento para efeitos de exibição. | `String` |
-| secondaryProducts         | Listagem de códigos de pagamento secundário. ex.: À Vista, Parcelado, etc. | `ArrayList<SecondaryProduct>`   |
+| secondaryProducts         | Listagem de códigos de pagamento secundário. ex.: À Vista, Parcelado, etc. | ```ArrayList<SecondaryProduct>```   |
 
 Com os códigos de pagamentos disponíveis para a Cielo LIO do estabelecimento comercial, basta realizar a chamada de Pagamento Direto informando os códigos dos produtos:
 
 ```java
+
 PrimaryProduct primaryProduct = paymentTypes.get(0);
 SecondaryProduct secondaryProduct = primaryProduct.getSecondaryProducts().get(0);
 
 String primaryCode = primaryProduct.getCode();
 String secondaryCode = secondaryProduct.getCode();
 
-orderManager.checkoutOrder(orderId, primaryCode, secondaryCode paymentListener);
+orderManager.checkoutOrder(orderId, primaryCode, secondaryCode, paymentListener);
 
 ```
+
+>**Atenção:** Na versão 0.19.0 do SDK foram introduzidos códigos de pagamento para as principais operações disponibilizadas na LIO, facilitando assim as chamadas de pagamento. É importante ressaltar que as formas de pagamento são configuradas de acordo com o estabelecimento comercial, e nem todas estarão disponíveis em todas os terminais. Caso o método de pagamento selecionado não esteja disponível na LIO em questão, ocorrerá uma exceção do tipo `NoSuchElementException`.
+
+| PaymentCode            |
+|------------------------|
+| DEBITO_AVISTA          |
+| DEBITO_PREDATADO       |
+| CREDITO_AVISTA         |
+| CREDITO_PARCELADO_LOJA |
+| CREDITO_PARCELADO_ADM  |
+| PRE_AUTORIZACAO        |
+| VOUCHER_ALIMENTACAO    |
+| VOUCHER_REFEICAO       |
 
 Nessa forma de pagamento é possível enviar qualquer valor a ser pago e a forma de pagamento. Para fazer a chamada é necessário enviar os seguintes parâmetros:
 
@@ -364,6 +379,8 @@ Nessa forma de pagamento é possível enviar qualquer valor a ser pago e a forma
 | value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
 | primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
 | secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
+| installments (**não obrigatório**) | Número de parcelas. | `Long` |
+| email (**não obrigatório**) | Email informado | `String` |
 | paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
@@ -372,7 +389,13 @@ Nessa forma de pagamento é possível enviar qualquer valor a ser pago e a forma
 orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, paymentListener);
 ```
 
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento de valor:
+ou
+
+```java
+orderManager.checkoutOrder(orderId, value, paymentCode, paymentListener);
+```
+
+Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento direto:
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-direto.jpg)
 
 ### 4. Pagamento parcelado
@@ -392,7 +415,19 @@ Nessa forma de pagamento, é necessário apenas fazer a chamada do método envia
 **Fluxo da transação utilizando o pagamento parcelado da Cielo LIO**
 
 ```java
-orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments,  paymentListener);
+orderManager.checkoutOrder(orderId, value,  primaryCode, secondaryCode, installments,  paymentListener);
+```
+
+ou 
+
+```java
+orderManager.checkoutOrderStore(orderId, value,  installments,  paymentListener);
+```
+
+ou
+
+```java
+orderManager.checkoutOrderAdm(orderId, value,  installments,  paymentListener);
 ```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parcelado:
@@ -400,7 +435,7 @@ Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parc
 
 ### 5. Pagamento informando email
 
-Exatamente como o método anterior, com a diferença que neste caso é possível informar o email para facilitar o preenchimento na hora de enviar o comprovante para o cliente. Caso queira utilizar essa função para realizar outro tipo de pagamento que não o parcelado, basta informar os códigos primários desejados e informar **0** no número de parcelas.
+Neste caso é possível informar o email para facilitar o preenchimento na hora de enviar o comprovante para o cliente.
 Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
@@ -420,6 +455,37 @@ orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installme
 ```
 
 Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com email:
+![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
+
+### 6. Pagamento informando EC
+
+Esse método é disponibilizado para o caso de ser necessário efetuar um pagamento em um EC diferente do principal. O EC informado deve estar configurado na LIO na hora da inicialização para que funcione ou o SDK irá enviar uma exceção do tipo `InvalidParameterException`.
+Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
+
+| Atributo        | Descrição  | Domínio|
+|-----------------|--------------------------------------------------------------------------------------------------|-----------------------------------------|
+| orderId         | O identificador do pedido a ser pago. | `String` |
+| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
+| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
+| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
+| installments | Número de parcelas. | `Long` |
+| email | Email informado | `String` |
+| merchantCode | Número do EC | `String` |
+| paymentListener | Callback de pagamento | `cielo.sdk.order.payment.PaymentListener` |
+
+**Fluxo da transação utilizando o pagamento direto da Cielo LIO**
+
+```java
+orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments, email, merchantCode, paymentListener);
+```
+
+ou
+
+```java
+orderManager.checkoutOrder(orderId, value, paymentCode, installments, email, merchantCode, paymentListener);
+```
+
+Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com EC:
 ![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
 
 ## Cancelamento
