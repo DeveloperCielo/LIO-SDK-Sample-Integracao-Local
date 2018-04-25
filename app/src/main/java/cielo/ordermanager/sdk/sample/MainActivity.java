@@ -109,32 +109,26 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.payment_with_email_button)
-    public void openExample5() {
-        Intent intent = new Intent(this, PayInformingEmailOld.class);
-        startActivity(intent);
-    }
-
     @OnClick(R.id.payment_for_merchant_code)
-    public void openExample6() {
+    public void openExample5() {
         Intent intent = new Intent(this, PayInformingMerchantCode.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.list_orders_button)
-    public void openExample8() {
+    public void openExample6() {
         Intent intent = new Intent(this, ListOrdersActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.cancel_payment_button)
-    public void openExample9() {
+    public void openExample7() {
         Intent intent = new Intent(this, CancellationOrderList.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.print_sample_button)
-    public void openExample10() {
+    public void openExample8() {
         Intent intent = new Intent(this, PrintSampleActivity.class);
         startActivity(intent);
     }
