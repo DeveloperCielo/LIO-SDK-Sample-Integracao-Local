@@ -1,4 +1,4 @@
-# Integração Local - SDK v0.19.0
+# Integração Local - SDK v0.19.1
 última versão 0.18.3 - lançada em 21/03/2018
 
 ## Apresentação
@@ -51,7 +51,7 @@ Após configurar um novo projeto no Android Studio, é necessário incluir a dep
 Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
 
 ```
-compile 'com.cielo.lio:order-manager:0.19.0'
+compile 'com.cielo.lio:order-manager:0.19.1'
 ```
 
 > A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
