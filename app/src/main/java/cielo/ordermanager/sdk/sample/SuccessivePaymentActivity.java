@@ -58,7 +58,7 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
 
             try {
 
-                orderManager.checkoutOrderStore(order.getId(), order.getPrice(), 0, new PaymentListener() {
+                orderManager.checkoutOrderStore(order.getId(), order.getPrice(), installments, new PaymentListener() {
                     @Override
                     public void onStart() {
 
@@ -80,12 +80,16 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
 
                     @Override
                     public void onCancel() {
-
+                        Toast.makeText(SuccessivePaymentActivity.this, "Pagamento cancelado.",
+                                Toast.LENGTH_LONG).show();
+                        resetState();
                     }
 
                     @Override
                     public void onError(PaymentError paymentError) {
-
+                        Toast.makeText(SuccessivePaymentActivity.this, "ERRO!",
+                                Toast.LENGTH_LONG).show();
+                        resetState();
                     }
                 });
             } catch (UnsupportedOperationException e) {
