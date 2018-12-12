@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cielo.ordermanager.sdk">
+    package="com.com.cielo.ordermanager.sdk">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,6 +29,8 @@
         <activity android:name=".sample.CancelPaymentActivity" />
         <activity android:name=".sample.CancellationOrderList" />
         <activity android:name=".sample.PrintSampleActivity"></activity>
+        <activity android:name=".sample.LocationSampleActivity"></activity>
+        <activity android:name=".sample.QrCodeActivity"></activity>
 
         <receiver android:name=".receiver.LIOCancelationBroadcastReceiver">
             <intent-filter>
@@ -33,6 +38,7 @@
                 </action>
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

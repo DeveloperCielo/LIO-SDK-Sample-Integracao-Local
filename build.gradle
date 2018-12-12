@@ -3,17 +3,20 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        maven { url 'https://mapbox.bintray.com/mapbox' }
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 

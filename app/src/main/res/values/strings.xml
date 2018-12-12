@@ -9,6 +9,8 @@
     <string name="orders_list">Listagem de Ordens</string>
     <string name="cancel_payment">Cancelar Pagamento</string>
     <string name="print_sample">Teste Impressão (V2)</string>
+    <string name="location_sample">Localização</string>
+    <string name="qr_code_sample">QR Code</string>
 
     <string name="print_simple_text">Imprimir texto simples</string>
     <string name="print_multi_columns">Imprimir múltplas colunas</string>
@@ -38,5 +40,7 @@
     </string-array>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="refresh_list">Atualizar Lista</string>
+
+    <string name="mapbox_access_token">MAPBOX TOKEN</string>
 
 </resources>

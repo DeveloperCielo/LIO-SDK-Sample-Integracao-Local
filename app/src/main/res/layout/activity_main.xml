@@ -74,6 +74,16 @@
                 style="@style/PrimaryActionButton"
                 android:text="@string/print_sample" />
 
+            <Button
+                android:id="@+id/location_sample_button"
+                style="@style/PrimaryActionButton"
+                android:text="@string/location_sample" />
+
+            <Button
+                android:id="@+id/qr_code_sample"
+                style="@style/PrimaryActionButton"
+                android:text="@string/qr_code_sample" />
+
         </LinearLayout>
 
     </ScrollView>
