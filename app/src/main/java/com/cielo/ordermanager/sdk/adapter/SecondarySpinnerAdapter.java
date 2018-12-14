@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.cielo.ordermanager.sdk.R;
+
 import java.util.List;
 
-import com.cielo.ordermanager.sdk.R;
 import cielo.orders.domain.product.SecondaryProduct;
 
 public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
