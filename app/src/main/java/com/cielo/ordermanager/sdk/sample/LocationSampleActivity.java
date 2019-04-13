@@ -1,10 +1,8 @@
 package com.cielo.ordermanager.sdk.sample;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,7 +11,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.cielo.ordermanager.sdk.BuildConfig;
 import com.cielo.ordermanager.sdk.R;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -37,8 +37,10 @@ public class LocationSampleActivity extends AppCompatActivity implements Locatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        locationManager =
-                (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (getString(R.string.mapbox_access_token).equals("MAPBOX TOKEN") && BuildConfig.DEBUG)
+            Toast.makeText(this, getString(R.string.change_mapbox_access_token), Toast.LENGTH_LONG).show();
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
