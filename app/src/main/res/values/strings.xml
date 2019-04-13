@@ -41,6 +41,11 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="refresh_list">Atualizar Lista</string>
 
+
+    <string name="location_permission_necessary">É necessário permitir o acesso a localização. Acesse as informações do aplicativo para dar a permissão.</string>
+    <string name="camera_permission_necessary">É necessário permitir o acesso a câmera. Acesse as informações do aplicativo para dar a permissão.</string>
+    <string name="change_mapbox_access_token">Para ver o mapa, troque o access token do Map Box no arquivo strings.xml</string>
+
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
 
 </resources>

@@ -1,13 +1,17 @@
 package com.cielo.ordermanager.sdk.sample;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cielo.ordermanager.sdk.R;
 
@@ -21,6 +25,12 @@ import cielo.sdk.info.InfoManager;
 import cielo.sdk.order.OrderManager;
 
 public class MainActivity extends Activity {
+
+    private static final int REQCODE_PERM_LOCATION = 101;
+    private static final String[] LOCATION_PERMISSIONS = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+
+    private static final int REQCODE_PERM_CAMERA = 102;
+    private static final String[] CAMERA_PERMISSIONS = new String[]{Manifest.permission.CAMERA};
 
     @BindView(R.id.device_model_text)
     TextView deviceModelText;
@@ -135,15 +145,42 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.location_sample_button)
     public void openExample9() {
-        Intent intent = new Intent(this, LocationSampleActivity.class);
-        startActivity(intent);
+        if (Util.checkPermissions(LOCATION_PERMISSIONS, this)) {
+            Intent intent = new Intent(this, LocationSampleActivity.class);
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, LOCATION_PERMISSIONS, REQCODE_PERM_LOCATION);
+        }
     }
-
 
     @OnClick(R.id.qr_code_sample)
     public void openExample10() {
-        Intent intent = new Intent(this, QrCodeActivity.class);
-        startActivity(intent);
+        if (Util.checkPermissions(CAMERA_PERMISSIONS, this)) {
+            Intent intent = new Intent(this, QrCodeActivity.class);
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, CAMERA_PERMISSIONS, REQCODE_PERM_CAMERA);
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQCODE_PERM_LOCATION:
+                if (Util.checkPermissions(LOCATION_PERMISSIONS, this))
+                    openExample9();
+                else
+                    Toast.makeText(this, getString(R.string.location_permission_necessary), Toast.LENGTH_LONG).show();
+                break;
+            case REQCODE_PERM_CAMERA:
+                if (Util.checkPermissions(CAMERA_PERMISSIONS, this))
+                    openExample10();
+                else
+                    Toast.makeText(this, getString(R.string.camera_permission_necessary), Toast.LENGTH_LONG).show();
+                break;
+        }
+
+    }
 }
