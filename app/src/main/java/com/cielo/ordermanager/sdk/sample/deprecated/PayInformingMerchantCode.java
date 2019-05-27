@@ -1,6 +1,7 @@
-package com.cielo.ordermanager.sdk.sample;
+package com.cielo.ordermanager.sdk.sample.deprecated;
 
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,13 +16,13 @@ import cielo.orders.domain.Order;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
-public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
+public class PayInformingMerchantCode extends SelectPaymentMethodActivity {
 
     @Override
     protected void configUi() {
         super.configUi();
 
-        productName = "Teste - Parcelado";
+        productName = "Teste - MerchantCde";
 
         List<String> installmentsArray = Arrays.asList(getResources()
                 .getStringArray(R.array.installments_array));
@@ -31,9 +32,6 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
 
         installmentsSpinner.setAdapter(installmentsAdapter);
         contentInstallments.setVisibility(View.VISIBLE);
-        contentPrimary.setVisibility(View.GONE);
-        contentSecondary.setVisibility(View.GONE);
-
         installmentsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView,
@@ -56,40 +54,37 @@ public class SuccessivePaymentActivity extends SelectPaymentMethodActivity {
 
             try {
 
-                orderManager.checkoutOrderStore(order.getId(), order.getPrice(), installments, new PaymentListener() {
-                    @Override
-                    public void onStart() {
+                orderManager.checkoutOrder(order.getId(), order.getPrice(), paymentCode, installments, "teste@email.com","0000000000000003", new PaymentListener() {
 
-                    }
+                            @Override
+                            public void onStart() {
+                                Log.d(TAG, "ON START");
+                            }
 
-                    @Override
-                    public void onPayment(Order paidOrder) {
-                        Log.d(TAG, "ON PAYMENT");
+                            @Override
+                            public void onPayment(@NonNull Order paidOrder) {
+                                Log.d(TAG, "ON PAYMENT");
 
-                        order = paidOrder;
-                        order.markAsPaid();
-                        orderManager.updateOrder(order);
+                                order = paidOrder;
+                                order.markAsPaid();
+                                orderManager.updateOrder(order);
 
-                        Toast.makeText(SuccessivePaymentActivity.this, "Pagamento efetuado com sucesso.",
-                                Toast.LENGTH_LONG).show();
+                                resetState();
+                            }
 
-                        resetState();
-                    }
+                            @Override
+                            public void onCancel() {
+                                Log.d(TAG, "ON CANCEL");
+                                resetState();
+                            }
 
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(SuccessivePaymentActivity.this, "Pagamento cancelado.",
-                                Toast.LENGTH_LONG).show();
-                        resetState();
-                    }
+                            @Override
+                            public void onError(@NonNull PaymentError paymentError) {
+                                Log.d(TAG, "ON ERROR");
+                                resetState();
+                            }
 
-                    @Override
-                    public void onError(PaymentError paymentError) {
-                        Toast.makeText(SuccessivePaymentActivity.this, "ERRO!",
-                                Toast.LENGTH_LONG).show();
-                        resetState();
-                    }
-                });
+                        });
             } catch (UnsupportedOperationException e) {
                 Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.",
                         Toast.LENGTH_SHORT).show();

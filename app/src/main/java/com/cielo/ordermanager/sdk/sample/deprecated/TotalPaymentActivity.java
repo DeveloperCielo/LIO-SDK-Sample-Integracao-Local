@@ -1,27 +1,32 @@
-package com.cielo.ordermanager.sdk.sample;
+package com.cielo.ordermanager.sdk.sample.deprecated;
 
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.cielo.ordermanager.sdk.sample.BasePaymentActivity;
 
 import cielo.orders.domain.Order;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
-public class ParcialPaymentActivity extends BasePaymentActivity {
+public class TotalPaymentActivity extends BasePaymentActivity {
 
     @Override
     protected void configUi() {
         super.configUi();
-        productName = "Teste - Parcial";
+
+        productName = "Teste - Valor";
     }
+
 
     @Override
     public void makePayment() {
         if (order != null) {
 
             orderManager.placeOrder(order);
-            orderManager.checkoutOrder(order.getId(), new PaymentListener() {
+            orderManager.checkoutOrder(order.getId(), order.getPrice(), new PaymentListener() {
 
                 @Override
                 public void onStart() {
@@ -33,8 +38,12 @@ public class ParcialPaymentActivity extends BasePaymentActivity {
                     Log.d(TAG, "ON PAYMENT");
 
                     order = paidOrder;
+
                     order.markAsPaid();
                     orderManager.updateOrder(order);
+
+                    Toast.makeText(TotalPaymentActivity.this,"Pagamento efetuado com sucesso.",
+                            Toast.LENGTH_LONG).show();
 
                     resetState();
                 }
@@ -53,5 +62,11 @@ public class ParcialPaymentActivity extends BasePaymentActivity {
 
             });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        orderManager.unbind();
+        super.onDestroy();
     }
 }

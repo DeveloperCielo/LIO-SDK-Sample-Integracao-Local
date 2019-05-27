@@ -148,30 +148,24 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
         productName = "produto teste";
 
-        addItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (order != null) {
-                    order.addItem(sku, productName, itemValue, 1, "EACH");
-                    orderManager.updateOrder(order);
-                    updatePaymentButton();
-                } else {
-                    showCreateOrderMessage();
-                }
+        addItemButton.setOnClickListener(v -> {
+            if (order != null) {
+                order.addItem(sku, productName, itemValue, 1, "EACH");
+                orderManager.updateOrder(order);
+                updatePaymentButton();
+            } else {
+                showCreateOrderMessage();
             }
         });
 
-        removeItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (order != null && order.getItems().size() > 0) {
-                    Item item = order.getItems().get(0);
-                    order.decreaseQuantity(item.getId());
-                    orderManager.updateOrder(order);
-                    updatePaymentButton();
-                } else {
-                    showCreateOrderMessage();
-                }
+        removeItemButton.setOnClickListener(v -> {
+            if (order != null && order.getItems().size() > 0) {
+                Item item = order.getItems().get(0);
+                order.decreaseQuantity(item.getId());
+                orderManager.updateOrder(order);
+                updatePaymentButton();
+            } else {
+                showCreateOrderMessage();
             }
         });
     }

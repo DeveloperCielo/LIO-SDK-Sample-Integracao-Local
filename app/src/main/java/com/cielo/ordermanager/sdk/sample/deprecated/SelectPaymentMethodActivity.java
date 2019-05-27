@@ -1,4 +1,4 @@
-package com.cielo.ordermanager.sdk.sample;
+package com.cielo.ordermanager.sdk.sample.deprecated;
 
 
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
+import com.cielo.ordermanager.sdk.sample.BasePaymentActivity;
 
 import java.util.List;
 

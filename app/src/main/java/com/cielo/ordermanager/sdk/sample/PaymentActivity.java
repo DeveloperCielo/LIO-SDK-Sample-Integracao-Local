@@ -5,26 +5,37 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import cielo.orders.domain.CheckoutRequest;
 import cielo.orders.domain.Order;
+import cielo.sdk.order.payment.PaymentCode;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
-public class TotalPaymentActivity extends BasePaymentActivity {
+public class PaymentActivity extends BasePaymentActivity {
 
     @Override
     protected void configUi() {
         super.configUi();
 
-        productName = "Teste - Valor";
+        productName = "Teste - Pagamento";
     }
-
 
     @Override
     public void makePayment() {
         if (order != null) {
 
             orderManager.placeOrder(order);
-            orderManager.checkoutOrder(order.getId(), order.getPrice(), new PaymentListener() {
+
+            CheckoutRequest request = new CheckoutRequest.Builder()
+                    .orderId(order.getId())
+                    .amount(itemValue)
+                    .paymentCode(PaymentCode.CREDITO_AVISTA)
+                    .installments(0)
+                    .email("teste@email.com")
+                    .ec("0000000000000003")
+                    .build();
+
+            orderManager.checkoutOrder(request, new PaymentListener() {
 
                 @Override
                 public void onStart() {
@@ -40,7 +51,7 @@ public class TotalPaymentActivity extends BasePaymentActivity {
                     order.markAsPaid();
                     orderManager.updateOrder(order);
 
-                    Toast.makeText(TotalPaymentActivity.this,"Pagamento efetuado com sucesso.",
+                    Toast.makeText(PaymentActivity.this,"Pagamento efetuado com sucesso.",
                             Toast.LENGTH_LONG).show();
 
                     resetState();

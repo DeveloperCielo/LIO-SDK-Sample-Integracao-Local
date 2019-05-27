@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cielo.ordermanager.sdk.R;
+import com.cielo.ordermanager.sdk.sample.deprecated.ParcialPaymentActivity;
+import com.cielo.ordermanager.sdk.sample.deprecated.PayInformingMerchantCode;
+import com.cielo.ordermanager.sdk.sample.deprecated.SelectPaymentMethodActivity;
+import com.cielo.ordermanager.sdk.sample.deprecated.SuccessivePaymentActivity;
+import com.cielo.ordermanager.sdk.sample.deprecated.TotalPaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
