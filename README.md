@@ -1,5 +1,5 @@
-# Integração Local - SDK v0.19.5
-última versão 0.19.4 - lançada em 25/07/2018
+# Integração Local - SDK v1.4.0
+última versão 0.19.5 - lançada em 27/09/2018
 
 ## Apresentação
 
@@ -280,213 +280,56 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 
 > Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. 
 
-### 1. Pagamento Parcial
+### 1. Requisição de pagamento
 
-No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas da Cielo LIO. Na sequência, o fluxo de pagamento da Cielo LIO é iniciado (definir o valor a ser pago, escolher a forma de pagamento, inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail o comprovante).
+Para realizar um requeste de pagamento é preciso informar, pelo menos, o OrderId criado anteriormamente. Dependendo dos parametros informados na hora de montar o request de pagamento, um dos processos citados acima será iniciado. No Pagamento parcial, o valor do pagamento é informado dentro do fluxo de telas da Cielo LIO. Na sequência, o fluxo de pagamento da Cielo LIO é iniciado (definir o valor a ser pago, escolher a forma de pagamento, inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail o comprovante).
 
 ```java
-orderManager.checkoutOrder(orderId, paymentListener);
+CheckoutRequest request = new CheckoutRequest.Builder()
+                    .orderId(order.getId()) /* Obrigatório */
+                    .amount(123456789) /* Opcional */
+                    .ec("999999999999999") /* Opcional (precisa estar habilitado na LIO) */
+                    .installments(3) /* Opcional */
+                    .email("teste@email.com") /* Opcional */
+                    .paymentCode(PaymentCode.CREDITO_PARCELADO_LOJA) /* Opcional */
+                    .build(); 
+```
+
+| Atributo        | Descrição                                                                     | Domínio    |
+|-----------------|-------------------------------------------------------------------------------|------------|
+| orderId                     | O identificador do pedido a ser pago.                             | `String`   |
+| amount                      | Valor a ser pago. R$ 10,00 deve ser enviado como 1000.            | `Long`     |
+| ec                          | Em casos de multi-ec, informar aqui o número correspondente       | `String`   |
+| installments                | número de parcelas. para pagamento a vista, não precisa informar  | `Int`      |
+| email                       | email pra onde será enviado o comprovante                         | `String`   |
+| paymentCode                 | Código da operação de pagamento                                   | `cielo.sdk.order.payment.PaymentCode`   |
+
+```java                    
+orderManager.checkoutOrder(request, paymentListener);
 ```
 
 Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
 
 | Atributo        | Descrição  | Domínio|
 |-----------------|-----------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | `String` |
+| request         | O objeto contendo as informações da ordem a ser paga. | `cielo.orders.domain.CheckoutRequest` |
 | paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
-
-**Fluxo da transação utilizando o pagamento parcial da Cielo LIO**
-
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parcial:
-![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcial.jpg)
-
-### 2. Pagamento de valor
-
-No pagamento de Valores, o valor a ser pago é informado pelo aplicativo e a forma de pagamento (crédito, débito, parcelado) é escolhida dentro do fluxo de telas da Cielo LIO.
-
-```java
-orderManager.checkoutOrder(orderId, value, paymentListener);
-```
-
-Nessa forma de pagamento é possível enviar qualquer valor a ser pago (valor total ou valor parcial do pedido), tudo depende do modelo de negócio adotado pelo aplicativo do parceiro. Para fazer a chamada é necessário enviar os seguintes parâmetros:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|-------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | `String` |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
-| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
-
-**Fluxo da transação utilizando o pagamento de valor da Cielo LIO**
-
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento de valor:
-![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-valor.jpg)
-
-### 3. Pagamento direto
-
-No Pagamento Direto, o valor a ser pago e a forma de pagamento (crédito, débito, parcelado) será definido dentro da aplicação do parceiro. Na sequência o fluxo de pagamento da Cielo LIO é iniciado (inserir o cartão, digitar a senha e visualizar e/ou enviar por e-mail comprovante).
-
-#### Códigos de Pagamento
-
-Para realizar o pagamento direto é necessário, primeiramente, verificar os tipos de pagamento habilitados para Cielo LIO do estabelecimento comercial utilizando a função de consulta abaixo:
-
-```java
-ArrayList<PrimaryProduct> paymentTypes = orderManager.retrievePaymentType();
-```
-
-Esta função disponibilizará uma lista de objetos do tipo PrimaryProduct onde será possível recuperar os códigos de pagamento habilitados.
-
-Os seguintes campos serão retornados por essa função:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|-------------------------------------------------------------------|-----------------------------------------|
-| id         |identificador do código no sistema. | `Long` |
-| code         | utilizado na função de pagamento. | `String` |
-| name         | Nome do método de pagamento para efeitos de exibição. | `String` |
-| secondaryProducts         | Listagem de códigos de pagamento secundário. ex.: À Vista, Parcelado, etc. | ```ArrayList<SecondaryProduct>```   |
-
-Com os códigos de pagamentos disponíveis para a Cielo LIO do estabelecimento comercial, basta realizar a chamada de Pagamento Direto informando os códigos dos produtos:
-
-```java
-
-PrimaryProduct primaryProduct = paymentTypes.get(0);
-SecondaryProduct secondaryProduct = primaryProduct.getSecondaryProducts().get(0);
-
-String primaryCode = primaryProduct.getCode();
-String secondaryCode = secondaryProduct.getCode();
-
-orderManager.checkoutOrder(orderId, primaryCode, secondaryCode, paymentListener);
-
-```
 
 >**Atenção:** Na versão 0.19.0 do SDK foram introduzidos códigos de pagamento para as principais operações disponibilizadas na LIO, facilitando assim as chamadas de pagamento. É importante ressaltar que as formas de pagamento são configuradas de acordo com o estabelecimento comercial, e nem todas estarão disponíveis em todas os terminais. Caso o método de pagamento selecionado não esteja disponível na LIO em questão, ocorrerá uma exceção do tipo `NoSuchElementException`.
 
-| PaymentCode            |
-|------------------------|
-| DEBITO_AVISTA          |
-| DEBITO_PREDATADO       |
-| CREDITO_AVISTA         |
-| CREDITO_PARCELADO_LOJA |
-| CREDITO_PARCELADO_ADM  |
-| PRE_AUTORIZACAO        |
-| VOUCHER_ALIMENTACAO    |
-| VOUCHER_REFEICAO       |
-
-Nessa forma de pagamento é possível enviar qualquer valor a ser pago e a forma de pagamento. Para fazer a chamada é necessário enviar os seguintes parâmetros:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|-------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | `String` |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
-| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
-| installments (**não obrigatório**) | Número de parcelas. | `Long` |
-| email (**não obrigatório**) | Email informado | `String` |
-| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
-
-**Fluxo da transação utilizando o pagamento direto da Cielo LIO**
-
-```java
-orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, paymentListener);
-```
-
-ou
-
-```java
-orderManager.checkoutOrder(orderId, value, paymentCode, paymentListener);
-```
-
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento direto:
-![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-direto.jpg)
-
-### 4. Pagamento parcelado
-
-Para efetuar um pagamento parcelado, é preciso consultar as formas de pagamento utilizando a função disponibilizada no SDK, escolher crédito no produto primário e crédito no produto secundário **obrigatoriamente** e informar o número de parcelas no momento do checkout. É importante lembrar que se os códigos de pagamento forem informados incorretamente ou se o número de parcelas não for maior do que **0**, o sistema acusará erro.
-Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|--------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | `String` |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
-| secondaryCode | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
-| installments | Número de parcelas. | `Long` |
-| paymentListener | Callback de pagamento. | `cielo.sdk.order.payment.PaymentListener` |
-
-**Fluxo da transação utilizando o pagamento parcelado da Cielo LIO**
-
-```java
-orderManager.checkoutOrder(orderId, value,  primaryCode, secondaryCode, installments,  paymentListener);
-```
-
-ou 
-
-```java
-orderManager.checkoutOrderStore(orderId, value,  installments,  paymentListener);
-```
-
-ou
-
-```java
-orderManager.checkoutOrderAdm(orderId, value,  installments,  paymentListener);
-```
-
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento parcelado:
-![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
-
-### 5. Pagamento informando email
-
-Neste caso é possível informar o email para facilitar o preenchimento na hora de enviar o comprovante para o cliente.
-Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|--------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | `String` |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
-| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
-| installments | Número de parcelas. | `Long` |
-| email | Email informado | `String` |
-| paymentListener | Callback de pagamento | `cielo.sdk.order.payment.PaymentListener` |
-
-**Fluxo da transação utilizando o pagamento direto da Cielo LIO**
-
-```java
-orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments, email, paymentListener);
-```
-
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com email:
-![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
-
-### 6. Pagamento informando EC
-
-Esse método é disponibilizado para o caso de ser necessário efetuar um pagamento em um EC diferente do principal. O EC informado deve estar configurado na LIO na hora da inicialização para que funcione ou o SDK irá enviar uma exceção do tipo `InvalidParameterException`.
-Nessa forma de pagamento, é necessário apenas fazer a chamada do método enviando os seguintes parâmetros:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|--------------------------------------------------------------------------------------------------|-----------------------------------------|
-| orderId         | O identificador do pedido a ser pago. | `String` |
-| value         | Valor a ser pago. R$ 10,00 deve ser enviado como 1000. | `Long` |
-| primaryCode         | Código identificador do método primário de pagamento ex.: Débito, Crédito. | `String` |
-| secondaryCode         | Código identificador do método secundário de pagamento ex.: À vista, Parcelado. | `String` |
-| installments | Número de parcelas. | `Long` |
-| email | Email informado | `String` |
-| merchantCode | Número do EC | `String` |
-| paymentListener | Callback de pagamento | `cielo.sdk.order.payment.PaymentListener` |
-
-**Fluxo da transação utilizando o pagamento direto da Cielo LIO**
-
-```java
-orderManager.checkoutOrder(orderId, value, primaryCode, secondaryCode, installments, email, merchantCode, paymentListener);
-```
-
-ou
-
-```java
-orderManager.checkoutOrder(orderId, value, paymentCode, installments, email, merchantCode, paymentListener);
-```
-
-Abaixo, segue um exemplo do fluxo com as telas exibidas durante o pagamento com EC:
-![fluxo parcial](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/pagamento-parcelado.jpg)
+| PaymentCode                 |
+|-----------------------------|
+| DEBITO_AVISTA               |
+| DEBITO_PREDATADO            |
+| CREDITO_AVISTA              |
+| CREDITO_PARCELADO_LOJA      |
+| CREDITO_PARCELADO_ADM       |
+| PRE_AUTORIZACAO             |
+| VOUCHER_ALIMENTACAO         |
+| VOUCHER_REFEICAO            |
+| CARTAO_LOJA_AVISTA          |
+| CARTAO_LOJA_PARCELADO_LOJA  |
+| CARTAO_LOJA_PARCELADO       |
 
 ## Cancelamento
 
@@ -522,47 +365,72 @@ CancellationListener cancellationListener = new CancellationListener() {
     }
 });
 ```
+## Cancelamento
 
-### Cancelar Pagamento Total
+Para tratar a resposta do cancelamento, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento.
+
+> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
+As seguintes ações pode ser notificadas: 
+• onSuccess - Quando um cancelamento é realizado com sucesso. 
+• onCancel - Quando o usuário cancela a operação. 
+• onError - Quando acontece um erro no cancelamento do pedido.
+
+```java
+
+CancellationListener cancellationListener = new CancellationListener() {
+    @Override
+    public void onSuccess(Order cancelledOrder) {
+        Log.d("SDKClient", "O pagamento foi cancelado.");
+    }
+    
+    @Override
+    public void onCancel() {
+        Log.d("SDKClient", "A operação foi cancelada.");
+    }
+
+    @Override
+    public void onError(PaymentError paymentError) {
+        Log.d("SDKClient", "Houve um erro no cancelamento");
+    }
+});
+
+```
+
+### Cancelar Pagamento
 
 No método Cancelar um Pagamento, é necessário ter salvo uma instância da Order que contém as informações da Order. Essa Order pode ser recuperada no sucesso do callback do pagamento ou usando o método de Listagem de Pedidos (Orders) (link para método). 
 Assim que possuir a instância da Order, utilize o método abaixo passando os parâmetros conforme o exemplo abaixo:
 
 ```java
-orderManager.cancelOrder(context, orderId, payment, cancellationListener);
+CancellationRequest request = new CancellationRequest.Builder()
+                .orderId(order.getId()) /* Obrigatório */
+                .authCode(order.getPayments().get(0).getAuthCode()) /* Obrigatório */
+                .cieloCode(order.getPayments().get(0).getCieloCode()) /* Obrigatório */
+                .value(order.getPayments().get(0).getAmount()) /* Obrigatório */
+                .ec("0000000000000003") /* Opcional */
+                .build();
+```
+Abaixo é detalhado cada um dos parâmetros enviados no método:
+
+| Atributo        | Descrição  | Domínio|
+|-----------------|-----------------------------------------------------------------------|-----------------------------------------|
+| orderID         | O identificador do pedido a ser pago. | `String` |
+| authCode         | Código de autorização do pagamento. | `String` |
+| cieloCode         | NSU do pagamento | `String` |
+| value         | Valor do pagamento a ser  cancelado | `Long` |
+| ec                          | Em casos de multi-ec, informar aqui o número correspondente       | `String`   |
+| cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. | `cielo.sdk.order.payment.CancellationListener` |
+
+```java
+orderManager.cancelOrder(request, cancellationListener);
 ```
 
 Abaixo é detalhado cada um dos parâmetros enviados no método:
 
 | Atributo        | Descrição  | Domínio|
 |-----------------|-----------------------------------------------------------------------|-----------------------------------------|
-| context         | Contexto da sua aplicação. | `String` |
-| orderID         | O identificador do pedido a ser pago. | `Long` |
-| payment         | O pagamento a ser cancelado. | `cielo.sdk.order.payment.Payment` |
+| request         | O objeto contendo as informações da ordem a ser cancelada. | `cielo.orders.domain.CancellationRequest` |
 | cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. | `cielo.sdk.order.payment.CancellationListener` |
-
-### Cancelar parte do valor de um pagamento
-
-No método Cancelar parte do valor de um Pagamento, é necessário ter salvo uma instância da Order que contém as informações da Order. Essa Order pode ser recuperada no sucesso do callback do pagamento ou usando o método de Listagem de Pedidos (Orders). 
-Os parâmetros do método anterior, com a inclusão de um parâmetro que é o valor a ser cancelado. 
-
->Nesse cenário é preciso ter atenção para não passar um valor maior do que o do pagamento, caso contrário o sistema retornará um erro.
-
-Portanto, assim que possuir a instância da Order, utilize o método abaixo passando os parâmetros conforme o exemplo abaixo:
-
-```java
-orderManager.cancelOrder(context, orderId, payment, value, cancellationListener);
-```
-
-Abaixo é detalhado cada um dos parâmetros enviados no método:
-
-| Atributo        | Descrição  | Domínio|
-|-----------------|--------------------------|-----------------------------------------|
-| context         | Contexto da sua aplicação. | `String` |
-| orderID         | O identificador do pedido a ser pago. | `Long` |
-| payment         | O pagamento a ser cancelado. | `cielo.sdk.order.payment.Payment` |
-| value           | O valor a ser cancelado. | `Long` |
-| cancellationListener | Callback que informa sobre todas as ações tomadas durante o processo de cancelamento. |  `cielo.sdk.order.payment.CancellationListener` |
 
 **Fluxo da transação utilizando o pagamento direto da Cielo LIO**
 
