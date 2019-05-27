@@ -27,6 +27,16 @@
         android:id="@+id/print_image"
         android:text="@string/print_image"
         style="@style/PrimaryActionButton"/>
+
+    <Button
+        android:id="@+id/print_qrcode"
+        android:text="@string/print_qrcode"
+        style="@style/PrimaryActionButton"/>
+
+    <Button
+        android:id="@+id/print_barcode"
+        android:text="@string/print_barcode"
+        style="@style/PrimaryActionButton"/>
   </LinearLayout>
 
 </LinearLayout>

@@ -140,7 +140,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
     }
 
     private void configSDK() {
-        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
+        Credentials credentials = new Credentials( "clientID", "accessToken");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }

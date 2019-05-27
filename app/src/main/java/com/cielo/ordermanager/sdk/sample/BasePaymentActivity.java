@@ -111,7 +111,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     }
 
     protected void configSDK() {
-        Credentials credentials = new Credentials( "na1bu1sW08FQ","bI8QDRCkhSKE");
+        Credentials credentials = new Credentials( "clientID", "accessToken");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
 

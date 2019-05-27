@@ -25,9 +25,9 @@ public class PrintSampleActivity extends AppCompatActivity {
     private PrinterManager printerManager;
     private PrinterListener printerListener;
 
-    private HashMap<String, Integer> alignCenter =  new HashMap<>();
-    private HashMap<String, Integer> alignLeft =  new HashMap<>();
-    private HashMap<String, Integer> alignRight =  new HashMap<>();
+    private HashMap<String, Integer> alignCenter = new HashMap<>();
+    private HashMap<String, Integer> alignLeft = new HashMap<>();
+    private HashMap<String, Integer> alignRight = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class PrintSampleActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable throwable) {
                 Log.d("PrintSampleActivity",
-                    String.format("printer error -> %s", throwable.getMessage()));
+                        String.format("printer error -> %s", throwable.getMessage()));
             }
         };
     }
@@ -66,11 +66,21 @@ public class PrintSampleActivity extends AppCompatActivity {
         printerManager.printImage(bitmap, alignCenter, printerListener);
     }
 
+    @OnClick(R.id.print_qrcode)
+    public void printQrCode() {
+        printerManager.printQrCode("1234567890098765432112345678900987654321", PrinterAttributes.VAL_ALIGN_CENTER, 500, printerListener);
+    }
+
+    @OnClick(R.id.print_barcode)
+    public void printBarCode() {
+        printerManager.printBarCode("1234567890098765432112345678900987654321", PrinterAttributes.VAL_ALIGN_CENTER, 500, 200, false, printerListener);
+    }
+
     @OnClick(R.id.print_multi_columns)
     public void printMultiColumns() {
-        String[] textsToPrint = new String[] { "Texto alinhado à esquerda.\n\n\n",
-            "Texto centralizado\n\n\n", "Texto alinhado à direita\n\n\n"  };
-        List<Map<String, Integer>> styles =  new ArrayList<>();
+        String[] textsToPrint = new String[]{"Texto alinhado à esquerda.\n\n\n",
+                "Texto centralizado\n\n\n", "Texto alinhado à direita\n\n\n"};
+        List<Map<String, Integer>> styles = new ArrayList<>();
         styles.add(alignLeft);
         styles.add(alignCenter);
         styles.add(alignRight);
@@ -81,7 +91,7 @@ public class PrintSampleActivity extends AppCompatActivity {
     @OnClick(R.id.print_simple_text)
     public void printSimpleText() {
         String textToPrint = "TEXTO PARA IMPRIMIR";
-        printerManager.printText( textToPrint, alignCenter, printerListener);
+        printerManager.printText(textToPrint, alignCenter, printerListener);
     }
 
     private void setStyles() {
