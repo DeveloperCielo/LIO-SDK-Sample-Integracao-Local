@@ -19,6 +19,8 @@ import com.cielo.ordermanager.sdk.R;
 
 import com.cielo.ordermanager.sdk.adapter.PaymentRecyclerViewAdapter;
 import com.cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
+
+import cielo.orders.domain.CancellationRequest;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
 import cielo.sdk.order.OrderManager;
@@ -101,7 +103,16 @@ public class CancelPaymentActivity extends AppCompatActivity {
 
         if (order != null && order.getPayments().size() > 0) {
 
-            orderManager.cancelOrder(this, order.getId(), payment, new CancellationListener() {
+            CancellationRequest request = new CancellationRequest.Builder()
+                    .orderId(order.getId())
+                    .authCode(payment.getAuthCode())
+                    .cieloCode(payment.getCieloCode())
+                    .value(payment.getAmount())
+                    .ec("0000000000000003")
+                    .build();
+
+            orderManager.cancelOrder(request, new CancellationListener() {
+
                 @Override
                 public void onSuccess(Order cancelledOrder) {
                     Log.d(TAG, "ON SUCCESS");
