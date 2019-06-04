@@ -16,7 +16,7 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cielo.printer.client.PrinterAttributes;
+import cielo.orders.domain.PrinterAttributes;
 import cielo.sdk.order.PrinterListener;
 import cielo.sdk.printer.PrinterManager;
 
