@@ -3,21 +3,79 @@ package com.cielo.ordermanager.sdk.sample;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.cielo.ordermanager.sdk.R;
+import com.cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
+
+import java.util.Arrays;
+import java.util.List;
 
 import cielo.orders.domain.CheckoutRequest;
 import cielo.orders.domain.Order;
+import cielo.orders.domain.product.PrimaryProduct;
 import cielo.sdk.order.payment.PaymentCode;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
 public class PaymentActivity extends BasePaymentActivity {
 
+
+
     @Override
     protected void configUi() {
         super.configUi();
 
-        productName = "Teste - Pagamento";
+        productName = "Teste - Pagamentos";
+
+
+
+        try {
+            paymentCodeAdapter = new PaymentCodeSpinnerAdapter(this, R.layout.spinner_item);
+            primarySpinner.setAdapter(paymentCodeAdapter);
+
+            primarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position,
+                                           long id) {
+                    paymentCode = paymentCodeAdapter.getItem(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapter) {
+                }
+            });
+
+            List<String> installmentsArray = Arrays.asList(getResources()
+                    .getStringArray(R.array.installments_array));
+            final ArrayAdapter<String> installmentsAdapter =
+                    new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+                            installmentsArray);
+
+            installmentsSpinner.setAdapter(installmentsAdapter);
+            contentSecondary.setVisibility(View.GONE);
+
+            installmentsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView,
+                                           View view, int position, long id) {
+                    installments = Integer.parseInt(installmentsAdapter.getItem(position));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapter) {
+                }
+            });
+
+        } catch (UnsupportedOperationException e) {
+            Toast.makeText(this, "Essa funcionalidade não está disponível nessa versão da Lio.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -25,15 +83,22 @@ public class PaymentActivity extends BasePaymentActivity {
         if (order != null) {
 
             orderManager.placeOrder(order);
+            String ec = merchantCode.getText().toString();
+            String userEmail = email.getText().toString();
 
-            CheckoutRequest request = new CheckoutRequest.Builder()
+            CheckoutRequest.Builder requestBuilder = new CheckoutRequest.Builder()
                     .orderId(order.getId())
                     .amount(itemValue)
-                    .paymentCode(PaymentCode.CREDITO_AVISTA)
-                    .installments(0)
-                    .email("teste@email.com")
-                    .ec("0000000000000003")
-                    .build();
+                    .paymentCode(paymentCode)
+                    .installments(installments);
+
+            if (!ec.equals(""))
+                requestBuilder.ec(ec);
+
+            if (!userEmail.equals(""))
+                requestBuilder.email(userEmail);
+
+            CheckoutRequest request = requestBuilder.build();
 
             orderManager.checkoutOrder(request, new PaymentListener() {
 

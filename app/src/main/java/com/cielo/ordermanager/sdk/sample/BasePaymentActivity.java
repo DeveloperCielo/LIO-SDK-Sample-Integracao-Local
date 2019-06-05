@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,6 +71,12 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @BindView(R.id.content_secondary)
     public View contentSecondary;
+
+    @BindView(R.id.et_merchant_code)
+    public EditText merchantCode;
+
+    @BindView(R.id.et_email)
+    public EditText email;
 
     public PrimarySpinnerAdapter primaryAdapter;
     public SecondarySpinnerAdapter secondaryAdapter;
