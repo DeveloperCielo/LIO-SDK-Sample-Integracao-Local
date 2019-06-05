@@ -90,63 +90,39 @@ public class MainActivity extends Activity {
         orderManager = new OrderManager(credentials, this);
     }
 
-    @OnClick(R.id.parcial_checkout_button)
-    public void openExample1() {
-        Intent intent = new Intent(this, ParcialPaymentActivity.class);
-        startActivity(intent);
-    }
-
     @OnClick(R.id.checkout_button)
-    public void openExample2() {
-        Intent intent = new Intent(this, TotalPaymentActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.payment_type_checkout_button)
-    public void openExample3() {
-        Intent intent = new Intent(this, SelectPaymentMethodActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.successive_payment_type_checkout_button)
-    public void openExample4() {
-        Intent intent = new Intent(this, SuccessivePaymentActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.payment_for_merchant_code)
-    public void openExample5() {
-        Intent intent = new Intent(this, PayInformingMerchantCode.class);
+    public void openExample1() {
+        Intent intent = new Intent(this, PaymentActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.list_orders_button)
-    public void openExample6() {
+    public void openExample2() {
         Intent intent = new Intent(this, ListOrdersActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.cancel_payment_button)
-    public void openExample7() {
+    public void openExample3() {
         Intent intent = new Intent(this, CancellationOrderList.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.print_sample_button)
-    public void openExample8() {
+    public void openExample4() {
         Intent intent = new Intent(this, PrintSampleActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.location_sample_button)
-    public void openExample9() {
+    public void openExample5() {
         Intent intent = new Intent(this, LocationSampleActivity.class);
         startActivity(intent);
     }
 
 
     @OnClick(R.id.qr_code_sample)
-    public void openExample10() {
+    public void openExample6() {
         Intent intent = new Intent(this, QrCodeActivity.class);
         startActivity(intent);
     }

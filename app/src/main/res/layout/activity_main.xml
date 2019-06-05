@@ -34,29 +34,9 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/parcial_checkout_button"
-                style="@style/PrimaryActionButton"
-                android:text="@string/partial_payment" />
-
-            <Button
                 android:id="@+id/checkout_button"
                 style="@style/PrimaryActionButton"
-                android:text="@string/value_payment" />
-
-            <Button
-                android:id="@+id/payment_type_checkout_button"
-                style="@style/PrimaryActionButton"
-                android:text="@string/direct_payment" />
-
-            <Button
-                android:id="@+id/successive_payment_type_checkout_button"
-                style="@style/PrimaryActionButton"
-                android:text="@string/successive_payment" />
-
-            <Button
-                android:id="@+id/payment_for_merchant_code"
-                style="@style/PrimaryActionButton"
-                android:text="@string/merchantcode_payment" />
+                android:text="@string/payment_sample" />
 
 
             <Button

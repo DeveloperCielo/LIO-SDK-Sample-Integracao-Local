@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name">SDK Tester</string>
-    <string name="partial_payment">Pagamento Parcial</string>
-    <string name="value_payment">Pagamento Valor</string>
-    <string name="direct_payment">Pagamento Direto</string>
-    <string name="successive_payment">Pagamento Parcelado</string>
-    <string name="email_payment">Pagamento informando Email</string>
-    <string name="merchantcode_payment">Pagamento informando EC</string>
+    <string name="payment_sample">Realizar Pagamento</string>
     <string name="orders_list">Listagem de Ordens</string>
     <string name="cancel_payment">Cancelar Pagamento</string>
     <string name="print_sample">Teste Impressão (V2)</string>
