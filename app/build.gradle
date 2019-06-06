@@ -11,8 +11,8 @@ android {
         applicationId "com.cielo.ordermanager.sdk.sample"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 1
-        versionName "2.0"
+        versionCode 2
+        versionName "2.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
