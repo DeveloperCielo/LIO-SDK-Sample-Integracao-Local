@@ -34,33 +34,33 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/checkout_button"
+                android:id="@+id/checkoutButton"
                 style="@style/PrimaryActionButton"
                 android:text="@string/payment_sample" />
 
 
             <Button
-                android:id="@+id/list_orders_button"
+                android:id="@+id/listOrdersButton"
                 style="@style/PrimaryActionButton"
                 android:text="@string/orders_list" />
 
             <Button
-                android:id="@+id/cancel_payment_button"
+                android:id="@+id/cancelPaymentButton"
                 style="@style/PrimaryActionButton"
                 android:text="@string/cancel_payment" />
 
             <Button
-                android:id="@+id/print_sample_button"
+                android:id="@+id/printerButton"
                 style="@style/PrimaryActionButton"
                 android:text="@string/print_sample" />
 
             <Button
-                android:id="@+id/location_sample_button"
+                android:id="@+id/locationSampleButton"
                 style="@style/PrimaryActionButton"
                 android:text="@string/location_sample" />
 
             <Button
-                android:id="@+id/qr_code_sample"
+                android:id="@+id/qrCodeSample"
                 style="@style/PrimaryActionButton"
                 android:text="@string/qr_code_sample" />
 
@@ -78,37 +78,37 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/device_model_text"
+            android:id="@+id/deviceModelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_margin="12dp"
+            android:gravity="center"
             android:text="LIO"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_below="@+id/device_model_text"
             android:layout_height="1dp"
-            android:background="@color/gray_button"/>
+            android:layout_below="@+id/deviceModelText"
+            android:background="@color/gray_button" />
 
 
         <TextView
             android:id="@+id/ec_text"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/device_model_text"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/deviceModelText"
             android:layout_margin="12dp"
             android:text="E.C:"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/merchant_code_txt"
+            android:id="@+id/merchantCodeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/device_model_text"
+            android:layout_below="@+id/deviceModelText"
             android:layout_margin="12dp"
             android:layout_toRightOf="@+id/nl_text"
             android:text="00000000000000"
@@ -118,18 +118,18 @@
             android:id="@+id/nl_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/merchantCodeText"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/merchant_code_txt"
             android:layout_margin="12dp"
             android:text="Número Lógico:"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/logic_number_txt"
+            android:id="@+id/logicNumberText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/merchant_code_txt"
+            android:layout_below="@+id/merchantCodeText"
             android:layout_margin="12dp"
             android:layout_toRightOf="@+id/nl_text"
             android:text="00000000000000"

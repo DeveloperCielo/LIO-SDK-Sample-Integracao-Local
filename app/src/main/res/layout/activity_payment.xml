@@ -7,7 +7,7 @@
     android:background="@color/white">
 
     <Button
-        android:id="@+id/place_order_button"
+        android:id="@+id/placeOrderButton"
         style="@style/PrimaryActionButton"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,24 +17,24 @@
         tools:layout_editor_absoluteY="233dp" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@id/place_order_button"
+            android:layout_below="@id/placeOrderButton"
             android:background="@color/black_alpha19" />
 
         <RelativeLayout
             android:id="@+id/add_item_row"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_below="@+id/place_order_button"
-            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/placeOrderButton"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/rectangle_ripple"
             tools:ignore="MissingPrefix">
 
@@ -53,7 +53,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/item_quantity"
+                    android:id="@+id/itemQuantity"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_product_quantity"
@@ -68,11 +68,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="72dp"
-                android:layout_toStartOf="@+id/button_minus_new_item"
+                android:layout_toStartOf="@+id/removeItemButton"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/item_name"
+                    android:id="@+id/itemName"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -84,7 +84,7 @@
                     tools:text="Produto" />
 
                 <TextView
-                    android:id="@+id/item_price"
+                    android:id="@+id/itemPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -98,11 +98,11 @@
 
 
             <RelativeLayout
-                android:id="@+id/button_minus_new_item"
+                android:id="@+id/removeItemButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/button_plus_new_item"
+                android:layout_toLeftOf="@+id/addItemButton"
                 android:background="?selectableItemBackgroundBorderless"
                 android:gravity="center">
 
@@ -115,7 +115,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/button_plus_new_item"
+                android:id="@+id/addItemButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
@@ -150,11 +150,10 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/content_primary"
+                android:id="@+id/contentPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -162,21 +161,20 @@
                     android:text="Produto Primário" />
 
                 <Spinner
-                    android:id="@+id/primary"
+                    android:id="@+id/primarySpinner"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:id="@+id/content_secondary"
+                android:id="@+id/contentSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -185,21 +183,20 @@
                     android:text="Produto Secundário" />
 
                 <Spinner
-                    android:id="@+id/secondary"
+                    android:id="@+id/secondarySpinner"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
                     android:visibility="visible" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/content_installments"
+                android:id="@+id/contentInstallments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -209,43 +206,43 @@
                     android:textStyle="" />
 
                 <Spinner
-                    android:id="@+id/installments"
+                    android:id="@+id/installmentsSpinner"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
                     android:entries="@array/installments_array" />
 
             </LinearLayout>
 
             <EditText
+                android:id="@+id/merchantCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="EC"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/et_merchant_code" />
+                android:hint="EC" />
 
             <EditText
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:id="@+id/et_email" />
+                android:hint="Email" />
 
         </LinearLayout>
     </LinearLayout>
 
 
     <Button
-        android:id="@+id/payment_button"
+        android:id="@+id/paymentButton"
         style="@style/PrimaryActionButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:enabled="false"
         android:text="@string/checkout"
         android:textColor="#FFF"

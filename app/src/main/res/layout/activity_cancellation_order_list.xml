@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textAlignment="textStart"
         android:gravity="center"
         android:text="@string/select_order_to_cancel"
+        android:textAlignment="textStart"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -23,18 +23,18 @@
 
 
     <com.cielo.ordermanager.sdk.RecyclerViewEmptySupport
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/btn_list_orders"
         android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/txtEmptyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/btn_list_orders"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:gravity="center" />
 
 </RelativeLayout>
