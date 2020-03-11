@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import butterknife.OnClick
 import cielo.orders.domain.PrinterAttributes
 import cielo.sdk.order.PrinterListener
 import cielo.sdk.printer.PrinterManager
 import com.cielo.ordermanager.sdk.R
 import com.cielo.ordermanager.sdk.TAG
+import kotlinx.android.synthetic.main.activity_print_sample.print_barcode
+import kotlinx.android.synthetic.main.activity_print_sample.print_image
+import kotlinx.android.synthetic.main.activity_print_sample.print_multi_columns
+import kotlinx.android.synthetic.main.activity_print_sample.print_qrcode
+import kotlinx.android.synthetic.main.activity_print_sample.print_simple_text
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -46,37 +50,31 @@ class PrintSampleActivity : AppCompatActivity() {
         }
     }
 
-    @OnClick(R.id.print_image)
-    fun printImage() {
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.cielo)
-        printerManager!!.printImage(bitmap, alignCenter, printerListener!!)
-    }
+    fun setupClickListeners() {
+        print_image.setOnClickListener {
+            val bitmap = BitmapFactory.decodeResource(resources, R.drawable.cielo)
+            printerManager!!.printImage(bitmap, alignCenter, printerListener!!)
+        }
+        print_qrcode.setOnClickListener {
+            printerManager!!.printQrCode("1234567890098765432112345678900987654321", PrinterAttributes.VAL_ALIGN_CENTER, 500, printerListener!!)
+        }
+        print_barcode.setOnClickListener {
+            printerManager!!.printBarCode("1234567890098765432112345678900987654321", PrinterAttributes.VAL_ALIGN_CENTER, 500, 200, false, printerListener!!)
 
-    @OnClick(R.id.print_qrcode)
-    fun printQrCode() {
-        printerManager!!.printQrCode("1234567890098765432112345678900987654321", PrinterAttributes.VAL_ALIGN_CENTER, 500, printerListener!!)
-    }
-
-    @OnClick(R.id.print_barcode)
-    fun printBarCode() {
-        printerManager!!.printBarCode("1234567890098765432112345678900987654321", PrinterAttributes.VAL_ALIGN_CENTER, 500, 200, false, printerListener!!)
-    }
-
-    @OnClick(R.id.print_multi_columns)
-    fun printMultiColumns() {
-        val textsToPrint = arrayOf("Texto alinhado à esquerda.\n\n\n",
-                "Texto centralizado\n\n\n", "Texto alinhado à direita\n\n\n")
-        val styles: MutableList<Map<String, Int>> = ArrayList()
-        styles.add(alignLeft)
-        styles.add(alignCenter)
-        styles.add(alignRight)
-        printerManager!!.printMultipleColumnText(textsToPrint, styles, printerListener!!)
-    }
-
-    @OnClick(R.id.print_simple_text)
-    fun printSimpleText() {
-        val textToPrint = "TEXTO PARA IMPRIMIR"
-        printerManager!!.printText(textToPrint, alignCenter, printerListener!!)
+        }
+        print_multi_columns.setOnClickListener {
+            val textsToPrint = arrayOf("Texto alinhado à esquerda.\n\n\n",
+                    "Texto centralizado\n\n\n", "Texto alinhado à direita\n\n\n")
+            val styles: MutableList<Map<String, Int>> = ArrayList()
+            styles.add(alignLeft)
+            styles.add(alignCenter)
+            styles.add(alignRight)
+            printerManager!!.printMultipleColumnText(textsToPrint, styles, printerListener!!)
+        }
+        print_simple_text.setOnClickListener {
+            val textToPrint = "TEXTO PARA IMPRIMIR"
+            printerManager!!.printText(textToPrint, alignCenter, printerListener!!)
+        }
     }
 
     private fun setStyles() {
