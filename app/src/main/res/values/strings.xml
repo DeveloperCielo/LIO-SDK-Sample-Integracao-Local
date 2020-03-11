@@ -40,8 +40,8 @@
 
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
 
-    <string name="cielo_client_id">e17z9iHB7mitdEyMYei2P9nayHFcq6B3GpGwKkjvkdltJxp7sy</string>
-    <string name="cielo_access_token">MI1GWaw9COwLpcmPcuLIApmBHkZJyzkLIEqZB9LPvM4cINR4eo</string>
+    <string name="cielo_client_id">CIELO_CLIENT_ID</string>
+    <string name="cielo_access_token">CIELO_ACCESS_TOKEN</string>
     <string name="payment">Pagamento</string>
     <string name="cancel_transaction">Cancelamento de Transação</string>
     <string name="cancel_data">Dados para Cancelamento</string>
