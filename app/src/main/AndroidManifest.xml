@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cielo.ordermanager.sdk">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -13,6 +13,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".sample.DetailOrderActivity"
+            android:parentActivityName=".sample.ListOrdersActivity">
+        </activity>
         <activity android:name=".sample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,18 +31,16 @@
         <activity android:name=".sample.ListOrdersActivity" />
         <activity android:name=".sample.CancelPaymentActivity" />
         <activity android:name=".sample.CancellationOrderList" />
-        <activity android:name=".sample.PrintSampleActivity"></activity>
-        <activity android:name=".sample.LocationSampleActivity"></activity>
-        <activity android:name=".sample.QrCodeActivity"></activity>
-        <activity android:name=".sample.PaymentActivity"></activity>
+        <activity android:name=".sample.PrintSampleActivity" />
+        <activity android:name=".sample.LocationSampleActivity" />
+        <activity android:name=".sample.QrCodeActivity" />
+        <activity android:name=".sample.PaymentActivity" />
 
         <receiver android:name=".receiver.LIOCancelationBroadcastReceiver">
             <intent-filter>
-                <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL">
-                </action>
+                <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL"></action>
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
