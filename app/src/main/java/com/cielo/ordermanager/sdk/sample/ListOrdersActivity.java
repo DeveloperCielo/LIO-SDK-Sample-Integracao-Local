@@ -1,6 +1,7 @@
 package com.cielo.ordermanager.sdk.sample;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ import butterknife.ButterKnife;
 import com.cielo.ordermanager.sdk.R;
 
 import com.cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
+import com.cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
+
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
 import cielo.orders.domain.ResultOrders;
@@ -68,7 +71,7 @@ public class ListOrdersActivity extends AppCompatActivity {
     }
 
     public void configSDK() {
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials("clientID", "accessToken");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
             @Override
@@ -100,8 +103,13 @@ public class ListOrdersActivity extends AppCompatActivity {
 
                 final List<Order> orderList = resultOrders.getResults();
 
-                recyclerView.setAdapter(
-                        new OrderRecyclerViewAdapter(orderList));
+                OrderRecyclerViewAdapter orderRecyclerViewAdapter = new OrderRecyclerViewAdapter(orderList);
+                recyclerView.setAdapter(orderRecyclerViewAdapter);
+                orderRecyclerViewAdapter.onItemClickListener = order -> {
+                    Intent intent = new Intent(this, DetailOrderActivity.class);
+                    intent.putExtra("order", order);
+                    startActivity(intent);
+                };
 
                 Log.i(TAG, "orders: " + orderList);
                 for (Order or : orderList) {

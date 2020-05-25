@@ -13,6 +13,7 @@ import cielo.orders.domain.Order;
 
 public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.OrderViewHolder> {
     private List<Order> orderItemList;
+    public OnItemClickListener onItemClickListener;
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView title;
@@ -51,6 +52,8 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             if(order.getReleaseDate() != null)
                 holder.title.setText(order.getReleaseDate().toString());
             holder.summary.setText(product + "R$ " +order.getPrice());
+
+            holder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(order));
         }
     }
 
@@ -58,4 +61,10 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
     public int getItemCount() {
         return (null != orderItemList ? orderItemList.size() : 0);
     }
+
+    public interface OnItemClickListener {
+         void onItemClick(Order order);
+    }
 }
+
+
