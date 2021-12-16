@@ -1,6 +1,6 @@
 package com.cielo.ordermanager.sdk.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,11 @@ import com.cielo.ordermanager.sdk.R;
 import cielo.orders.domain.Order;
 
 public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.OrderViewHolder> {
-    private List<Order> orderItemList;
+    private final List<Order> orderItemList;
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView summary;
+        final TextView title;
+        final TextView summary;
 
         OrderViewHolder(View itemView) {
             super(itemView);

@@ -1,9 +1,9 @@
 package com.cielo.ordermanager.sdk.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.cielo.ordermanager.sdk.BuildConfig;
 import com.cielo.ordermanager.sdk.R;
 
 import com.cielo.ordermanager.sdk.adapter.PaymentRecyclerViewAdapter;
@@ -80,7 +82,9 @@ public class CancelPaymentActivity extends AppCompatActivity {
 
                         @Override
                         public void onLongItemClick(View view, int position) {
+
                         }
+
                     })
             );
 
@@ -91,11 +95,8 @@ public class CancelPaymentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                finish();
-                return super.onOptionsItemSelected(item);
-        }
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.btn_cancel_payment)
@@ -151,7 +152,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
     }
 
     private void configSDK() {
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials(BuildConfig.CLIENT_ID, BuildConfig.ACCESS_TOKEN);
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }

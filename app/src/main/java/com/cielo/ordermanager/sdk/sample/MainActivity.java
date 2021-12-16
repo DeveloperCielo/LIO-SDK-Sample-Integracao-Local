@@ -9,12 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cielo.ordermanager.sdk.BuildConfig;
 import com.cielo.ordermanager.sdk.R;
-import com.cielo.ordermanager.sdk.sample.deprecated.ParcialPaymentActivity;
-import com.cielo.ordermanager.sdk.sample.deprecated.PayInformingMerchantCode;
-import com.cielo.ordermanager.sdk.sample.deprecated.SelectPaymentMethodActivity;
-import com.cielo.ordermanager.sdk.sample.deprecated.SuccessivePaymentActivity;
-import com.cielo.ordermanager.sdk.sample.deprecated.TotalPaymentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +49,7 @@ public class MainActivity extends Activity {
 
         merchantCodeText.setText(settings.getMerchantCode());
         logicNumberText.setText(settings.getLogicNumber());
-        Float batteryLevel = infoManager.getBatteryLevel(this);
+        float batteryLevel = infoManager.getBatteryLevel(this);
 
         DeviceModel deviceModel = infoManager.getDeviceModel();
         if (deviceModel == DeviceModel.LIO_V1) {
@@ -81,12 +77,11 @@ public class MainActivity extends Activity {
         Log.i("TAG", "FINGERPRINT: " + Build.FINGERPRINT);
         Log.i("TAG", "Version Code: " + Build.VERSION.RELEASE);
         Log.i("TAG", "Hardware: " + Build.HARDWARE);
-
     }
 
     protected void conifgSDK() {
         infoManager = new InfoManager();
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials(BuildConfig.CLIENT_ID, BuildConfig.ACCESS_TOKEN);
         orderManager = new OrderManager(credentials, this);
     }
 
@@ -126,5 +121,4 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, QrCodeActivity.class);
         startActivity(intent);
     }
-
 }

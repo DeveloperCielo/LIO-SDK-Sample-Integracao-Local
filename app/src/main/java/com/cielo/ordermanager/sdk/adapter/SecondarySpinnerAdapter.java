@@ -15,15 +15,13 @@ import cielo.orders.domain.product.SecondaryProduct;
 
 public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
 
-    private Context context;
     private List<SecondaryProduct> values;
-    LayoutInflater inflater;
+    final LayoutInflater inflater;
     SecondaryProduct tempProduct = null;
 
     public SecondarySpinnerAdapter(Context context, int textViewResourceId,
                                    List<SecondaryProduct> values) {
         super(context, textViewResourceId, values);
-        this.context = context;
         this.values = values;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

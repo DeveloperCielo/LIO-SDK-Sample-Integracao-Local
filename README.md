@@ -1,4 +1,5 @@
 # Integração Local - SDK v1.4.0
+
 última versão v1.4.0 - lançada em 27/09/2018
 
 ## Apresentação
@@ -59,10 +60,20 @@ Adicione essa permissão ao `AndroidManifest.xml` da sua aplicação.
 
 ### Credenciais
 
-Para utilizar o Cielo LIO Order Manager SDK, é necessário inserir as seguintes credenciais na inicialização do OrderManager:
+Para utilizar o Cielo LIO Order Manager SDK, é necessário inserir as seguintes credenciais no arquivo `keystore.properties` presente na raiz do projeto:
+
+Veja os campos:
 
 ```java
-Credentials credentials = new Credentials("Seu client id aqui", "Seu accessToken aqui");
+CLIENT_ID = "PREENCHA_COM_CLIENT_ID"
+ACCESS_TOKEN = "PREENCHE_COM_ACCESSTOKEN"
+```
+
+Desta forma, os valores serão refletidos nas constantes:
+
+```java
+Credentials credentials = new Credentials(
+    BuildConfig.CLIENT_ID, BuildConfig.ACCESS_TOKEN);
 ```
 
 * Client-Id
@@ -210,11 +221,11 @@ PaymentListener paymentListener = new PaymentListener() {
 };
 ```
 
-> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento. 
+> PaymentListener: Um callback que informa sobre todas as ações tomadas durante o processo de pagamento.
 As seguintes ações podem ser notificadas:  
-• onStart - Quando se dá o início do pagamento. 
-• onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um pagamento. 
-• onCancel - Quando o pagamento é cancelado. 
+• onStart - Quando se dá o início do pagamento.
+• onPayment - Quando um pagamento é realizado. Notem que um pedido pode ser pago por mais de um pagamento.
+• onCancel - Quando o pagamento é cancelado.
 • onError - Quando acontece um erro no pagamento do pedido.
 
 O método `onPayment()` retorna um objeto `Order` com uma lista de `Payment` que possui um HashMap `PaymentFields` com a maioria dos dados da transação.
@@ -278,7 +289,7 @@ Segue abaixo a tabela com os dados mais relevantes existentes nesse mapa:
 | 13                          | Voucher alimentação/refeição     |
 | 28                          | Cancelamento de venda            |
 
-> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00. 
+> Todos os valores financeiros são informados sem vírgula, ou seja 2500 são equivalentes a R$ 25,00.
 
 ### 1. Requisição de pagamento
 
@@ -304,7 +315,7 @@ CheckoutRequest request = new CheckoutRequest.Builder()
 | email                       | email pra onde será enviado o comprovante                         | `String`   |
 | paymentCode                 | Código da operação de pagamento                                   | `cielo.sdk.order.payment.PaymentCode`   |
 
-```java                    
+```java
 orderManager.checkoutOrder(request, paymentListener);
 ```
 
@@ -341,10 +352,10 @@ Existem 2 formas de cancelar um pagamento na Cielo LIO:
 
 Independende da forma escolhida, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento.
 
-> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
-As seguintes ações pode ser notificadas: 
-• onSuccess - Quando um cancelamento é realizado com sucesso. 
-• onCancel - Quando o usuário cancela a operação. 
+> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento.
+As seguintes ações pode ser notificadas:
+• onSuccess - Quando um cancelamento é realizado com sucesso.
+• onCancel - Quando o usuário cancela a operação.
 • onError - Quando acontece um erro no cancelamento do pedido.
 
 ```java
@@ -365,14 +376,15 @@ CancellationListener cancellationListener = new CancellationListener() {
     }
 });
 ```
+
 ## Cancelamento
 
 Para tratar a resposta do cancelamento, você deverá utilizar o seguinte callback como parâmetro do método de `cancelOrder()` para receber os estados relacionados ao cancelamento.
 
-> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento. 
-As seguintes ações pode ser notificadas: 
-• onSuccess - Quando um cancelamento é realizado com sucesso. 
-• onCancel - Quando o usuário cancela a operação. 
+> CancellationListener: Um callback que informa sobre todas as ações tomadas durante o processo de cancelamento.
+As seguintes ações pode ser notificadas:
+• onSuccess - Quando um cancelamento é realizado com sucesso.
+• onCancel - Quando o usuário cancela a operação.
 • onError - Quando acontece um erro no cancelamento do pedido.
 
 ```java
@@ -398,7 +410,7 @@ CancellationListener cancellationListener = new CancellationListener() {
 
 ### Cancelar Pagamento
 
-No método Cancelar um Pagamento, é necessário ter salvo uma instância da Order que contém as informações da Order. Essa Order pode ser recuperada no sucesso do callback do pagamento ou usando o método de Listagem de Pedidos (Orders) (link para método). 
+No método Cancelar um Pagamento, é necessário ter salvo uma instância da Order que contém as informações da Order. Essa Order pode ser recuperada no sucesso do callback do pagamento ou usando o método de Listagem de Pedidos (Orders) (link para método).
 Assim que possuir a instância da Order, utilize o método abaixo passando os parâmetros conforme o exemplo abaixo:
 
 ```java
@@ -410,6 +422,7 @@ CancellationRequest request = new CancellationRequest.Builder()
                 .ec("0000000000000003") /* Opcional */
                 .build();
 ```
+
 Abaixo é detalhado cada um dos parâmetros enviados no método:
 
 | Atributo        | Descrição  | Domínio|
@@ -484,7 +497,7 @@ public class LIOCancelationBroadcastReceiver extends BroadcastReceiver {
 
 ## Listagem de Pedidos
 
-Na listagem de pedidos, é possível obter todas os pedidos (Orders) abertas na Cielo LIO pelo aplicativo do parceiro. 
+Na listagem de pedidos, é possível obter todas os pedidos (Orders) abertas na Cielo LIO pelo aplicativo do parceiro.
 Para isso, basta utilizar a função abaixo, que retorna os pedidos de forma paginada:
 
 ```java
@@ -501,7 +514,7 @@ ResultOrders resultOrders = orderManager.retrieveOrders(10, 0);
 
 ## Finalizar uso do OrderManager
 
-Após executar todas as operações de pagamento e caso não seja necessário utilizar o objeto orderManager, utilize método unbind para desvincular o contexto e evitar problemas de integridade. 
+Após executar todas as operações de pagamento e caso não seja necessário utilizar o objeto orderManager, utilize método unbind para desvincular o contexto e evitar problemas de integridade.
 
 Fique atento ao local onde o ``` unbind() ``` será executado para evitar problemas com ciclo de vida da Activity ou Fragment que foi vinculado ao serviço.
 É importante lembrar que se o contexto for alterado, é preciso desvincular o serviço (ex.: troca de Activity)
@@ -545,9 +558,9 @@ Através do SDK, é possível recuperar os dados do cliente e número lógico de
 
 ```java
 infoManager.getSettings(context);
-``` 
+```
 
-> Esta função, retornará um objeto do tipo Settings onde é possível recuperar as informações do usuário. 
+> Esta função, retornará um objeto do tipo Settings onde é possível recuperar as informações do usuário.
 Abaixo, segue um descritivo de atributos do objeto Setttings.
 
 | ATRIBUTO     | DESCRIÇÃO            | DOMÍNIO |
@@ -565,9 +578,9 @@ PrinterManager printerManager = new PrinterManager(context)
 
 Independende da forma de impressão escolhida, você deverá utilizar o seguinte callback como parâmetro do método de para receber os estados relacionados à impressão:
 
-> PrinterListener: Um callback que informa sobre todas as ações tomadas durante o processo de impressão. 
-As seguintes ações pode ser notificadas: 
-• onSuccess - Quando uma impressão é realizada com sucesso. 
+> PrinterListener: Um callback que informa sobre todas as ações tomadas durante o processo de impressão.
+As seguintes ações pode ser notificadas:
+• onSuccess - Quando uma impressão é realizada com sucesso.
 • onError - Quando acontece um erro na impressão.
 • onWithoutPaper - Quando não há papel suficiente para realizar a impressão.
 
@@ -594,14 +607,14 @@ Você pode formatar a sua impressão criando mapas de estilos utilizando os par�
 | Atributo        | Descrição | Valores  |
 |-----------------|-----------|----------|
 |`PrinterAttributes.KEY_ALIGN` | Alinhamento da impressão | `PrinterAttributes.VAL_ALIGN_CENTER`  `PrinterAttributes.VAL_ALIGN_LEFT` `PrinterAttributes.VAL_ALIGN_RIGHT` |
-|`PrinterAttributes.KEY_TEXTSIZE` | Tamanho do texto | Valores inteiros | 
+|`PrinterAttributes.KEY_TEXTSIZE` | Tamanho do texto | Valores inteiros |
 |`PrinterAttributes.KEY_TYPEFACE` | Fonte do texto | Trabalha com um inteiro de 0 a 8, onde cada um é uma fonte diferente.|
-|`PrinterAttributes.KEY_MARGINLEFT` | Margem esquerda |Valores inteiros | 
-|`PrinterAttributes.KEY_MARGINRIGHT` | Margem direia | Valores inteiros | 
-|`PrinterAttributes.KEY_MARGINTOP` | Margem superior | Valores inteiros | 
-|`PrinterAttributes.KEY_MARGINBOTTOM` | Margem inferior | Valores inteiros | 
-|`PrinterAttributes.KEY_LINESPACE` | Espaçamento entre as linhas | Valores inteiros | 
-|`PrinterAttributes.KEY_WEIGHT` | Varíavel utilizada quando se trbaalho com impressão de múltiplas colunas, para escolher o peso de cada coluna | Valores inteiros | 
+|`PrinterAttributes.KEY_MARGINLEFT` | Margem esquerda |Valores inteiros |
+|`PrinterAttributes.KEY_MARGINRIGHT` | Margem direia | Valores inteiros |
+|`PrinterAttributes.KEY_MARGINTOP` | Margem superior | Valores inteiros |
+|`PrinterAttributes.KEY_MARGINBOTTOM` | Margem inferior | Valores inteiros |
+|`PrinterAttributes.KEY_LINESPACE` | Espaçamento entre as linhas | Valores inteiros |
+|`PrinterAttributes.KEY_WEIGHT` | Varíavel utilizada quando se trbaalho com impressão de múltiplas colunas, para escolher o peso de cada coluna | Valores inteiros |
 
 Exemplo de mapas de estilos:
 
@@ -630,13 +643,14 @@ alignRight.put(PrinterAttributes.KEY_TEXT_SIZE, 20);
 
 ### Impressão de texto simples
 
-Para imprimir textos simples utilize o método ```printText()``` do PrinterManager. 
+Para imprimir textos simples utilize o método ```printText()``` do PrinterManager.
 O método recebe como parâmetro o texto a ser impresso, um mapa de estilo de impressão e um listener para tratar o retorno da impressão.
 
 ```java
 String textToPrint = "Texto simples a ser impresso.\n Com múltiplas linhas";
 printerManager.printText(textToPrint, alignLeft, printerListener);
 ```
+
 Exemplo de impressão de texto simples:
 </br>
 <p align="center">
@@ -651,7 +665,7 @@ Exemplo de impressão de texto simples:
 
 ### Impressão de múltiplas colunas
 
-Para imprimir textos em múltiplas colunas utilize o método ```printMultipleColumnText()``` do PrinterManager. 
+Para imprimir textos em múltiplas colunas utilize o método ```printMultipleColumnText()``` do PrinterManager.
 O método recebe como parâmetro um array de texts a serem impresso, um array com mapas de estilos de impressão, respectivamente e um listener para tratar o retorno da impressão.
 
 ```java
@@ -664,6 +678,7 @@ styles.add(alignRight);
 
 printerManager.printMultipleColumnText(textsToPrint, styles, printerListener);
 ```
+
 Resultado final da impressão:
 </br>
 <p align="center">
@@ -678,13 +693,14 @@ Resultado final da impressão:
 
 ### Impressão de imagem
 
-Para imprimir imagens utilize o método ```printImage()``` do PrinterManager. 
+Para imprimir imagens utilize o método ```printImage()``` do PrinterManager.
 O método recebe como parâmetro o `bitmap` a ser impresso, um mapa de estilos de impressão e um listener para tratar o retorno da impressão.
 
 ```java
 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cielo);
 printerManager.printImage(bitmap, alignCenter, printerListener);
 ```
+
 | Imagem a ser impressa | Resultado final |
 |-----------------------|-----------------|
 | <p align="center"><img src="cielo.png" width="80%"></p>| <p align="center"><img src="print-image.png" width="50%"></p> |

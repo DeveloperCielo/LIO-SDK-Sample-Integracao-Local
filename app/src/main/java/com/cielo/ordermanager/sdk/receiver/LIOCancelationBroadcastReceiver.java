@@ -11,8 +11,8 @@ import cielo.orders.aidl.ParcelableTransaction;
 
 public class LIOCancelationBroadcastReceiver extends BroadcastReceiver {
 
-    String MY_ACCESS_KEY = "cielo.sdk.sample";
-    String MY_SECRET_ACCESS_KEY = "cielo.sample";
+    final String MY_ACCESS_KEY = "cielo.sdk.sample";
+    final String MY_SECRET_ACCESS_KEY = "cielo.sample";
 
     @Override
     public void onReceive(Context context, Intent intent) {

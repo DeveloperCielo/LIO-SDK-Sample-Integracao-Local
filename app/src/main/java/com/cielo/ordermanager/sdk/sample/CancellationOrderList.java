@@ -2,8 +2,8 @@ package com.cielo.ordermanager.sdk.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +14,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.cielo.ordermanager.sdk.BuildConfig;
 import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import com.cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 
 import com.cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
+
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
 import cielo.orders.domain.ResultOrders;
@@ -26,8 +29,6 @@ import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.ServiceBindListener;
 
 public class CancellationOrderList extends AppCompatActivity {
-
-    private final String TAG = "CANCELLATION_LIST";
 
     @BindView(R.id.recycler_view)
     RecyclerViewEmptySupport recyclerView;
@@ -56,11 +57,8 @@ public class CancellationOrderList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                finish();
-                return super.onOptionsItemSelected(item);
-        }
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     private void listOrders() {
@@ -78,6 +76,7 @@ public class CancellationOrderList extends AppCompatActivity {
                         new OrderRecyclerViewAdapter(orderList));
 
 
+                String TAG = "CANCELLATION_LIST";
                 Log.i(TAG, "orders: " + orderList);
                 for (Order or : orderList) {
                     Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
@@ -86,29 +85,31 @@ public class CancellationOrderList extends AppCompatActivity {
                 recyclerView.addOnItemTouchListener(
                         new RecyclerItemClickListener(CancellationOrderList.this, recyclerView,
                                 new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                order = orderList.get(position);
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        order = orderList.get(position);
 
-                                if (order.getPayments().size() > 0) {
+                                        if (order.getPayments().size() > 0) {
 
-                                    orderManager.unbind();
+                                            orderManager.unbind();
 
-                                    Intent intent = new Intent(CancellationOrderList.this,
-                                            CancelPaymentActivity.class);
-                                    intent.putExtra("SELECTED_ORDER", order);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(CancellationOrderList.this,
-                                            "Não há pagamentos nessa ordem.",
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            }
+                                            Intent intent = new Intent(CancellationOrderList.this,
+                                                    CancelPaymentActivity.class);
+                                            intent.putExtra("SELECTED_ORDER", order);
+                                            startActivity(intent);
+                                        } else {
+                                            Toast.makeText(CancellationOrderList.this,
+                                                    "Não há pagamentos nessa ordem.",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    }
 
-                            @Override
-                            public void onLongItemClick(View view, int position) {
-                            }
-                        })
+                                    @Override
+                                    public void onLongItemClick(View view, int position) {
+
+                                    }
+
+                                })
                 );
             }
 
@@ -120,14 +121,15 @@ public class CancellationOrderList extends AppCompatActivity {
 
 
     private void configSDK() {
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials(BuildConfig.CLIENT_ID, BuildConfig.ACCESS_TOKEN);
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
 
-            @Override public void onServiceBoundError(Throwable throwable) {
+            @Override
+            public void onServiceBoundError(Throwable throwable) {
                 Toast.makeText(getApplicationContext(),
-                    String.format("Erro fazendo bind do serviço de ordem -> %s",
-                        throwable.getMessage()), Toast.LENGTH_LONG).show();
+                        String.format("Erro fazendo bind do serviço de ordem -> %s",
+                                throwable.getMessage()), Toast.LENGTH_LONG).show();
             }
 
             @Override

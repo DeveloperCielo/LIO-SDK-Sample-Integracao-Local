@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="16dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/select_option"
         android:textSize="16sp"
@@ -24,7 +24,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -84,7 +84,7 @@
             android:gravity="center"
             android:layout_margin="12dp"
             android:text="LIO"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:text="E.C:"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -110,19 +110,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/device_model_text"
             android:layout_margin="12dp"
-            android:layout_toRightOf="@+id/nl_text"
+            android:layout_toEndOf="@+id/nl_text"
             android:text="00000000000000"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/nl_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/merchant_code_txt"
             android:layout_margin="12dp"
             android:text="Número Lógico:"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -131,9 +131,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/merchant_code_txt"
             android:layout_margin="12dp"
-            android:layout_toRightOf="@+id/nl_text"
+            android:layout_toEndOf="@+id/nl_text"
             android:text="00000000000000"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
