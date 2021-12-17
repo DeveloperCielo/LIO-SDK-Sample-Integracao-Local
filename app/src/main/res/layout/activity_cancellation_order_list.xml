@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textAlignment="textStart"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:text="@string/select_order_to_cancel"
         android:textSize="16sp"
         android:textStyle="bold" />

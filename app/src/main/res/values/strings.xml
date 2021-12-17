@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SDK Tester</string>
     <string name="payment_sample">Realizar Pagamento</string>
     <string name="orders_list">Listagem de Ordens</string>
@@ -39,5 +39,4 @@
     <string name="refresh_list">Atualizar Lista</string>
 
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
-
 </resources>

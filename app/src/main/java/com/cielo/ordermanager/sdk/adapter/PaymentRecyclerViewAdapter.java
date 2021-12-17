@@ -1,6 +1,6 @@
 package com.cielo.ordermanager.sdk.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +9,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.cielo.ordermanager.sdk.R;
-import com.cielo.ordermanager.sdk.sample.Util;
+import com.cielo.ordermanager.sdk.util.NumberUtils;
 import cielo.sdk.order.payment.Payment;
 
 public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecyclerViewAdapter.OrderViewHolder> {
 
-    private List<Payment> paymentList;
+    private final List<Payment> paymentList;
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView summary;
+        final TextView title;
+        final TextView summary;
 
         OrderViewHolder(View itemView) {
             super(itemView);
@@ -47,7 +47,7 @@ public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecy
             String product = payment.getPaymentFields().get("primaryProductName") + " - " + payment.getPaymentFields().get("secondaryProductName") + " :: ";
 
             holder.title.setText(payment.getCieloCode() + " | Parcelas: " + payment.getInstallments());
-            holder.summary.setText(product + "R$ " + Util.getAmmount(payment.getAmount()));
+            holder.summary.setText(product + "R$ " + NumberUtils.getAmmount(payment.getAmount()));
         }
     }
 

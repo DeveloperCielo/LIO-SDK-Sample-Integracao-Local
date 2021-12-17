@@ -2,7 +2,7 @@ package com.cielo.ordermanager.sdk.sample;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +15,14 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import com.cielo.ordermanager.sdk.BuildConfig;
 import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
 import com.cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import com.cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
+import com.cielo.ordermanager.sdk.util.NumberUtils;
+
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Item;
 import cielo.orders.domain.Order;
@@ -110,15 +114,12 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                finish();
-                return super.onOptionsItemSelected(item);
-        }
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     protected void configSDK() {
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials(BuildConfig.CLIENT_ID, BuildConfig.ACCESS_TOKEN);
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
 
@@ -149,7 +150,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         sku = String.valueOf(1 + (Math.random()));
 
         itemName.setText("Item de exemplo");
-        itemPrice.setText(Util.getAmmount(itemValue));
+        itemPrice.setText(NumberUtils.getAmmount(itemValue));
 
         placeOrderButton.setEnabled(true);
 
@@ -189,7 +190,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
             boolean haveItens = totalItens > 0;
             paymentButton.setEnabled(haveItens);
-            String valueText = Util.getAmmount(itemValue * totalItens);
+            String valueText = NumberUtils.getAmmount(itemValue * totalItens);
             paymentButton.setText((haveItens) ? "Pagar " + valueText : "Pagar");
         } else {
 
@@ -215,11 +216,6 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         order = null;
         configUi();
         updatePaymentButton();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     @OnClick(R.id.payment_button)

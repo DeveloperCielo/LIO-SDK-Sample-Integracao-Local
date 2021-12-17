@@ -25,14 +25,12 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@id/place_order_button"
             android:background="@color/black_alpha19" />
 
         <RelativeLayout
             android:id="@+id/add_item_row"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_below="@+id/place_order_button"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/rectangle_ripple"
@@ -102,7 +100,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/button_plus_new_item"
+                android:layout_toStartOf="@+id/button_plus_new_item"
                 android:background="?selectableItemBackgroundBorderless"
                 android:gravity="center">
 
@@ -138,14 +136,12 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@id/add_item_row"
             android:background="@color/black_alpha19" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/add_item_row"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -212,8 +208,8 @@
                     android:id="@+id/installments"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginTop="5dp"
                     android:entries="@array/installments_array" />
 
@@ -224,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:hint="EC"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:id="@+id/et_merchant_code" />
 
             <EditText
@@ -232,7 +228,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:id="@+id/et_email" />
 
         </LinearLayout>

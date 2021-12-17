@@ -14,15 +14,13 @@ import cielo.orders.domain.product.PrimaryProduct;
 
 public class PrimarySpinnerAdapter extends ArrayAdapter<PrimaryProduct> {
 
-    private Context context;
-    private List<PrimaryProduct> values;
-    LayoutInflater inflater;
+    private final List<PrimaryProduct> values;
+    final LayoutInflater inflater;
     PrimaryProduct tempProduct = null;
 
     public PrimarySpinnerAdapter(Context context, int textViewResourceId,
                                  List<PrimaryProduct> values) {
         super(context, textViewResourceId, values);
-        this.context = context;
         this.values = values;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

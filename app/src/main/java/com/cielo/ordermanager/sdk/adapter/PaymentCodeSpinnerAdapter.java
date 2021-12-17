@@ -15,14 +15,12 @@ import cielo.sdk.order.payment.PaymentCode;
 
 public class PaymentCodeSpinnerAdapter extends ArrayAdapter<PaymentCode> {
 
-    private Context context;
-    private List<PaymentCode> values;
-    LayoutInflater inflater;
+    private final List<PaymentCode> values;
+    final LayoutInflater inflater;
     PaymentCode tempProduct = null;
 
     public PaymentCodeSpinnerAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId, PaymentCode.values());
-        this.context = context;
         this.values = Arrays.asList(PaymentCode.values());
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
