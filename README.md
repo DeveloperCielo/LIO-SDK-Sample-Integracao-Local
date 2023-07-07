@@ -1,5 +1,5 @@
-# Integração Local - SDK v1.4.0
-última versão v1.4.0 - lançada em 27/09/2018
+# Integração Local - SDK v1.5.13
+última versão v1.4.0 - lançada em 07/07/2023
 
 ## Apresentação
 
@@ -46,13 +46,40 @@ Para instalar o aplicativo, basta seguir os seguintes passos:
 
 ### Configurar módulos e dependências
 
-Após configurar um novo projeto no Android Studio, é necessário incluir a dependência abaixo no projeto.
+Efetue o download da nossa SDK [CLIQUE AQUI](https://desenvolvedores.cielo.com.br/api-portal/pt-br/content/sdk-cielo-lio)
 
-Para a versão release, adicione o módulo do Cielo LIO Order Manager SDK nas dependências do Gradle:
+Disponilizamos dois diretorios `com` e `cielo` basta copiá-los para o seu repositório `.m2/repository`
+
+Exemplo:
+
+No Windows: `C:\Users\<usuario>\.m2`
+
+No Linux: `/home/<usuario>/.m2`
+
+No Mac: `/Users/<usuario>/.m2`
+
+No **build.gradle** na raiz do seu projeto, adicionar o `mavenLocal()` dentro da closure **allprojects** conforme abaixo:
 
 ```
-compile 'com.cielo.lio:order-manager:0.19.5'
+allprojects {  
+  repositories {  
+    mavenLocal()  
+	... 
+  }  
+}
 ```
+
+No **build.gradle** do app, adicionar a dependência dentro da closure **dependencies** conforme abaixo:
+
+```
+dependencies {    
+  implementation 'com.cielo.lio:order-manager:1.5.13'  
+}
+```
+
+Após essas configurações realize o build do projeto.
+
+última versão 1.5.13
 
 > A partir da versão 1.17.7-beta do SDK se tornou necessária a permissão de INTERNET na aplicação cliente.
 Adicione essa permissão ao `AndroidManifest.xml` da sua aplicação.
