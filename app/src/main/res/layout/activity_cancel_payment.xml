@@ -5,14 +5,14 @@
     android:layout_height="match_parent">
 
     <com.cielo.ordermanager.sdk.RecyclerViewEmptySupport
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_cancel_payment"
+        android:layout_above="@+id/cancelButton"
         android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/txtEmptyValue"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/btn_list_orders"
@@ -22,11 +22,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/recycler_view"
+        android:layout_below="@id/recyclerView"
         android:background="@color/black_alpha19" />
 
     <Button
-        android:id="@+id/btn_cancel_payment"
+        android:id="@+id/cancelButton"
         style="@style/PrimaryActionButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

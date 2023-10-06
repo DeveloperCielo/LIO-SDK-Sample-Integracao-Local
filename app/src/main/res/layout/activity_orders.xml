@@ -5,18 +5,18 @@
     android:layout_height="match_parent">
 
     <com.cielo.ordermanager.sdk.RecyclerViewEmptySupport
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/empty_view"
-        android:layout_below="@+id/btn_list_orders"
+        android:id="@+id/txtEmptyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/recyclerView"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:textSize="16sp" />
 
 </RelativeLayout>
