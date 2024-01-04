@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cielo.ordermanager.sdk.R;
 import butterknife.BindView;
@@ -36,6 +37,8 @@ public class MainActivity extends Activity {
     protected OrderManager orderManager;
     protected InfoManager infoManager;
 
+    protected DeviceModel deviceModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +52,13 @@ public class MainActivity extends Activity {
         logicNumberText.setText(settings.getLogicNumber());
         Float batteryLevel = infoManager.getBatteryLevel(this);
 
-        DeviceModel deviceModel = infoManager.getDeviceModel();
+        deviceModel = infoManager.getDeviceModel();
         if (deviceModel == DeviceModel.LIO_V1) {
             printerButton.setVisibility(View.GONE);
             deviceModelText.setText("LIO V1 - Bateria: " + (int) (batteryLevel * 100) + "%");
         } else {
             printerButton.setVisibility(View.VISIBLE);
-            deviceModelText.setText("LIO V2- Bateria: " + (int) (batteryLevel * 100) + "%");
+            deviceModelText.setText("LIO - Bateria: " + (int) (batteryLevel * 100) + "%");
         }
 
         Log.i("TAG", "SERIAL: " + Build.SERIAL);
@@ -123,8 +126,13 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.mifare_sample_button)
     public void openExample7() {
-        Intent intent = new Intent(this, MifareActivity.class);
-        startActivity(intent);
+        if (deviceModel == DeviceModel.LIO_V3) {
+            Intent intent = new Intent(this, MifareActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getText(R.string.device_not_supported), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

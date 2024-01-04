@@ -3,7 +3,7 @@
     <string name="payment_sample">Realizar Pagamento</string>
     <string name="orders_list">Listagem de Ordens</string>
     <string name="cancel_payment">Cancelar Pagamento</string>
-    <string name="print_sample">Teste Impressão (V2)</string>
+    <string name="print_sample">Teste Impressão</string>
     <string name="mifare_sample">Mifare</string>
     <string name="location_sample">Localização</string>
     <string name="qr_code_sample">QR Code</string>
@@ -40,5 +40,7 @@
     <string name="refresh_list">Atualizar Lista</string>
 
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
+
+    <string name="device_not_supported">Device não suportado.</string>
 
 </resources>
