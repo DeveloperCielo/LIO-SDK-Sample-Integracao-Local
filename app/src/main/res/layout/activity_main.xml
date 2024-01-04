@@ -55,6 +55,11 @@
                 android:text="@string/print_sample" />
 
             <Button
+                android:id="@+id/mifare_sample_button"
+                style="@style/PrimaryActionButton"
+                android:text="@string/mifare_sample" />
+
+            <Button
                 android:id="@+id/location_sample_button"
                 style="@style/PrimaryActionButton"
                 android:text="@string/location_sample" />

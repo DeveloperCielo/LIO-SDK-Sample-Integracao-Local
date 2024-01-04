@@ -3,9 +3,10 @@ package com.cielo.ordermanager.sdk.sample;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cielo.ordermanager.sdk.R;
 
