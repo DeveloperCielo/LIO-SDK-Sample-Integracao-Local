@@ -30,7 +30,7 @@ android {
     }
 
 
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
 
@@ -65,11 +65,15 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK ------------x-  //
-    implementation 'com.cielo.lio:order-manager:1.8.1'
+    /*
+     * ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------------
+     * Seguir o procedimento da nossa documentação para importar a ultima versão da SDK:
+     * https://developercielo.github.io/manual/cielo-lio#configurar-m%C3%B3dulos-e-depend%C3%AAncias
+    */
+    implementation 'com.cielo.lio:order-manager:x.x.x'
     // --------------------------------------------------------------------------- //
 
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.1') {
+    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.1') {
         exclude group: 'com.android.support'
         exclude module: 'appcompat-v7'
         exclude module: 'support-v4'
