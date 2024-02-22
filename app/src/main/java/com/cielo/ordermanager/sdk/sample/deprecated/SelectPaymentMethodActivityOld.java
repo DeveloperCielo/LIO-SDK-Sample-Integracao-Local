@@ -1,7 +1,6 @@
 package com.cielo.ordermanager.sdk.sample.deprecated;
 
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import androidx.annotation.NonNull;
 
 import butterknife.OnClick;
 import com.cielo.ordermanager.sdk.R;

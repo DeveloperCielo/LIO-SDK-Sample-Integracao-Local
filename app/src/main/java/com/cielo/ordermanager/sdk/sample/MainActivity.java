@@ -16,12 +16,15 @@ import com.cielo.ordermanager.sdk.sample.deprecated.SelectPaymentMethodActivity;
 import com.cielo.ordermanager.sdk.sample.deprecated.SuccessivePaymentActivity;
 import com.cielo.ordermanager.sdk.sample.deprecated.TotalPaymentActivity;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.DeviceModel;
 import cielo.orders.domain.Settings;
+import cielo.orders.domain.product.PrimaryProduct;
 import cielo.sdk.info.InfoManager;
 import cielo.sdk.order.OrderManager;
 
@@ -49,6 +52,9 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
 
         conifgSDK();
+        List<PrimaryProduct> listaTeste = orderManager.retrievePaymentType(this);
+        String lista = listaTeste.toString();
+        Log.w("lista", lista);
         Settings settings = infoManager.getSettings(this);
 
         merchantCodeText.setText(settings.getMerchantCode());

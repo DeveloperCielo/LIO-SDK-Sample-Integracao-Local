@@ -1,8 +1,9 @@
 package com.cielo.ordermanager.sdk.sample.deprecated;
 
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.cielo.ordermanager.sdk.sample.BasePaymentActivity;
 
