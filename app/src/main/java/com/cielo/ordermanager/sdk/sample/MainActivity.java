@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
 
     protected void conifgSDK() {
         infoManager = new InfoManager();
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials( "rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
     }
 

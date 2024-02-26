@@ -105,7 +105,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
         cancelButton.setEnabled(false);
     }
     private void configSDK() {
-        Credentials credentials = new Credentials("clientID", "accessToken");
+        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }

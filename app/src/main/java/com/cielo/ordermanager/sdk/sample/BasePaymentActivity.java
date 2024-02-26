@@ -1,5 +1,6 @@
 package com.cielo.ordermanager.sdk.sample;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import cielo.orders.domain.product.SecondaryProduct;
 import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.ServiceBindListener;
 import cielo.sdk.order.payment.PaymentCode;
+import timber.log.Timber;
 
 public abstract class BasePaymentActivity extends AppCompatActivity {
     public OrderManager orderManager;
@@ -87,23 +89,27 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         }
     }
     protected void configSDK() {
-        Credentials credentials = new Credentials("clientID", "accessToken");
+        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
+
             @Override
             public void onServiceBoundError(Throwable throwable) {
                 orderManagerServiceBinded = false;
                 Toast.makeText(getApplicationContext(),
                         String.format("Erro fazendo bind do serviço de ordem -> %s", throwable.getMessage()), Toast.LENGTH_LONG).show();
+                Timber.tag("bind").w("error");
             }
             @Override
             public void onServiceBound() {
                 orderManagerServiceBinded = true;
                 orderManager.createDraftOrder("REFERENCIA DA ORDEM");
+                Timber.tag("bind").w("on");
             }
             @Override
             public void onServiceUnbound() {
                 orderManagerServiceBinded = false;
+                Timber.tag("bind").w("unbound");
             }
         });
     }

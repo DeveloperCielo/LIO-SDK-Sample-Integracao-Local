@@ -85,7 +85,7 @@ public class CancellationOrderList extends AppCompatActivity {
         }
     }
     private void configSDK() {
-        Credentials credentials = new Credentials("clientID", "accessToken");
+        Credentials credentials = new Credentials("rSAqNPGvFPJI", "XZevoUYKmkVr");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, new ServiceBindListener() {
             @Override
