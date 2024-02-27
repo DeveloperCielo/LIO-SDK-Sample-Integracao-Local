@@ -15,6 +15,8 @@ import com.cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
 import com.cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
 import com.cielo.ordermanager.sdk.adapter.SecondarySpinnerAdapter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Item;
@@ -29,20 +31,50 @@ import timber.log.Timber;
 public abstract class BasePaymentActivity extends AppCompatActivity {
     public OrderManager orderManager;
     public final String TAG = "PAYMENT_LISTENER";
+
+    @BindView(R.id.button_plus_new_item)
     public RelativeLayout addItemButton;
+
+    @BindView(R.id.button_minus_new_item)
     public RelativeLayout removeItemButton;
+
+    @BindView(R.id.item_quantity)
     public TextView itemQuantity;
+
+    @BindView(R.id.item_name)
     public TextView itemName;
+
+    @BindView(R.id.item_price)
     public TextView itemPrice;
+
+    @BindView(R.id.payment_button)
     public Button paymentButton;
+
+    @BindView(R.id.place_order_button)
     public Button placeOrderButton;
+
+    @BindView(R.id.primary)
     public Spinner primarySpinner;
+
+    @BindView(R.id.secondary)
     public Spinner secondarySpinner;
+
+    @BindView(R.id.installments)
     public Spinner installmentsSpinner;
+
+    @BindView(R.id.content_installments)
     public View contentInstallments;
+
+    @BindView(R.id.content_primary)
     public View contentPrimary;
+
+    @BindView(R.id.content_secondary)
     public View contentSecondary;
+
+    @BindView(R.id.et_merchant_code)
     public EditText merchantCode;
+
+    @BindView(R.id.et_email)
     public EditText email;
     public PrimarySpinnerAdapter primaryAdapter;
     public SecondarySpinnerAdapter secondaryAdapter;
@@ -60,21 +92,8 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        addItemButton = findViewById(R.id.button_plus_new_item);
-        removeItemButton = findViewById(R.id.button_minus_new_item);
-        itemQuantity = findViewById(R.id.item_quantity);
-        itemName = findViewById(R.id.item_name);
-        itemPrice = findViewById(R.id.item_price);
-        paymentButton = findViewById(R.id.payment_button);
-        placeOrderButton = findViewById(R.id.place_order_button);
-        primarySpinner = findViewById(R.id.primary);
-        secondarySpinner = findViewById(R.id.secondary);
-        installmentsSpinner = findViewById(R.id.installments);
-        contentInstallments = findViewById(R.id.content_installments);
-        contentPrimary = findViewById(R.id.content_primary);
-        contentSecondary = findViewById(R.id.content_secondary);
-        merchantCode = findViewById(R.id.et_merchant_code);
-        email = findViewById(R.id.et_email);
+        ButterKnife.bind(this);
+
         configSDK();
         configUi();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
