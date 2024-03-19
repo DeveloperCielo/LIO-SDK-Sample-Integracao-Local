@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">SDK Tester</string>
+    <string name="payment_sample">Realizar Pagamento</string>
+    <string name="orders_list">Listagem de Ordens</string>
+    <string name="cancel_payment">Cancelar Pagamento</string>
+    <string name="print_sample">Teste Impressão (V2)</string>
+    <string name="location_sample">Localização</string>
+    <string name="qr_code_sample">QR Code</string>
+
+    <string name="print_simple_text">Imprimir texto simples</string>
+    <string name="print_multi_columns">Imprimir múltplas colunas</string>
+    <string name="print_image">Imprimir imagem</string>
+    <string name="print_qrcode">Imprimir QR Code</string>
+    <string name="print_barcode">Imprimir Bar Code</string>
+
+    <string name="checkout">Pagar</string>
+    <string name="create_order">Criar ordem</string>
+    <string name="cancel_payment_title">CANCELAR UM PAGAMENTO</string>
+    <string name="select_order_to_cancel">Selecione uma ordem para cancelar</string>
+    <string name="select_option">Selecione uma das opções abaixo</string>
+    <string name="empty_orders">Não há ordens a serem listadas</string>
+    <string name="empty_orders_cancellation">Não há ordens para cancelamento</string>
+    <string name="print_sample_text">A Cielo LIO é uma plataforma aberta com sistema operacional baseado em Android. Com biblioteca de códigos, ambiente de testes e APIs abertas, é muito fácil desenvolver apps ou integrar com um sistema de automação. É DEV e ficou interessado? Acesso nosso portal para desenvolvedores.</string>
+
+    <string-array name="installments_array">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+    </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="refresh_list">Atualizar Lista</string>
+
+    <string name="mapbox_access_token">MAPBOX TOKEN</string>
+
+</resources>

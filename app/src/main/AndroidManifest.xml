@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cielo.ordermanager.sdk">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".sample.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".sample.deprecated.ParcialPaymentActivity" />
+        <activity android:name=".sample.deprecated.TotalPaymentActivity" />
+        <activity android:name=".sample.deprecated.SelectPaymentMethodActivity" />
+        <activity android:name=".sample.deprecated.SuccessivePaymentActivity" />
+        <activity android:name=".sample.deprecated.PayInformingMerchantCode" />
+        <activity android:name=".sample.ListOrdersActivity" />
+        <activity android:name=".sample.CancelPaymentActivity" />
+        <activity android:name=".sample.CancellationOrderList" />
+        <activity android:name=".sample.PrintSampleActivity"></activity>
+        <activity android:name=".sample.LocationSampleActivity"></activity>
+        <activity android:name=".sample.QrCodeActivity"></activity>
+        <activity android:name=".sample.PaymentActivity"></activity>
+
+        <receiver android:name=".receiver.LIOCancelationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL">
+                </action>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
