@@ -1,4 +1,4 @@
-# Built application files
+ Built application files
 *.apk
 *.aar
 *.ap_
@@ -14,6 +14,10 @@
 bin/
 gen/
 out/
+
+# App Release Files
+app/release/*
+
 #  Uncomment the following line in case you need and you don't have the release build type files in your app
 # release/
 
@@ -35,18 +39,25 @@ proguard/
 
 # Android Studio captures folder
 captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
 
 # IntelliJ
 *.iml
+.idea/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
+
 # Comment next line if keeping position of elements in Navigation Editor is relevant for you
 .idea/navEditor.xml
 
@@ -84,5 +95,18 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
+# MacOS
+.DS_Store
+
+# App Specific cases 
+app/release/output.json
+.idea/codeStyles/
+
 # Android Profiling
 *.hprof
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
