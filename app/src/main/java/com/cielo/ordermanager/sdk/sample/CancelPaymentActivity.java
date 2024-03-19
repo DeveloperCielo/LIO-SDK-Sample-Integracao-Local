@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.adapter.PaymentRecyclerViewAdapter;
 import com.cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cielo.orders.domain.CancellationRequest;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
@@ -24,26 +28,41 @@ public class CancelPaymentActivity extends AppCompatActivity {
     private Order order;
     private Payment payment;
     private OrderManager orderManager;
-    private Button cancelButton;
-    private RecyclerView recyclerView;
+
+    @BindView(R.id.btn_cancel_payment)
+    Button cancelButton;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_cancel_payment);
-        cancelButton = findViewById(R.id.btn_cancel_payment);
-        recyclerView = findViewById(R.id.recycler_view);
+        ButterKnife.bind(this);
+
         cancelButton.setEnabled(false);
+
         configSDK();
+
         this.order = (Order) getIntent().getSerializableExtra("SELECTED_ORDER");
+
         if (order != null && !order.getPayments().isEmpty()) {
+
             final List<Payment> paymentList = order.getPayments();
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new PaymentRecyclerViewAdapter(paymentList));
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(CancelPaymentActivity.this));
+            recyclerView.setAdapter(
+                    new PaymentRecyclerViewAdapter(paymentList));
+
+            Log.i(TAG, "payments: " + paymentList);
             for (Payment pay : paymentList) {
                 Log.i("Payment: ", pay.getExternalId() + " - " + pay.getAmount());
             }
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView,
-                    new RecyclerItemClickListener.OnItemClickListener() {
+
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(CancelPaymentActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
                             payment = paymentList.get(position);
@@ -53,7 +72,9 @@ public class CancelPaymentActivity extends AppCompatActivity {
                         public void onLongItemClick(View view, int position) {
                             // Implementação do long click, se necessário
                         }
-                    }));
+                    })
+            );
+
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Dados para Cancelamento");
@@ -66,8 +87,12 @@ public class CancelPaymentActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void cancelPayment(View view) {
-        if (order != null && !order.getPayments().isEmpty()) {
+
+    @OnClick(R.id.btn_cancel_payment)
+    public void cancelPayment() {
+
+        if (order != null && order.getPayments().size() > 0) {
+
             CancellationRequest request = new CancellationRequest.Builder()
                     .orderId(order.getId())
                     .authCode(payment.getAuthCode())
@@ -75,12 +100,15 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     .value(payment.getAmount())
                     .ec("0000000000000003")
                     .build();
+
             orderManager.cancelOrder(request, new CancellationListener() {
+
                 @Override
                 public void onSuccess(Order cancelledOrder) {
                     Log.d(TAG, "ON SUCCESS");
                     cancelledOrder.cancel();
                     orderManager.updateOrder(cancelledOrder);
+
                     Toast.makeText(CancelPaymentActivity.this, "SUCESSO", Toast.LENGTH_SHORT).show();
                     order = cancelledOrder;
                     resetUI();
