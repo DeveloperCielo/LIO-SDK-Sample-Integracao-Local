@@ -62,12 +62,20 @@ public class MainActivity extends Activity {
         Float batteryLevel = infoManager.getBatteryLevel(this);
 
         DeviceModel deviceModel = infoManager.getDeviceModel();
+
+        Log.i("DeviceModel", "getDeviceModel - " + deviceModel);
+
         if (deviceModel == DeviceModel.LIO_V1) {
             printerButton.setVisibility(View.GONE);
             deviceModelText.setText("LIO V1 - Bateria: " + (int) (batteryLevel * 100) + "%");
-        } else {
+        } else if (deviceModel == DeviceModel.LIO_V2){
             printerButton.setVisibility(View.VISIBLE);
             deviceModelText.setText("LIO V2- Bateria: " + (int) (batteryLevel * 100) + "%");
+        } else if (deviceModel == DeviceModel.LIO_V3) {
+            printerButton.setVisibility(View.VISIBLE);
+            deviceModelText.setText("LIO V3- Bateria: " + (int) (batteryLevel * 100) + "%");
+        } else {
+            deviceModelText.setText("LIO Versão Indefinido - Bateria: " + (int) (batteryLevel * 100) + "%");
         }
 
         Log.i("TAG", "SERIAL: " + Build.SERIAL);
