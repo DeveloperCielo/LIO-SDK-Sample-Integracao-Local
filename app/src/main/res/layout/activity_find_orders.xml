@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecione uma opção:"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/act_find_orders_rb_findMethod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/act_find_orders_rb_findOrderById"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Localizar Ordem através do Id" />
+
+        <RadioButton
+            android:id="@+id/act_find_orders_rb_findOrderByPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Localizar Ordem atráves do Pagamento" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/act_find_orders_ll_findOrder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/act_find_orders_btn_recoverOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Recuperar Ultima Ordem Paga"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/act_find_orders_ll_extraFields1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Id da Ordem" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/act_find_orders_edt_orderId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/act_find_orders_ll_extraFields2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/act_find_orders_edt_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Auth Code" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/act_find_orders_edt_authCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cielo Code" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/act_find_orders_edt_cieloCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/act_find_orders_btn_findOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Localizar Ordem"
+            android:visibility="invisible" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/act_find_orders_edt_result"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textMultiLine"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:singleLine="false"
+            android:textSize="12dp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -122,13 +122,23 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             @Override
             public void onServiceBound() {
                 orderManagerServiceBinded = true;
-                orderManager.createDraftOrder("REFERENCIA DA ORDEM");
+                if (!isCreateButtonVisible()){
+                    orderManager.createDraftOrder("REFERENCIA DA ORDEM");
+                }
                 Timber.tag("bind").w("on");
             }
+
             @Override
             public void onServiceUnbound() {
                 orderManagerServiceBinded = false;
                 Timber.tag("bind").w("unbound");
+            }
+
+            private boolean isCreateButtonVisible() {
+                final Button orderButton = findViewById(R.id.place_order_button);
+                return orderButton != null &&
+                        orderButton.isEnabled() &&
+                        orderButton.getVisibility() == View.VISIBLE;
             }
         });
     }
