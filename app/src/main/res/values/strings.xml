@@ -39,5 +39,6 @@
     <string name="refresh_list">Atualizar Lista</string>
 
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
+    <string name="orders_find">Localizar Ordens</string>
 
 </resources>

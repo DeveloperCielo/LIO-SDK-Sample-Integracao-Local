@@ -33,6 +33,7 @@
         <activity android:name=".sample.LocationSampleActivity"></activity>
         <activity android:name=".sample.QrCodeActivity"></activity>
         <activity android:name=".sample.PaymentActivity"></activity>
+        <activity android:name=".sample.FindOrdersActivity"></activity>
 
         <receiver android:name=".receiver.LIOCancelationBroadcastReceiver">
             <intent-filter>

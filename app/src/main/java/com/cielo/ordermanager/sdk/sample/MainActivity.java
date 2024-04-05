@@ -141,4 +141,9 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.find_orders_button)
+    public void openExample7() {
+        Intent intent = new Intent(this, FindOrdersActivity.class);
+        startActivity(intent);
+    }
 }
