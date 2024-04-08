@@ -11,9 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cielo.ordermanager.sdk.R;
+import com.cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import com.cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import cielo.sdk.order.ServiceBindListener;
 public class ListOrdersActivity extends AppCompatActivity {
     OrderManager orderManager;
     private final String TAG = "ORDER_LIST";
-    private RecyclerView recyclerView;
+    private RecyclerViewEmptySupport recyclerView;
     private TextView txtEmptyValue;
 
     @Override
@@ -90,6 +90,7 @@ public class ListOrdersActivity extends AppCompatActivity {
         try {
             ResultOrders resultOrders = orderManager.retrieveOrders(200, 0);
             txtEmptyValue.setText(R.string.empty_orders);
+            recyclerView.setEmptyView(txtEmptyValue);
             if (resultOrders != null) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 final List<Order> orderList = resultOrders.getResults();
