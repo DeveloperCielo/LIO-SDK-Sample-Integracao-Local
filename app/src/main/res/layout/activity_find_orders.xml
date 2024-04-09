@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -32,6 +32,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Localizar Ordem atráves do Pagamento" />
+
+        <RadioButton
+            android:id="@+id/act_find_orders_rb_findProducts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Obter Produtos de Pagamento" />
     </RadioGroup>
 
     <LinearLayout
@@ -40,15 +46,15 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingTop="16dp">
+        android:paddingTop="8dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/act_find_orders_btn_recoverOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Recuperar Ultima Ordem Paga"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/act_find_orders_ll_extraFields1"
@@ -60,12 +66,14 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Id da Ordem" />
+                android:text="Id da Ordem"
+                android:textSize="14sp" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/act_find_orders_edt_orderId"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -74,7 +82,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="invisible"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -85,12 +94,13 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount" />
+                    android:text="Paid Amount" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/act_find_orders_edt_amount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +117,8 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/act_find_orders_edt_authCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,7 +135,8 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/act_find_orders_edt_cieloCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </LinearLayout>
         </LinearLayout>
 
@@ -139,9 +151,8 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/act_find_orders_edt_result"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_weight="1"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="textMultiLine"
@@ -149,7 +160,7 @@
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
             android:singleLine="false"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:visibility="invisible" />
     </LinearLayout>
 

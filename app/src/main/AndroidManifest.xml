@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.cielo.ordermanager.sdk">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -29,16 +28,17 @@
         <activity android:name=".sample.ListOrdersActivity" />
         <activity android:name=".sample.CancelPaymentActivity" />
         <activity android:name=".sample.CancellationOrderList" />
-        <activity android:name=".sample.PrintSampleActivity"></activity>
-        <activity android:name=".sample.LocationSampleActivity"></activity>
-        <activity android:name=".sample.QrCodeActivity"></activity>
-        <activity android:name=".sample.PaymentActivity"></activity>
-        <activity android:name=".sample.FindOrdersActivity"></activity>
+        <activity android:name=".sample.PrintSampleActivity" />
+        <activity android:name=".sample.LocationSampleActivity" />
+        <activity android:name=".sample.QrCodeActivity" />
+        <activity android:name=".sample.PaymentActivity" />
+        <activity
+            android:name=".sample.FindOrdersActivity"
+            android:windowSoftInputMode="adjustResize" />
 
         <receiver android:name=".receiver.LIOCancelationBroadcastReceiver">
             <intent-filter>
-                <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL">
-                </action>
+                <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL" />
             </intent-filter>
         </receiver>
 
