@@ -53,7 +53,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK ------------x-  //
-    implementation 'com.cielo.lio:order-manager:1.10.4'
+    implementation 'com.cielo.lio:order-manager:1.10.6'
 
     // --------------------------------------------------------------------------- //
 

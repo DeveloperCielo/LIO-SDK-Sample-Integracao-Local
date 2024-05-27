@@ -5,6 +5,13 @@ buildscript {
         mavenCentral()
         maven { url 'https://mapbox.bintray.com/mapbox' }
         google()
+        maven {
+            url artifactoryUrl
+            credentials {
+                username = artifactoryUser
+                password = artifactoryPassword
+            }
+        }
     }
 
     dependencies {
@@ -18,6 +25,13 @@ allprojects {
         mavenLocal()
         jcenter()
         google()
+        maven {
+            url artifactoryUrl
+            credentials {
+                username = artifactoryUser
+                password = artifactoryPassword
+            }
+        }
     }
 }
 
