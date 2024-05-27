@@ -79,14 +79,13 @@ public class PaymentActivity extends BasePaymentActivity {
     @Override
     public void makePayment() {
         if (order != null) {
-
             orderManager.placeOrder(order);
             String ec = merchantCode.getText().toString();
             String userEmail = email.getText().toString();
 
             CheckoutRequest.Builder requestBuilder = new CheckoutRequest.Builder()
                     .orderId(order.getId())
-                    .amount(itemValue)
+                    .amount(order.pendingAmount())
                     .paymentCode(paymentCode)
                     .installments(installments);
 

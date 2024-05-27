@@ -88,10 +88,12 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     public PrimaryProduct primaryProduct;
     public SecondaryProduct secondaryProduct;
     public PaymentCode paymentCode;
+
     public int installments;
     public Order order;
     final long itemValue = 100;
     public String sku = "0000";
+
     public String productName = "";
     public boolean orderManagerServiceBinded = false;
     @Override
@@ -129,7 +131,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             public void onServiceBound() {
                 orderManagerServiceBinded = true;
                 if (!isCreateButtonVisible()){
-                    orderManager.createDraftOrder("REFERENCIA DA ORDEM");
+                    order = orderManager.createDraftOrder("REFERENCIA DA ORDEM");
                 }
                 Timber.tag("bind").w("on");
             }
