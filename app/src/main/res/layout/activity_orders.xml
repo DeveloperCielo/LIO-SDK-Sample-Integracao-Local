@@ -12,7 +12,6 @@
 
     <TextView
         android:id="@+id/empty_view"
-        android:layout_below="@+id/btn_list_orders"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textSize="16sp"

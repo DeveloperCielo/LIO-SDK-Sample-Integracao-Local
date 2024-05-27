@@ -17,7 +17,7 @@ import java.util.Map;
 import cielo.sdk.order.payment.Payment;
 
 public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecyclerViewAdapter.PaymentViewHolder> {
-    private List<Payment> paymentList;
+    private final List<Payment> paymentList;
 
     static class PaymentViewHolder extends RecyclerView.ViewHolder {
         final TextView title1;
@@ -25,6 +25,8 @@ public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecy
         final TextView title3;
         final TextView subtitle1;
         final TextView subtitle2;
+        final TextView subtitle3;
+        final TextView subtitle4;
 
         PaymentViewHolder(View itemView) {
             super(itemView);
@@ -33,6 +35,8 @@ public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecy
             this.title3 = itemView.findViewById(R.id.title3);
             this.subtitle1 = itemView.findViewById(R.id.subtitle1);
             this.subtitle2 = itemView.findViewById(R.id.subtitle2);
+            this.subtitle3 = itemView.findViewById(R.id.subtitle3);
+            this.subtitle4 = itemView.findViewById(R.id.subtitle4);
         }
     }
 
@@ -55,8 +59,10 @@ public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecy
             holder.title1.setText(payment.getCieloCode());
             holder.title2.setText(Util.getAmmount(payment.getAmount()));
             holder.title3.setText(formatInstallments(payment.getInstallments()));
-            holder.subtitle1.setText(product);
-            holder.subtitle2.setText(payment.getRequestDate());
+            holder.subtitle1.setText("");
+            holder.subtitle2.setText(product);
+            holder.subtitle3.setText(String.format("Terminal: %s", payment.getTerminal()));
+            holder.subtitle4.setText(String.format("AuthCode %s", payment.getAuthCode()));
         }
     }
 

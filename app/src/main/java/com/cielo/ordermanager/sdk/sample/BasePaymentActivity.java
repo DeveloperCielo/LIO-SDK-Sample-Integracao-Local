@@ -1,15 +1,17 @@
 package com.cielo.ordermanager.sdk.sample;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
+
 import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
 import com.cielo.ordermanager.sdk.adapter.PrimarySpinnerAdapter;
@@ -54,13 +56,13 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     public Button placeOrderButton;
 
     @BindView(R.id.primary)
-    public Spinner primarySpinner;
+    public AppCompatSpinner primarySpinner;
 
     @BindView(R.id.secondary)
-    public Spinner secondarySpinner;
+    public AppCompatSpinner secondarySpinner;
 
     @BindView(R.id.installments)
-    public Spinner installmentsSpinner;
+    public AppCompatSpinner installmentsSpinner;
 
     @BindView(R.id.content_installments)
     public View contentInstallments;
@@ -76,6 +78,10 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @BindView(R.id.et_email)
     public EditText email;
+
+    @BindView(R.id.et_order_reference)
+    public EditText orderReference;
+
     public PrimarySpinnerAdapter primaryAdapter;
     public SecondarySpinnerAdapter secondaryAdapter;
     public PaymentCodeSpinnerAdapter paymentCodeAdapter;
@@ -146,6 +152,8 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         sku = String.valueOf(1 + (Math.random()));
         itemName.setText("Item de exemplo");
         itemPrice.setText(Util.getAmmount(itemValue));
+        orderReference.setText("");
+        orderReference.setEnabled(true);
         placeOrderButton.setEnabled(true);
         productName = "produto teste";
         addItemButton.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +199,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             itemQuantity.setText("0");
         }
     }
+
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
         if (!orderManagerServiceBinded) {
@@ -198,9 +207,18 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
                     "Verifique sua internet e tente novamente", Toast.LENGTH_LONG).show();
             return;
         }
+        productName += " - " + getAdditionalReference();
+        orderReference.setText(productName);
+        orderReference.setEnabled(false);
         placeOrderButton.setEnabled(false);
         order = orderManager.createDraftOrder(productName);
     }
+
+    private String getAdditionalReference() {
+        return orderReference != null && orderReference.getText() != null ?
+                orderReference.getText().toString() : "";
+    }
+
     protected void resetState() {
         order = null;
         configUi();

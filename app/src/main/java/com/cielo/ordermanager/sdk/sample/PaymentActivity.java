@@ -1,13 +1,13 @@
 package com.cielo.ordermanager.sdk.sample;
 
 
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.adapter.PaymentCodeSpinnerAdapter;
@@ -17,8 +17,6 @@ import java.util.List;
 
 import cielo.orders.domain.CheckoutRequest;
 import cielo.orders.domain.Order;
-import cielo.orders.domain.product.PrimaryProduct;
-import cielo.sdk.order.payment.PaymentCode;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 

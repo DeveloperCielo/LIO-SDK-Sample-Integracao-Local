@@ -10,31 +10,40 @@
         android:id="@+id/place_order_button"
         style="@style/PrimaryActionButton"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
         android:text="@string/create_order"
-        android:textColor="#FFF"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="233dp" />
+        android:textColor="#FFF" />
+
+    <EditText
+        android:id="@+id/et_order_reference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/place_order_button"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="Additional Ref." />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/et_order_reference"
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@id/place_order_button"
             android:background="@color/black_alpha19" />
 
         <RelativeLayout
             android:id="@+id/add_item_row"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_below="@+id/place_order_button"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
             android:background="@drawable/rectangle_ripple"
             tools:ignore="MissingPrefix">
 
@@ -58,9 +67,9 @@
                     android:layout_height="40dp"
                     android:background="@drawable/bg_product_quantity"
                     android:gravity="center"
-                    android:text="0"
                     android:textColor="@color/textProductsCounter"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="0" />
             </LinearLayout>
 
 
@@ -102,7 +111,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/button_plus_new_item"
+                android:layout_toStartOf="@+id/button_plus_new_item"
                 android:background="?selectableItemBackgroundBorderless"
                 android:gravity="center">
 
@@ -134,106 +143,101 @@
 
         </RelativeLayout>
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@id/add_item_row"
             android:background="@color/black_alpha19" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/add_item_row"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/content_primary"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/content_primary"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Produto Primário" />
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/primary"
-                    android:layout_width="250dp"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Produto Primário" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/content_installments"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginStart="4dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle=""
+                        android:text="Parcelas" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/installments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:entries="@array/installments_array" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/content_secondary"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="Produto Secundário" />
 
-                <Spinner
+                <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/secondary"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="4dp"
                     android:visibility="visible" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/content_installments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Parcelas"
-                    android:textStyle="" />
-
-                <Spinner
-                    android:id="@+id/installments"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:entries="@array/installments_array" />
-
-            </LinearLayout>
-
             <EditText
+                android:id="@+id/et_merchant_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="EC"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:id="@+id/et_merchant_code" />
+                android:hint="EC" />
 
             <EditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:id="@+id/et_email" />
+                android:hint="Email" />
 
         </LinearLayout>
     </LinearLayout>
@@ -244,13 +248,11 @@
         style="@style/PrimaryActionButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:enabled="false"
         android:text="@string/checkout"
-        android:textColor="#FFF"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="233dp" />
+        android:textColor="#FFF" />
 
 
 </RelativeLayout>

@@ -19,7 +19,7 @@ import cielo.orders.domain.Item;
 import cielo.orders.domain.Order;
 
 public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.OrderViewHolder> {
-    private List<Order> orderItemList;
+    private final List<Order> orderItemList;
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
         final TextView title1;
@@ -27,6 +27,8 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         final TextView title3;
         final TextView subtitle1;
         final TextView subtitle2;
+        final TextView subtitle3;
+        final TextView subtitle4;
 
         OrderViewHolder(View itemView) {
             super(itemView);
@@ -35,6 +37,8 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             this.title3 = itemView.findViewById(R.id.title3);
             this.subtitle1 = itemView.findViewById(R.id.subtitle1);
             this.subtitle2 = itemView.findViewById(R.id.subtitle2);
+            this.subtitle3 = itemView.findViewById(R.id.subtitle3);
+            this.subtitle4 = itemView.findViewById(R.id.subtitle4);
         }
     }
 
@@ -54,10 +58,12 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         if (order != null) {
             final List<Item> orderItems = order.getItems();
             holder.title1.setText(formatDate(order.getReleaseDate(), order.getCreatedAt()));
-            holder.title2.setText(Util.getAmmount(order.getPrice()));
-            holder.title3.setText(formatNumberOfItems(orderItems));
-            holder.subtitle1.setText(order.getReference());
-            holder.subtitle2.setText(order.getId());
+            holder.title2.setText(order.getStatus().name());
+            holder.title3.setText(formatReference(order.getReference()));
+            holder.subtitle1.setText(Util.getAmmount(order.getPrice()));
+            holder.subtitle2.setText(formatNumberOfItems(orderItems));
+            holder.subtitle3.setText(formatOtherValues(order.getPaidAmount(), order.getPendingAmount()));
+            holder.subtitle4.setText(String.format(Locale.getDefault(),"id: %s", order.getId()));
         }
     }
 
@@ -73,6 +79,15 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
         final SimpleDateFormat sf = new SimpleDateFormat(
                 "dd/MM/yyyy HH:mm:ss", Locale.getDefault());
         return sf.format(orderDate);
+    }
+
+    private String formatOtherValues(long paidAmount, long pendingAmount) {
+        return String.format(Locale.getDefault(),"Paid: %s / Pending: %s",
+                Util.getAmmount(paidAmount), Util.getAmmount(pendingAmount));
+    }
+
+    private String formatReference(String reference) {
+        return String.format(Locale.getDefault(),"Ref: %s", reference);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.cielo.ordermanager.sdk.sample;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -93,7 +94,7 @@ public class ListOrdersActivity extends AppCompatActivity {
             recyclerView.setEmptyView(txtEmptyValue);
             if (resultOrders != null) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                final List<Order> orderList = resultOrders.getResults();
+                final List<Order> orderList = getOrders(resultOrders);
                 recyclerView.setAdapter(new OrderRecyclerViewAdapter(orderList));
                 for (Order or : orderList) {
                     Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
@@ -102,6 +103,18 @@ public class ListOrdersActivity extends AppCompatActivity {
         } catch (UnsupportedOperationException e) {
             Toast.makeText(this, "FUNCAO NAO SUPORTADA NESSA VERSAO DA LIO", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private static List<Order> getOrders(ResultOrders resultOrders) {
+        final List<Order> orderList = resultOrders.getResults();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            orderList.sort((o1, o2) -> {
+                final java.util.Date dt1 = o1.getReleaseDate() != null ? o1.getReleaseDate() : o1.getCreatedAt();
+                final java.util.Date dt2 = o2.getReleaseDate() != null ? o2.getReleaseDate() : o2.getCreatedAt();
+                return dt2.compareTo(dt1);
+            });
+        }
+        return orderList;
     }
 
     private void refreshOrdersFromServer() {
