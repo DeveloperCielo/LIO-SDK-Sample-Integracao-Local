@@ -204,6 +204,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @OnClick(R.id.place_order_button)
     public void placeOrder() {
+        clearCurrentFocus();
         if (!orderManagerServiceBinded) {
             Toast.makeText(this, "Serviço de ordem ainda não recebeu retorno do método bind().\n" +
                     "Verifique sua internet e tente novamente", Toast.LENGTH_LONG).show();
@@ -214,6 +215,13 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         orderReference.setEnabled(false);
         placeOrderButton.setEnabled(false);
         order = orderManager.createDraftOrder(productName);
+    }
+
+    private void clearCurrentFocus() {
+        final View view = getCurrentFocus();
+        if (view != null) {
+            view.clearFocus();
+        }
     }
 
     private String getAdditionalReference() {
