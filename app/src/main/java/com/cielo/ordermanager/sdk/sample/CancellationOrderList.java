@@ -50,7 +50,7 @@ public class CancellationOrderList extends AppCompatActivity {
     }
     private void listOrders() {
         try {
-            ResultOrders resultOrders = orderManager.retrieveOrders(20, 0);
+            ResultOrders resultOrders = orderManager.retrieveOrders(50, 0);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             txtEmptyValue.setText(R.string.empty_orders_cancellation);
             recyclerView.setEmptyView(txtEmptyValue);
@@ -65,7 +65,7 @@ public class CancellationOrderList extends AppCompatActivity {
                             @Override
                             public void onItemClick(View view, int position) {
                                 order = orderList.get(position);
-                                if (order.getPayments().size() > 0) {
+                                if (!order.getPayments().isEmpty()) {
                                     orderManager.unbind();
                                     Intent intent = new Intent(CancellationOrderList.this, CancelPaymentActivity.class);
                                     intent.putExtra("SELECTED_ORDER", order);

@@ -1,6 +1,5 @@
 package com.cielo.ordermanager.sdk.sample;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +16,7 @@ import com.cielo.ordermanager.sdk.R;
 import com.cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import com.cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cielo.orders.domain.Credentials;
@@ -89,32 +89,29 @@ public class ListOrdersActivity extends AppCompatActivity {
 
     private void retrieveOrder() {
         try {
-            ResultOrders resultOrders = orderManager.retrieveOrders(200, 0);
             txtEmptyValue.setText(R.string.empty_orders);
             recyclerView.setEmptyView(txtEmptyValue);
-            if (resultOrders != null) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                final List<Order> orderList = getOrders(resultOrders);
-                recyclerView.setAdapter(new OrderRecyclerViewAdapter(orderList));
-                for (Order or : orderList) {
-                    Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
-                }
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            final List<Order> orderList = getAllOrdersFromRepository();
+            recyclerView.setAdapter(new OrderRecyclerViewAdapter(orderList));
+            for (Order or : orderList) {
+                Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
             }
         } catch (UnsupportedOperationException e) {
             Toast.makeText(this, "FUNCAO NAO SUPORTADA NESSA VERSAO DA LIO", Toast.LENGTH_LONG).show();
         }
     }
 
-    private static List<Order> getOrders(ResultOrders resultOrders) {
-        final List<Order> orderList = resultOrders.getResults();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            orderList.sort((o1, o2) -> {
-                final java.util.Date dt1 = o1.getReleaseDate() != null ? o1.getReleaseDate() : o1.getCreatedAt();
-                final java.util.Date dt2 = o2.getReleaseDate() != null ? o2.getReleaseDate() : o2.getCreatedAt();
-                return dt2.compareTo(dt1);
-            });
+    private List<Order> getAllOrdersFromRepository() {
+        final List<Order> allOrders = new ArrayList<>();
+        for (int currentPage = 0; ; currentPage++) {
+            final ResultOrders resultOrders = orderManager.retrieveOrders(50, currentPage);
+            if (resultOrders == null || currentPage > resultOrders.getTotalPages())
+                break;
+
+            allOrders.addAll(resultOrders.getResults());
         }
-        return orderList;
+        return allOrders;
     }
 
     private void refreshOrdersFromServer() {
