@@ -92,7 +92,7 @@ public class ListOrdersActivity extends AppCompatActivity {
             txtEmptyValue.setText(R.string.empty_orders);
             recyclerView.setEmptyView(txtEmptyValue);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            final List<Order> orderList = getAllOrdersFromRepository();
+            final List<Order> orderList = retrieveOrdersFromRepository();
             recyclerView.setAdapter(new OrderRecyclerViewAdapter(orderList));
             for (Order or : orderList) {
                 Log.i("Order: ", or.getNumber() + " - " + or.getPrice());
@@ -102,15 +102,16 @@ public class ListOrdersActivity extends AppCompatActivity {
         }
     }
 
-    private List<Order> getAllOrdersFromRepository() {
+    private List<Order> retrieveOrdersFromRepository() {
         final List<Order> allOrders = new ArrayList<>();
-        for (int currentPage = 0; ; currentPage++) {
-            final ResultOrders resultOrders = orderManager.retrieveOrders(50, currentPage);
-            if (resultOrders == null || currentPage > resultOrders.getTotalPages())
-                break;
-
-            allOrders.addAll(resultOrders.getResults());
-        }
+        int currentPage = 0;
+        ResultOrders resultOrders;
+        do {
+            resultOrders = orderManager.retrieveOrders(50, currentPage++);
+            if (resultOrders != null) {
+                allOrders.addAll(resultOrders.getResults());
+            }
+        } while (resultOrders != null && currentPage < resultOrders.getTotalPages());
         return allOrders;
     }
 
