@@ -17,6 +17,7 @@ import com.cielo.ordermanager.sdk.RecyclerViewEmptySupport;
 import com.cielo.ordermanager.sdk.adapter.OrderRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import cielo.orders.domain.Credentials;
@@ -103,15 +104,16 @@ public class ListOrdersActivity extends AppCompatActivity {
     }
 
     private List<Order> retrieveOrdersFromRepository() {
-        final List<Order> allOrders = new ArrayList<>();
-        int currentPage = 0;
+        List<Order> allOrders = new ArrayList<>();
         ResultOrders resultOrders;
-        do {
-            resultOrders = orderManager.retrieveOrders(50, currentPage++);
-            if (resultOrders != null) {
-                allOrders.addAll(resultOrders.getResults());
-            }
-        } while (resultOrders != null && currentPage < resultOrders.getTotalPages());
+        for (int currentPage = 0; (resultOrders = orderManager.retrieveOrders(50, currentPage)) != null
+                && currentPage < resultOrders.getTotalPages(); currentPage++) {
+            allOrders.addAll(resultOrders.getResults());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            allOrders.sort(Comparator.comparing(Order::getReleaseDate, Comparator.nullsLast(Comparator.naturalOrder()))
+                    .thenComparing(Order::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder())).reversed());
+        }
         return allOrders;
     }
 
