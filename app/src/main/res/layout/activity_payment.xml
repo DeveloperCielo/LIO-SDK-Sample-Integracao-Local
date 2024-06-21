@@ -74,6 +74,7 @@
 
 
             <LinearLayout
+                android:id="@+id/product_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="72dp"

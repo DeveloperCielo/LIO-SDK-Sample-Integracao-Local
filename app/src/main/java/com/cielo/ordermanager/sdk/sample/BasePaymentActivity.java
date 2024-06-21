@@ -1,14 +1,18 @@
 package com.cielo.ordermanager.sdk.sample;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
@@ -82,6 +86,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
     @BindView(R.id.et_order_reference)
     public EditText orderReference;
 
+    @BindView(R.id.product_item)
+    public LinearLayout productItem;
+
     public PrimarySpinnerAdapter primaryAdapter;
     public SecondarySpinnerAdapter secondaryAdapter;
     public PaymentCodeSpinnerAdapter paymentCodeAdapter;
@@ -91,7 +98,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     public int installments;
     public Order order;
-    final long itemValue = 100;
+    long itemValue = 100;
     public String sku = "0000";
 
     public String productName = "";
@@ -154,6 +161,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         sku = String.valueOf(1 + (Math.random()));
         itemName.setText("Item de exemplo");
         itemPrice.setText(Util.getAmmount(itemValue));
+        productItem.setOnClickListener(v->{
+            showSetItemValueDiagog();
+        });
         orderReference.setText("");
         orderReference.setEnabled(true);
         placeOrderButton.setEnabled(true);
@@ -184,6 +194,30 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showSetItemValueDiagog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+        builder.setTitle("Digite valor")
+                .setPositiveButton("OK", (dialog, id) -> {
+                    String number = input.getText().toString();
+                    if (!number.isEmpty()) {
+                        itemPrice.setText(Util.getAmmount(Long.parseLong(number)));
+                        itemValue = Long.parseLong(number);
+                        updatePaymentButton();
+                    }
+                })
+                .setNegativeButton("Cancelar", (dialog, id) -> {
+                    dialog.cancel();
+                });
+
+// Cria e mostra o AlertDialog
+        builder.create().show();
+    }
+
     protected void showCreateOrderMessage() {
         Toast.makeText(BasePaymentActivity.this, "Para adicionar itens é preciso criar uma ordem.", Toast.LENGTH_SHORT).show();
     }
