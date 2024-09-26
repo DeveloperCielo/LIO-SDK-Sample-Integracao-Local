@@ -1,11 +1,11 @@
 package com.cielo.ordermanager.sdk.sample;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,7 +25,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.orders.domain.Credentials;
-import cielo.orders.domain.Item;
 import cielo.orders.domain.Order;
 import cielo.orders.domain.product.PrimaryProduct;
 import cielo.orders.domain.product.SecondaryProduct;
@@ -55,6 +54,9 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @BindView(R.id.payment_button)
     public Button paymentButton;
+
+    @BindView(R.id.create_order_button)
+    public Button createOrderButton;
 
     @BindView(R.id.place_order_button)
     public Button placeOrderButton;
@@ -88,6 +90,60 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
 
     @BindView(R.id.product_item)
     public LinearLayout productItem;
+
+    @BindView(R.id.order_data)
+    public LinearLayout orderData;
+
+    @BindView(R.id.payment_data)
+    public LinearLayout paymentData;
+
+    @BindView(R.id.cb_subacquirer)
+    public CheckBox cbSubAcquirer;
+
+    @BindView(R.id.content_subacquirer)
+    public LinearLayout contentSubAcquirer;
+
+    @BindView(R.id.sub_soft_descriptor)
+    public EditText softDescriptorSub;
+
+    @BindView(R.id.sub_terminal_id)
+    public EditText terminalIdSub;
+
+    @BindView(R.id.sub_merchant_code)
+    public EditText merchantCodeSub;
+
+    @BindView(R.id.sub_city)
+    public EditText citySub;
+
+    @BindView(R.id.sub_telephone)
+    public EditText telephoneSub;
+
+    @BindView(R.id.sub_state)
+    public EditText stateSub;
+
+    @BindView(R.id.sub_postal_code)
+    public EditText postalCodeSub;
+
+    @BindView(R.id.sub_address)
+    public EditText addressSub;
+
+    @BindView(R.id.sub_id)
+    public EditText idSub;
+
+    @BindView(R.id.sub_mcc)
+    public EditText mccSub;
+
+    @BindView(R.id.sub_country)
+    public EditText countrySub;
+
+    @BindView(R.id.sub_information_type)
+    public EditText informationTypeSub;
+
+    @BindView(R.id.sub_document)
+    public EditText documentSub;
+
+    @BindView(R.id.sub_ibge)
+    public EditText ibgeSub;
 
     public PrimarySpinnerAdapter primaryAdapter;
     public SecondarySpinnerAdapter secondaryAdapter;
@@ -150,7 +206,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
             }
 
             private boolean isCreateButtonVisible() {
-                final Button orderButton = findViewById(R.id.place_order_button);
+                final Button orderButton = findViewById(R.id.create_order_button);
                 return orderButton != null &&
                         orderButton.isEnabled() &&
                         orderButton.getVisibility() == View.VISIBLE;
@@ -162,40 +218,47 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         itemName.setText("Item de exemplo");
         itemPrice.setText(Util.getAmmount(itemValue));
         productItem.setOnClickListener(v->{
-            showSetItemValueDiagog();
+            showSetItemValueDialog();
         });
         orderReference.setText("");
         orderReference.setEnabled(true);
-        placeOrderButton.setEnabled(true);
+        createOrderButton.setEnabled(true);
+        placeOrderButton.setEnabled(false);
         productName = "produto teste";
-        addItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (order != null) {
-                    order.addItem(sku, productName, itemValue, 1, "EACH");
-                    orderManager.updateOrder(order);
-                    updatePaymentButton();
-                } else {
-                    showCreateOrderMessage();
-                }
+        addItemButton.setOnClickListener(v -> {
+            if (order != null) {
+                order.addItem(sku, productName, itemValue, 1, "EACH");
+                placeOrderButton.setEnabled(true);
+                orderManager.updateOrder(order);
+                updatePaymentButton();
+            } else {
+                showCreateOrderMessage();
             }
         });
-        removeItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (order != null && order.getItems().size() > 0) {
-                    Item item = order.getItems().get(0);
-                    order.decreaseQuantity(item.getId());
-                    orderManager.updateOrder(order);
-                    updatePaymentButton();
-                } else {
-                    showCreateOrderMessage();
-                }
+        removeItemButton.setOnClickListener(v -> {
+            if (order != null) {
+                order.removeAllItems();
+                placeOrderButton.setEnabled(false);
+                orderManager.updateOrder(order);
+                updatePaymentButton();
+            }
+        });
+
+        placeOrderButton.setOnClickListener(v -> {
+            orderManager.placeOrder(order);
+            orderData.setVisibility(View.GONE);
+            paymentData.setVisibility(View.VISIBLE);
+        });
+        cbSubAcquirer.setOnClickListener(v -> {
+            if (cbSubAcquirer.isChecked()) {
+                contentSubAcquirer.setVisibility(View.VISIBLE);
+            } else {
+                contentSubAcquirer.setVisibility(View.GONE);
             }
         });
     }
 
-    private void showSetItemValueDiagog() {
+    private void showSetItemValueDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
@@ -236,8 +299,8 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.place_order_button)
-    public void placeOrder() {
+    @OnClick(R.id.create_order_button)
+    public void createDraftOrder() {
         clearCurrentFocus();
         if (!orderManagerServiceBinded) {
             Toast.makeText(this, "Serviço de ordem ainda não recebeu retorno do método bind().\n" +
@@ -247,7 +310,7 @@ public abstract class BasePaymentActivity extends AppCompatActivity {
         productName += " - " + getAdditionalReference();
         orderReference.setText(productName);
         orderReference.setEnabled(false);
-        placeOrderButton.setEnabled(false);
+        createOrderButton.setEnabled(false);
         order = orderManager.createDraftOrder(productName);
     }
 

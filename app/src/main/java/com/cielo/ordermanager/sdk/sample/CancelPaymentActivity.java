@@ -98,7 +98,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     .authCode(payment.getAuthCode())
                     .cieloCode(payment.getCieloCode())
                     .value(payment.getAmount())
-                    .ec("0000000000000003")
+                    .ec(payment.getMerchantCode())
                     .build();
 
             orderManager.cancelOrder(request, new CancellationListener() {
