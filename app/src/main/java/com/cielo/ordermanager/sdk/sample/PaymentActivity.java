@@ -95,7 +95,7 @@ public class PaymentActivity extends BasePaymentActivity {
                     requestBuilder.subAcquirer(new SubAcquirer(
                             softDescriptorSub.getText().toString(),
                             terminalIdSub.getText().toString(),
-                            merchantCode.getText().toString(),
+                            merchantCodeSub.getText().toString(),
                             citySub.getText().toString(),
                             telephoneSub.getText().toString(),
                             stateSub.getText().toString(),
