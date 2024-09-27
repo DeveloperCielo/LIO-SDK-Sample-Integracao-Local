@@ -37,8 +37,8 @@ import timber.log.Timber;
 public class FindOrdersActivity extends AppCompatActivity {
     public final static String TAG = "FindOrdersActivity";
 
-    public final static String CLIENT_ID = "rSAqNPGvFPJI";
-    private final static String ACCESS_TOKEN = "XZevoUYKmkVr";
+    public final static String CLIENT_ID = "xxxxxxxxxx";
+    private final static String ACCESS_TOKEN = "xxxxxxxxxx";
 
     private OrderManager orderManager;
     private boolean isOrderManagerBinded;
