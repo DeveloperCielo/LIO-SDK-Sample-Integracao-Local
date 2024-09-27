@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">SDK Tester</string>
     <string name="payment_sample">Realizar Pagamento</string>
+    <string name="payment_label">Dados do Pagamento:</string>
     <string name="orders_list">Listagem de Ordens</string>
     <string name="cancel_payment">Cancelar Pagamento</string>
     <string name="print_sample">Teste Impressão</string>
-    <string name="mifare_sample">Mifare</string>
     <string name="location_sample">Localização</string>
     <string name="qr_code_sample">QR Code</string>
 
@@ -16,6 +16,7 @@
 
     <string name="checkout">Pagar</string>
     <string name="create_order">Criar ordem</string>
+    <string name="place_order">Liberar pagamento</string>
     <string name="cancel_payment_title">CANCELAR UM PAGAMENTO</string>
     <string name="select_order_to_cancel">Selecione uma ordem para cancelar</string>
     <string name="select_option">Selecione uma das opções abaixo</string>
@@ -40,7 +41,7 @@
     <string name="refresh_list">Atualizar Lista</string>
 
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
-
-    <string name="device_not_supported">Device não suportado.</string>
+    <string name="orders_find">Localizar Ordens</string>
+    <string name="adding_items">Adicione itens após criar a ordem:</string>
 
 </resources>

@@ -6,43 +6,122 @@
     android:background="?attr/selectableItemBackground"
     android:orientation="vertical">
 
+
     <LinearLayout
-        android:id="@+id/layout_texts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="64dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            tools:ignore="MissingPrefix"
-            tools:text="Ordem - Teste" />
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/summary"
+            <TextView
+                android:id="@+id/title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                tools:ignore="MissingPrefix"
+                tools:text="01/01/2024 08:00" />
+
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                tools:ignore="MissingPrefix"
+                tools:text="CLOSED" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="#262626"
+                android:textSize="16sp"
+                tools:ignore="MissingPrefix"
+                tools:text="Pedido #1" />
+
+            <TextView
+                android:id="@+id/subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="#262626"
+                android:textSize="16sp"
+                tools:ignore="MissingPrefix"
+                tools:text="R$ 100,00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="2"
+                android:textColor="#262626"
+                android:textSize="15sp"
+                tools:ignore="MissingPrefix"
+                tools:text="R$ 0" />
+
+            <TextView
+                android:id="@+id/subtitle3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="2"
+                android:textColor="#99262626"
+                android:textSize="15sp"
+                tools:ignore="MissingPrefix"
+                tools:text="R$ 0" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/subtitle4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="#262626"
+            android:maxLines="2"
+            android:textColor="#99262626"
             android:textSize="14sp"
             tools:ignore="MissingPrefix"
-            tools:text="teste" />
+            tools:text="adsadsad-asdasdsa-dasdsad-asdasdsa " />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#E1E1E1" />
 </LinearLayout>

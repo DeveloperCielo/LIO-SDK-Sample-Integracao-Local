@@ -6,6 +6,6 @@ import java.util.Locale;
 public class Util {
 
     public static String getAmmount(long value) {
-        return NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format((value / 100));
+        return NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format((value / 100.0f));
     }
 }

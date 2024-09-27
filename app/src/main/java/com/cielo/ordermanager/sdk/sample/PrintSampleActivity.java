@@ -9,17 +9,17 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cielo.ordermanager.sdk.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.orders.domain.PrinterAttributes;
+import cielo.sdk.info.InfoManager;
 import cielo.sdk.order.PrinterListener;
 import cielo.sdk.printer.PrinterManager;
+import timber.log.Timber;
 
 public class PrintSampleActivity extends AppCompatActivity {
 
@@ -65,6 +65,7 @@ public class PrintSampleActivity extends AppCompatActivity {
     public void printImage() {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cielo);
         printerManager.printImage(bitmap, alignCenter, printerListener);
+        Timber.tag("printerImage").w(printerListener.toString());
     }
 
     @OnClick(R.id.print_qrcode)

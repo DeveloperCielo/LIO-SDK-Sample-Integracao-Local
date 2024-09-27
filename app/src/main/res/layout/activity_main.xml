@@ -45,6 +45,11 @@
                 android:text="@string/orders_list" />
 
             <Button
+                android:id="@+id/find_orders_button"
+                style="@style/PrimaryActionButton"
+                android:text="@string/orders_find" />
+
+            <Button
                 android:id="@+id/cancel_payment_button"
                 style="@style/PrimaryActionButton"
                 android:text="@string/cancel_payment" />
@@ -53,11 +58,6 @@
                 android:id="@+id/print_sample_button"
                 style="@style/PrimaryActionButton"
                 android:text="@string/print_sample" />
-
-            <Button
-                android:id="@+id/mifare_sample_button"
-                style="@style/PrimaryActionButton"
-                android:text="@string/mifare_sample" />
 
             <Button
                 android:id="@+id/location_sample_button"

@@ -1,26 +1,21 @@
 package com.cielo.ordermanager.sdk.sample;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
+import com.cielo.ordermanager.sdk.R;
+import com.cielo.ordermanager.sdk.adapter.PaymentRecyclerViewAdapter;
+import com.cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.cielo.ordermanager.sdk.R;
-
-import com.cielo.ordermanager.sdk.adapter.PaymentRecyclerViewAdapter;
-import com.cielo.ordermanager.sdk.listener.RecyclerItemClickListener;
-
 import cielo.orders.domain.CancellationRequest;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.Order;
@@ -28,11 +23,8 @@ import cielo.sdk.order.OrderManager;
 import cielo.sdk.order.cancellation.CancellationListener;
 import cielo.sdk.order.payment.Payment;
 import cielo.sdk.order.payment.PaymentError;
-
 public class CancelPaymentActivity extends AppCompatActivity {
-
     private final String TAG = "CANCEL_PAYMENT";
-
     private Order order;
     private Payment payment;
     private OrderManager orderManager;
@@ -73,14 +65,12 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     new RecyclerItemClickListener(CancelPaymentActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-
                             payment = paymentList.get(position);
                             cancelButton.setEnabled(true);
-
                         }
-
                         @Override
                         public void onLongItemClick(View view, int position) {
+                            // Implementação do long click, se necessário
                         }
                     })
             );
@@ -89,7 +79,6 @@ public class CancelPaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Dados para Cancelamento");
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -109,7 +98,7 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     .authCode(payment.getAuthCode())
                     .cieloCode(payment.getCieloCode())
                     .value(payment.getAmount())
-                    .ec("0000000000000003")
+                    .ec(payment.getMerchantCode())
                     .build();
 
             orderManager.cancelOrder(request, new CancellationListener() {
@@ -124,37 +113,28 @@ public class CancelPaymentActivity extends AppCompatActivity {
                     order = cancelledOrder;
                     resetUI();
                 }
-
                 @Override
                 public void onCancel() {
                     Log.d(TAG, "ON CANCEL");
-
                     Toast.makeText(CancelPaymentActivity.this, "CANCELADO", Toast.LENGTH_SHORT).show();
                     resetUI();
                 }
-
                 @Override
                 public void onError(PaymentError paymentError) {
                     Log.d(TAG, "ON ERROR");
-
                     Toast.makeText(CancelPaymentActivity.this, "ERRO", Toast.LENGTH_SHORT).show();
                     resetUI();
                 }
             });
-        } else {
-
         }
     }
-
     private void resetUI() {
         payment = null;
         cancelButton.setEnabled(false);
     }
-
     private void configSDK() {
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials("xxxxxxxxxx", "xxxxxxxxxx");
         orderManager = new OrderManager(credentials, this);
         orderManager.bind(this, null);
     }
-
 }

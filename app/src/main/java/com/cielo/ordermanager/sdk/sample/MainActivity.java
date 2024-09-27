@@ -8,15 +8,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cielo.ordermanager.sdk.R;
+import com.cielo.ordermanager.sdk.sample.deprecated.ParcialPaymentActivity;
+import com.cielo.ordermanager.sdk.sample.deprecated.PayInformingMerchantCode;
+import com.cielo.ordermanager.sdk.sample.deprecated.SelectPaymentMethodActivity;
+import com.cielo.ordermanager.sdk.sample.deprecated.SuccessivePaymentActivity;
+import com.cielo.ordermanager.sdk.sample.deprecated.TotalPaymentActivity;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cielo.orders.domain.Credentials;
 import cielo.orders.domain.DeviceModel;
 import cielo.orders.domain.Settings;
+import cielo.orders.domain.product.PrimaryProduct;
 import cielo.sdk.info.InfoManager;
 import cielo.sdk.order.OrderManager;
 
@@ -37,8 +45,6 @@ public class MainActivity extends Activity {
     protected OrderManager orderManager;
     protected InfoManager infoManager;
 
-    protected DeviceModel deviceModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +52,30 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
 
         conifgSDK();
+        List<PrimaryProduct> listaTeste = orderManager.retrievePaymentType(this);
+        String lista = listaTeste.toString();
+        Log.w("lista", lista);
         Settings settings = infoManager.getSettings(this);
 
         merchantCodeText.setText(settings.getMerchantCode());
         logicNumberText.setText(settings.getLogicNumber());
         Float batteryLevel = infoManager.getBatteryLevel(this);
 
-        deviceModel = infoManager.getDeviceModel();
+        DeviceModel deviceModel = infoManager.getDeviceModel();
+
+        Log.i("DeviceModel", "getDeviceModel - " + deviceModel);
+
         if (deviceModel == DeviceModel.LIO_V1) {
             printerButton.setVisibility(View.GONE);
             deviceModelText.setText("LIO V1 - Bateria: " + (int) (batteryLevel * 100) + "%");
-        } else {
+        } else if (deviceModel == DeviceModel.LIO_V2){
             printerButton.setVisibility(View.VISIBLE);
-            deviceModelText.setText("LIO - Bateria: " + (int) (batteryLevel * 100) + "%");
+            deviceModelText.setText("LIO V2- Bateria: " + (int) (batteryLevel * 100) + "%");
+        } else if (deviceModel == DeviceModel.LIO_V3) {
+            printerButton.setVisibility(View.VISIBLE);
+            deviceModelText.setText("LIO V3- Bateria: " + (int) (batteryLevel * 100) + "%");
+        } else {
+            deviceModelText.setText("LIO Versão Indefinido - Bateria: " + (int) (batteryLevel * 100) + "%");
         }
 
         Log.i("TAG", "SERIAL: " + Build.SERIAL);
@@ -83,7 +100,7 @@ public class MainActivity extends Activity {
 
     protected void conifgSDK() {
         infoManager = new InfoManager();
-        Credentials credentials = new Credentials( "clientID", "accessToken");
+        Credentials credentials = new Credentials( "xxxxxxxxxx", "xxxxxxxxxx");
         orderManager = new OrderManager(credentials, this);
     }
 
@@ -124,15 +141,9 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.mifare_sample_button)
+    @OnClick(R.id.find_orders_button)
     public void openExample7() {
-        if (deviceModel == DeviceModel.LIO_V3) {
-            Intent intent = new Intent(this, MifareActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, getText(R.string.device_not_supported), Toast.LENGTH_SHORT).show();
-        }
-
+        Intent intent = new Intent(this, FindOrdersActivity.class);
+        startActivity(intent);
     }
-
 }

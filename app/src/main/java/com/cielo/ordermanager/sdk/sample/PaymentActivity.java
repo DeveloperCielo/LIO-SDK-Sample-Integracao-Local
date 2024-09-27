@@ -17,6 +17,7 @@ import java.util.List;
 
 import cielo.orders.domain.CheckoutRequest;
 import cielo.orders.domain.Order;
+import cielo.orders.domain.SubAcquirer;
 import cielo.sdk.order.payment.PaymentError;
 import cielo.sdk.order.payment.PaymentListener;
 
@@ -30,7 +31,8 @@ public class PaymentActivity extends BasePaymentActivity {
 
         productName = "Teste - Pagamentos";
 
-
+        orderData.setVisibility(View.VISIBLE);
+        paymentData.setVisibility(View.GONE);
 
         try {
             paymentCodeAdapter = new PaymentCodeSpinnerAdapter(this, R.layout.spinner_item);
@@ -79,16 +81,39 @@ public class PaymentActivity extends BasePaymentActivity {
     @Override
     public void makePayment() {
         if (order != null) {
-
-            orderManager.placeOrder(order);
             String ec = merchantCode.getText().toString();
             String userEmail = email.getText().toString();
 
             CheckoutRequest.Builder requestBuilder = new CheckoutRequest.Builder()
                     .orderId(order.getId())
-                    .amount(itemValue)
+                    .amount(order.pendingAmount())
                     .paymentCode(paymentCode)
                     .installments(installments);
+
+            if (cbSubAcquirer.isChecked()) {
+                if (validateSubAcquirerFields()) {
+                    requestBuilder.subAcquirer(new SubAcquirer(
+                            softDescriptorSub.getText().toString(),
+                            terminalIdSub.getText().toString(),
+                            merchantCodeSub.getText().toString(),
+                            citySub.getText().toString(),
+                            telephoneSub.getText().toString(),
+                            stateSub.getText().toString(),
+                            postalCodeSub.getText().toString(),
+                            addressSub.getText().toString(),
+                            idSub.getText().toString(),
+                            mccSub.getText().toString(),
+                            countrySub.getText().toString(),
+                            informationTypeSub.getText().toString(),
+                            documentSub.getText().toString(),
+                            ibgeSub.getText().toString()
+                    ));
+                } else {
+                    Toast.makeText(this, "Necessário preencher todos os campos do subadquirente.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
 
             if (!ec.equals(""))
                 requestBuilder.ec(ec);
@@ -134,6 +159,21 @@ public class PaymentActivity extends BasePaymentActivity {
 
             });
         }
+    }
+
+    private boolean validateSubAcquirerFields() {
+        return !softDescriptorSub.getText().toString().isEmpty() &&
+                !terminalIdSub.getText().toString().isEmpty() &&
+                !merchantCode.getText().toString().isEmpty() &&
+                !citySub.getText().toString().isEmpty() &&
+                !telephoneSub.getText().toString().isEmpty() &&
+                !stateSub.getText().toString().isEmpty() &&
+                !postalCodeSub.getText().toString().isEmpty() &&
+                !addressSub.getText().toString().isEmpty() &&
+                !idSub.getText().toString().isEmpty() &&
+                !mccSub.getText().toString().isEmpty() &&
+                !countrySub.getText().toString().isEmpty() &&
+                !informationTypeSub.getText().toString().isEmpty();
     }
 
     @Override

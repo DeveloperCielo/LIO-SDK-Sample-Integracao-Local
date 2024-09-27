@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import androidx.annotation.NonNull;
 
 import butterknife.OnClick;
 import com.cielo.ordermanager.sdk.R;
@@ -103,7 +104,7 @@ public class SelectPaymentMethodActivityOld extends BasePaymentActivity {
                             }
 
                             @Override
-                            public void onPayment(Order paidOrder) {
+                            public void onPayment(@NonNull Order paidOrder) {
                                 Log.d(TAG, "ON PAYMENT");
 
                                 order = paidOrder;
@@ -123,7 +124,7 @@ public class SelectPaymentMethodActivityOld extends BasePaymentActivity {
                             }
 
                             @Override
-                            public void onError(PaymentError paymentError) {
+                            public void onError(@NonNull PaymentError paymentError) {
                                 Log.d(TAG, "ON ERROR");
                                 resetState();
                             }

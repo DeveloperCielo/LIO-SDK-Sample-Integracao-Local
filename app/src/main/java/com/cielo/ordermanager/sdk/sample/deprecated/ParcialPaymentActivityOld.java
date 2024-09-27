@@ -3,6 +3,8 @@ package com.cielo.ordermanager.sdk.sample.deprecated;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.cielo.ordermanager.sdk.sample.BasePaymentActivity;
 import cielo.orders.domain.Order;
 import cielo.sdk.order.payment.PaymentError;
@@ -29,7 +31,7 @@ public class ParcialPaymentActivityOld extends BasePaymentActivity {
                 }
 
                 @Override
-                public void onPayment(Order paidOrder) {
+                public void onPayment(@NonNull Order paidOrder) {
                     Log.d(TAG, "ON PAYMENT");
 
                     order = paidOrder;
@@ -46,7 +48,7 @@ public class ParcialPaymentActivityOld extends BasePaymentActivity {
                 }
 
                 @Override
-                public void onError(PaymentError paymentError) {
+                public void onError(@NonNull PaymentError paymentError) {
                     Log.d(TAG, "ON ERROR");
                     resetState();
                 }

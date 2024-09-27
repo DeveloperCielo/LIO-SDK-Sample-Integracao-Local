@@ -1,6 +1,7 @@
 package com.cielo.ordermanager.sdk.sample.deprecated;
 
 
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,7 +63,7 @@ public class PayInformingMerchantCodeOld extends SelectPaymentMethodActivityOld 
                             }
 
                             @Override
-                            public void onPayment(Order paidOrder) {
+                            public void onPayment(@NonNull Order paidOrder) {
                                 Log.d(TAG, "ON PAYMENT");
 
                                 order = paidOrder;
@@ -79,7 +80,7 @@ public class PayInformingMerchantCodeOld extends SelectPaymentMethodActivityOld 
                             }
 
                             @Override
-                            public void onError(PaymentError paymentError) {
+                            public void onError(@NonNull PaymentError paymentError) {
                                 Log.d(TAG, "ON ERROR");
                                 resetState();
                             }
