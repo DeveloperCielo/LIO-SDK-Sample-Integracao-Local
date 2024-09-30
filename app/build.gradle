@@ -22,19 +22,11 @@ android {
     buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.cielo.ordermanager.sdk.sample"
-<<<<<<< HEAD
         minSdkVersion 25
         targetSdkVersion 31
         versionCode 3
         versionName "2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-=======
-        minSdkVersion 23
-        targetSdkVersion 27
-        versionCode 2
-        versionName "2.4"
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
->>>>>>> 40f285afb115e790eaee7e6e373ff70eadb6c779
     }
 
 
@@ -73,18 +65,12 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-<<<<<<< HEAD
-    // ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK ------------x-  //
-    implementation 'com.cielo.lio:order-manager:2.1.4'
-
-=======
     /*
      * ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------------
      * Seguir o procedimento da nossa documentação para importar a ultima versão da SDK:
      * https://developercielo.github.io/manual/cielo-lio#configurar-m%C3%B3dulos-e-depend%C3%AAncias
     */
     implementation 'com.cielo.lio:order-manager:x.x.x'
->>>>>>> 40f285afb115e790eaee7e6e373ff70eadb6c779
     // --------------------------------------------------------------------------- //
 
     implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.1') {
@@ -94,13 +80,8 @@ dependencies {
     }
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 
-<<<<<<< HEAD
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
-=======
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
->>>>>>> 40f285afb115e790eaee7e6e373ff70eadb6c779
 
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
