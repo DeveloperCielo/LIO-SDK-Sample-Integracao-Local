@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.cielo.ordermanager.sdk.sample.PrintSampleActivity"
+    tools:context="com.cielo.ordermanager.sdk.sample.activities.PrintSampleActivity"
     >
 
   <LinearLayout

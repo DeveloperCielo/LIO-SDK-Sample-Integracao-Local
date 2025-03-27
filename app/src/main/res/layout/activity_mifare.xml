@@ -89,7 +89,6 @@
                     android:id="@+id/readBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="readBtnClick"
                     android:text="Read"
                     />
 
@@ -98,7 +97,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:onClick="writeBtnClick"
                     android:text="Write"
                     />
 
@@ -107,7 +105,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:onClick="backupBtnClick"
                     android:text="Backup"
                     />
 
@@ -116,7 +113,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:onClick="deactivateBtnClick"
                     android:text="Deactivate"
                     />
         </LinearLayout>

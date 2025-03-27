@@ -1,34 +1,39 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 buildscript {
-    ext.kotlin_version = '1.4.30'
+
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
 }
 
 android {
-
+    namespace "com.cielo.ordermanager.sdk"
     lintOptions { abortOnError false }
+    compileSdkVersion 33
 
-    compileSdkVersion 28
-    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.cielo.ordermanager.sdk.sample"
         minSdkVersion 25
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 3
-        versionName "2.5"
+        versionName "2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField("String", "CREDENTIALS_CLIENT_ID", "\"xxxxxxxxxx\"") // insira sua client ID
+        buildConfigField("String", "CREDENTIALS_ACCESS_TOKEN", "\"xxxxxxxxxx\"") // insira sua Credenciais de acesso
+
     }
 
+    viewBinding {
+        enabled = true
+    }
 
     lintOptions {
         abortOnError false
@@ -50,17 +55,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 configurations.all {
     exclude group: 'com.android.support', module: 'support-v4'
-
 }
-
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -73,6 +79,9 @@ dependencies {
     implementation 'com.cielo.lio:order-manager:x.x.x'
     // --------------------------------------------------------------------------- //
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+
     implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.1') {
         exclude group: 'com.android.support'
         exclude module: 'appcompat-v7'
@@ -80,11 +89,8 @@ dependencies {
     }
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 
-    implementation 'com.jakewharton:butterknife:10.2.3'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
-
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testCompile 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    testImplementation 'junit:junit:4.13.2'
 }
