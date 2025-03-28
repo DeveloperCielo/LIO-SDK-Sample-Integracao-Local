@@ -1,4 +1,4 @@
-package com.cielo.ordermanager.sdk.adapter;
+package com.cielo.ordermanager.sdk.sample.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cielo.ordermanager.sdk.R;
-import com.cielo.ordermanager.sdk.sample.Util;
+import com.cielo.ordermanager.sdk.utils.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,7 +60,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             holder.title1.setText(formatDate(order.getReleaseDate(), order.getCreatedAt()));
             holder.title2.setText(order.getStatus().name());
             holder.title3.setText(formatReference(order.getReference()));
-            holder.subtitle1.setText(Util.getAmmount(order.getPrice()));
+            holder.subtitle1.setText(Util.getAmount(order.getPrice()));
             holder.subtitle2.setText(formatNumberOfItems(orderItems));
             holder.subtitle3.setText(formatOtherValues(order.getPaidAmount(), order.getPendingAmount()));
             holder.subtitle4.setText(String.format(Locale.getDefault(),"id: %s", order.getId()));
@@ -83,7 +83,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
 
     private String formatOtherValues(long paidAmount, long pendingAmount) {
         return String.format(Locale.getDefault(),"Paid: %s / Pending: %s",
-                Util.getAmmount(paidAmount), Util.getAmmount(pendingAmount));
+                Util.getAmount(paidAmount), Util.getAmount(pendingAmount));
     }
 
     private String formatReference(String reference) {

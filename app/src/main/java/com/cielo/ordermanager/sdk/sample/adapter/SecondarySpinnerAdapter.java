@@ -1,4 +1,4 @@
-package com.cielo.ordermanager.sdk.adapter;
+package com.cielo.ordermanager.sdk.sample.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,25 +7,30 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import com.cielo.ordermanager.sdk.R;
+
 import java.util.List;
 
-import com.cielo.ordermanager.sdk.R;
-import cielo.sdk.order.payment.PaymentCode;
+import cielo.orders.domain.product.SecondaryProduct;
 
-public class PaymentCodeSpinnerAdapter extends ArrayAdapter<PaymentCode> {
+public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
 
     private Context context;
-    private List<PaymentCode> values;
+    private List<SecondaryProduct> values;
     LayoutInflater inflater;
-    PaymentCode tempProduct = null;
+    SecondaryProduct tempProduct = null;
 
-    public PaymentCodeSpinnerAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId, PaymentCode.values());
+    public SecondarySpinnerAdapter(Context context, int textViewResourceId,
+                                   List<SecondaryProduct> values) {
+        super(context, textViewResourceId, values);
         this.context = context;
-        this.values = Arrays.asList(PaymentCode.values());
+        this.values = values;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setValues(List<SecondaryProduct> values) {
+        this.values = values;
     }
 
     @Override
@@ -34,7 +39,7 @@ public class PaymentCodeSpinnerAdapter extends ArrayAdapter<PaymentCode> {
     }
 
     @Override
-    public PaymentCode getItem(int position) {
+    public SecondaryProduct getItem(int position) {
         return values.get(position);
     }
 
@@ -61,7 +66,7 @@ public class PaymentCodeSpinnerAdapter extends ArrayAdapter<PaymentCode> {
         tempProduct = values.get(position);
 
         TextView label = (TextView) row.findViewById(R.id.simple_title);
-        label.setText(tempProduct.name());
+        label.setText(tempProduct.getName());
 
         return row;
     }

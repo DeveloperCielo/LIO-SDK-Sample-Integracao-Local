@@ -1,4 +1,4 @@
-package com.cielo.ordermanager.sdk.adapter;
+package com.cielo.ordermanager.sdk.sample.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

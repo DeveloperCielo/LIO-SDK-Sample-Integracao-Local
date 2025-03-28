@@ -67,10 +67,8 @@
                     android:id="@+id/item_highlight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.5"
-                    android:background="?android:attr/colorPrimary"
-                    android:orientation="vertical"
-                    android:visibility="invisible" />
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical" />
 
                 <LinearLayout
                     android:layout_width="72dp"
@@ -175,267 +173,265 @@
                 android:layout_marginBottom="4dp"
                 android:text="@string/place_order"
                 android:textColor="#FFF" />
-        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/payment_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:visibility="gone"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/payment_data"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="@string/payment_label"
-                />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:visibility="gone"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
+                        android:textSize="24sp"
+                        android:text="@string/payment_label"
+                        />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:id="@+id/content_primary"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Produto Primário" />
+                                android:layout_marginTop="16dp"
+                                android:orientation="horizontal">
 
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/primary"
+                                <LinearLayout
+                                    android:id="@+id/content_primary"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Produto Primário" />
+
+                                    <androidx.appcompat.widget.AppCompatSpinner
+                                        android:id="@+id/primary_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="4dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/content_installments"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle=""
+                                        android:text="Parcelas" />
+
+                                    <androidx.appcompat.widget.AppCompatSpinner
+                                        android:id="@+id/installments_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="4dp"
+                                        android:entries="@array/installments_array" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/content_secondary"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp" />
+                                android:layout_marginTop="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Produto Secundário" />
+
+                                <androidx.appcompat.widget.AppCompatSpinner
+                                    android:id="@+id/secondary"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:visibility="visible" />
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/et_merchant_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:hint="EC" />
+
+                            <EditText
+                                android:id="@+id/et_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:hint="Email" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/cb_subacquirer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:text="Subadquirente"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/content_subacquirer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:orientation="vertical">
+
+                                <EditText
+                                    android:id="@+id/sub_soft_descriptor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Soft Descriptor" />
+
+                                <EditText
+                                    android:id="@+id/sub_terminal_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Id do terminal" />
+
+                                <EditText
+                                    android:id="@+id/sub_merchant_code"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Código do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_city"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Cidade do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_telephone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:inputType="number"
+                                    android:hint="Telefone do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_state"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Estado do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_postal_code"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:inputType="number"
+                                    android:hint="Código Postal do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Endereço do EC " />
+
+                                <EditText
+                                    android:id="@+id/sub_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Identificador" />
+
+                                <EditText
+                                    android:id="@+id/sub_mcc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:inputType="number"
+                                    android:hint="MCC do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_country"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:inputType="number"
+                                    android:hint="País do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_information_type"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:hint="Tipo de informação" />
+
+                                <EditText
+                                    android:id="@+id/sub_document"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:inputType="number"
+                                    android:hint="CNPJ ou CPF do EC" />
+
+                                <EditText
+                                    android:id="@+id/sub_ibge"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:inputType="number"
+                                    android:hint="Código IBGE do Município " />
+
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/payment_button"
+                                style="@style/PrimaryActionButton"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:enabled="false"
+                                android:text="@string/checkout"
+                                android:textColor="#FFF"
+                                android:visibility="visible" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/content_installments"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textStyle=""
-                                android:text="Parcelas" />
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/installments"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:entries="@array/installments_array" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/content_secondary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Produto Secundário" />
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:id="@+id/secondary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:visibility="visible" />
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/et_merchant_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="EC" />
-
-                    <EditText
-                        android:id="@+id/et_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Email" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal">
-                        <CheckBox
-                            android:id="@+id/cb_subacquirer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:text="Subadquirente"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/content_subacquirer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/sub_soft_descriptor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Soft Descriptor" />
-
-                        <EditText
-                            android:id="@+id/sub_terminal_id"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Id do terminal" />
-
-                        <EditText
-                            android:id="@+id/sub_merchant_code"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Código do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_city"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Cidade do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_telephone"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:inputType="number"
-                            android:hint="Telefone do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_state"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Estado do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_postal_code"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:inputType="number"
-                            android:hint="Código Postal do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Endereço do EC " />
-
-                        <EditText
-                            android:id="@+id/sub_id"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Identificador" />
-
-                        <EditText
-                            android:id="@+id/sub_mcc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:inputType="number"
-                            android:hint="MCC do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_country"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:inputType="number"
-                            android:hint="País do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_information_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:hint="Tipo de informação" />
-
-                        <EditText
-                            android:id="@+id/sub_document"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:inputType="number"
-                            android:hint="CNPJ ou CPF do EC" />
-
-                        <EditText
-                            android:id="@+id/sub_ibge"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:inputType="number"
-                            android:hint="Código IBGE do Município " />
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/payment_button"
-                        style="@style/PrimaryActionButton"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:enabled="false"
-                        android:text="@string/checkout"
-                        android:textColor="#FFF"
-                        android:visibility="visible" />
+                    </ScrollView>
                 </LinearLayout>
 
-            </ScrollView>
             </LinearLayout>
-
         </LinearLayout>
-
+    </LinearLayout>
 </RelativeLayout>

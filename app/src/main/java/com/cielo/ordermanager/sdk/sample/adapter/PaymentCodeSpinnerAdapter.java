@@ -1,4 +1,4 @@
-package com.cielo.ordermanager.sdk.adapter;
+package com.cielo.ordermanager.sdk.sample.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,30 +7,26 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.cielo.ordermanager.sdk.R;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import cielo.orders.domain.product.SecondaryProduct;
+import com.cielo.ordermanager.sdk.R;
+import cielo.sdk.order.payment.PaymentCode;
 
-public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
+public class PaymentCodeSpinnerAdapter extends ArrayAdapter<PaymentCode> {
 
     private Context context;
-    private List<SecondaryProduct> values;
+    private List<PaymentCode> values;
     LayoutInflater inflater;
-    SecondaryProduct tempProduct = null;
+    PaymentCode tempProduct = null;
 
-    public SecondarySpinnerAdapter(Context context, int textViewResourceId,
-                                   List<SecondaryProduct> values) {
+    public PaymentCodeSpinnerAdapter(Context context, int textViewResourceId, List<PaymentCode> values) {
         super(context, textViewResourceId, values);
         this.context = context;
         this.values = values;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    public void setValues(List<SecondaryProduct> values) {
-        this.values = values;
     }
 
     @Override
@@ -39,7 +35,7 @@ public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
     }
 
     @Override
-    public SecondaryProduct getItem(int position) {
+    public PaymentCode getItem(int position) {
         return values.get(position);
     }
 
@@ -66,7 +62,7 @@ public class SecondarySpinnerAdapter extends ArrayAdapter<SecondaryProduct> {
         tempProduct = values.get(position);
 
         TextView label = (TextView) row.findViewById(R.id.simple_title);
-        label.setText(tempProduct.getName());
+        label.setText(tempProduct.name());
 
         return row;
     }
