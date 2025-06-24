@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cielo.ordermanager.sdk.R
 import com.cielo.ordermanager.sdk.databinding.ActivityResponseBinding
+import com.cielo.ordermanager.sdk.sample.services.DeepLinkService
 import com.cielo.ordermanager.sdk.utils.CancelRequest
 import com.cielo.ordermanager.sdk.utils.Order
 import com.cielo.ordermanager.sdk.utils.addText
@@ -29,6 +30,10 @@ class ResponseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResponseBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val i = Intent(this, DeepLinkService::class.java)
+        i.action = "STOP_SERVICE"
+        startService(i)
 
         intent.deserializeQueryParameter("response", Order::class.java) { json, order ->
             Timber.tag("ResponseActivity").d("Response: $json")

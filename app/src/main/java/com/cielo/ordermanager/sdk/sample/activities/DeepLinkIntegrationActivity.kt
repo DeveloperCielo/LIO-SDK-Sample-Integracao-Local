@@ -20,8 +20,6 @@ class DeepLinkIntegrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDeepLinkIntegrationBinding
 
-    private var order: Order? = null
-
     private val reference get() = "uriapp #" + (System.currentTimeMillis() / 1000)
 
     override fun onCreate(savedInstanceState: Bundle?) {
