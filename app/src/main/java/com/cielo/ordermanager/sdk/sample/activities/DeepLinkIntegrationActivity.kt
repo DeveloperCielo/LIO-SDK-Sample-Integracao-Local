@@ -1,16 +1,13 @@
 package com.cielo.ordermanager.sdk.sample.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.cielo.ordermanager.sdk.R
 import com.cielo.ordermanager.sdk.databinding.ActivityDeepLinkIntegrationBinding
-import com.cielo.ordermanager.sdk.utils.CheckoutRequest
+import com.cielo.ordermanager.sdk.utils.OrderRequest
 import com.cielo.ordermanager.sdk.utils.Item
 import com.cielo.ordermanager.sdk.utils.Order
-import com.cielo.ordermanager.sdk.utils.deserializeQueryParameter
 import com.cielo.ordermanager.sdk.utils.getBase64
 import com.cielo.ordermanager.sdk.utils.startForegroundServiceAndLaunchDeepLink
 import com.google.gson.Gson
@@ -57,7 +54,7 @@ class DeepLinkIntegrationActivity : AppCompatActivity() {
         )
         val items = mutableListOf(item)
 
-        val request = CheckoutRequest(
+        val request = OrderRequest(
             "rSAqNPGvFPJI",
             "XZevoUYKmkVr",
             price * quantity,

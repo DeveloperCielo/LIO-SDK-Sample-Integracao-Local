@@ -48,5 +48,6 @@
 
     <string name="intent_scheme">deeplinksample</string>
     <string name="intent_host">response</string>
+    <string name="cancel_order">Cancelar Ordem</string>
 
 </resources>

@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context="com.cielo.ordermanager.sdk.sample.activities.ResponseActivity">
 
+    <Button
+        android:id="@+id/dl_cancel_button"
+        android:layout_marginTop="30dp"
+        style="@style/PrimaryActionButton"
+        android:text="@string/cancel_order" />
+
     <ScrollView
         android:id="@+id/logScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/dl_cancel_button"
+        android:layout_marginTop="16dp"
         android:fillViewport="true">
 
         <LinearLayout

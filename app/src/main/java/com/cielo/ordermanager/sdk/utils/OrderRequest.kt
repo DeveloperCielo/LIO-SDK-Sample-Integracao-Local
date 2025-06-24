@@ -2,7 +2,7 @@ package com.cielo.ordermanager.sdk.utils
 
 import cielo.orders.domain.SubAcquirer
 
-data class CheckoutRequest(
+data class OrderRequest(
     val clientID: String,
     val accessToken: String,
     val value: Long,
@@ -13,4 +13,14 @@ data class CheckoutRequest(
     val reference: String,
     val items: MutableList<Item>,
     val subAcquirer: SubAcquirer? = null
+)
+
+data class CancelRequest(
+    val id: String,
+    val clientID: String,
+    val accessToken: String,
+    val cieloCode: String,
+    val authCode: String,
+    val merchantCode: String,
+    val value: Long
 )
