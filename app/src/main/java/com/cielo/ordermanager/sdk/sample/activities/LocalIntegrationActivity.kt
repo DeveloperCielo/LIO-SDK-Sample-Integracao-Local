@@ -4,17 +4,18 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import cielo.orders.domain.DeviceModel
 import cielo.orders.domain.Settings
 import cielo.sdk.info.InfoManager
-import com.cielo.ordermanager.sdk.databinding.ActivityMainBinding
+import com.cielo.ordermanager.sdk.databinding.ActivityLocalIntegrationBinding
 import com.cielo.ordermanager.sdk.orders.OrderManagerController
 
-class MainActivity : AppCompatActivity() {
+class LocalIntegrationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLocalIntegrationBinding
 
     private val orderManagerController: OrderManagerController by lazy {
         OrderManagerController.getInstance(this)
@@ -23,8 +24,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityLocalIntegrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Integração Local (SDK)"
 
         infoManager = InfoManager()
 
@@ -75,6 +78,11 @@ class MainActivity : AppCompatActivity() {
         binding.cancelPaymentButton.setOnClickListener { openExample3() }
         binding.printSampleButton.setOnClickListener { openExample4() }
         binding.findOrdersButton.setOnClickListener { openExample5() }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     private fun openExample1() {

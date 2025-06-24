@@ -1,5 +1,7 @@
 package com.cielo.ordermanager.sdk.sample.adapter;
 
+import static com.cielo.ordermanager.sdk.utils.UtilKt.getAmount;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cielo.ordermanager.sdk.R;
-import com.cielo.ordermanager.sdk.utils.Util;
 
 import java.util.List;
 import java.util.Locale;
@@ -57,7 +58,7 @@ public class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecy
             Map<String, String> paymentFields = payment.getPaymentFields();
             String product = paymentFields.get("primaryProductName") + " - " + paymentFields.get("secondaryProductName") + " :: ";
             holder.title1.setText(payment.getCieloCode());
-            holder.title2.setText(Util.getAmount(payment.getAmount()));
+            holder.title2.setText(getAmount(payment.getAmount()));
             holder.title3.setText(formatInstallments(payment.getInstallments()));
             holder.subtitle1.setText("");
             holder.subtitle2.setText(product);

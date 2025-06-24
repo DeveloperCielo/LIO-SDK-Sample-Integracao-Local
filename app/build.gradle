@@ -76,7 +76,7 @@ dependencies {
      * Seguir o procedimento da nossa documentação para importar a ultima versão da SDK:
      * https://developercielo.github.io/manual/cielo-lio#configurar-m%C3%B3dulos-e-depend%C3%AAncias
     */
-    implementation 'com.cielo.lio:order-manager:x.x.x'
+    implementation 'com.cielo.lio:order-manager:2.7.2'
     // --------------------------------------------------------------------------- //
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
