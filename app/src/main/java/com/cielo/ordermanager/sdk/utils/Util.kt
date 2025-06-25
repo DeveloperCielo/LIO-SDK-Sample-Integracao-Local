@@ -11,6 +11,8 @@ import com.google.gson.Gson
 import java.text.NumberFormat
 import java.util.Locale
 
+const val STOP_SERVICE = "STOP_SERVICE"
+
 fun getAmount(value: Long): String {
     return NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
         .format((value / 100.0f).toDouble())

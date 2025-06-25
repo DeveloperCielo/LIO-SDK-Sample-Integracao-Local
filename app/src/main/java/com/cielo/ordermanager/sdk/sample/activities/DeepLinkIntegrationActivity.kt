@@ -53,8 +53,8 @@ class DeepLinkIntegrationActivity : AppCompatActivity() {
         val items = mutableListOf(item)
 
         val request = OrderRequest(
-            "rSAqNPGvFPJI",
-            "XZevoUYKmkVr",
+            "xxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxxxxxx",
             price * quantity,
             null,
             1,

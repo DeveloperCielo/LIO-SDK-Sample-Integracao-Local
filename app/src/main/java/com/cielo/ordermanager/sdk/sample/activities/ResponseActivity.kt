@@ -9,6 +9,7 @@ import com.cielo.ordermanager.sdk.databinding.ActivityResponseBinding
 import com.cielo.ordermanager.sdk.sample.services.DeepLinkService
 import com.cielo.ordermanager.sdk.utils.CancelRequest
 import com.cielo.ordermanager.sdk.utils.Order
+import com.cielo.ordermanager.sdk.utils.STOP_SERVICE
 import com.cielo.ordermanager.sdk.utils.addText
 import com.cielo.ordermanager.sdk.utils.deserializeQueryParameter
 import com.cielo.ordermanager.sdk.utils.getBase64
@@ -31,9 +32,9 @@ class ResponseActivity : AppCompatActivity() {
         binding = ActivityResponseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val i = Intent(this, DeepLinkService::class.java)
-        i.action = "STOP_SERVICE"
-        startService(i)
+        val stopServiceIntent = Intent(this, DeepLinkService::class.java)
+        stopServiceIntent.action = STOP_SERVICE
+        startService(stopServiceIntent)
 
         intent.deserializeQueryParameter("response", Order::class.java) { json, order ->
             Timber.tag("ResponseActivity").d("Response: $json")
@@ -48,8 +49,8 @@ class ResponseActivity : AppCompatActivity() {
             if (order.payments.isNotEmpty()) {
                 val cancelRequest = CancelRequest(
                     order.id,
-                    "rSAqNPGvFPJI",
-                    "XZevoUYKmkVr",
+                    "xxxxxxxxxxxxxxxxxxx",
+                    "xxxxxxxxxxxxxxxx",
                     order.payments[0].cieloCode,
                     order.payments[0].authCode,
                     order.payments[0].merchantCode,

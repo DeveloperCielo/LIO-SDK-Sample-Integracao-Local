@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import com.cielo.ordermanager.sdk.utils.STOP_SERVICE
 
 class DeepLinkService : Service() {
 
@@ -27,7 +28,7 @@ class DeepLinkService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (intent?.action == "STOP_SERVICE") {
+        if (intent?.action == STOP_SERVICE) {
             stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
         }
