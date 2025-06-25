@@ -63,6 +63,11 @@
                 <action android:name="cielo.action.NOTIFY_TRANSACTION_CANCEL" />
             </intent-filter>
         </receiver>
+
+<!--        caso esteja utilizando apenas a integração via deep link é necessário incluir essa tag-->
+<!--        <meta-data-->
+<!--            android:name="cs_integration_type"-->
+<!--            android:value="uri" />-->
     </application>
 
 </manifest>
