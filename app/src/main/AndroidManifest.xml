@@ -13,7 +13,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".sample.activities.MainActivity"
+            android:name=".sample.activities.ResponseActivity"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="@string/intent_host"
+                    android:scheme="@string/intent_scheme" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".sample.services.DeepLinkService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <activity
+            android:name=".sample.activities.DeepLinkIntegrationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".sample.activities.LocalIntegrationActivity"
+            android:exported="true" />
         <activity android:name=".sample.activities.ListOrdersActivity" />
         <activity android:name=".sample.activities.CancelPaymentActivity" />
         <activity android:name=".sample.activities.CancellationOrderList" />
@@ -38,6 +64,10 @@
             </intent-filter>
         </receiver>
 
+<!--        caso esteja utilizando apenas a integração via deep link é necessário incluir essa tag-->
+<!--        <meta-data-->
+<!--            android:name="cs_integration_type"-->
+<!--            android:value="uri" />-->
     </application>
 
 </manifest>

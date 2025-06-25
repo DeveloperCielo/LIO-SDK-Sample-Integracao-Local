@@ -7,6 +7,8 @@
     <string name="print_sample">Teste Impressão</string>
     <string name="location_sample">Localização</string>
     <string name="qr_code_sample">QR Code</string>
+    <string name="sdk_integration">Integração Local</string>
+    <string name="deep_link_integration">Integração Via Deep Link</string>
 
     <string name="print_simple_text">Imprimir texto simples</string>
     <string name="print_multi_columns">Imprimir múltplas colunas</string>
@@ -43,5 +45,9 @@
     <string name="mapbox_access_token">MAPBOX TOKEN</string>
     <string name="orders_find">Localizar Ordens</string>
     <string name="adding_items">Adicione itens após criar a ordem:</string>
+
+    <string name="intent_scheme">deeplinksample</string>
+    <string name="intent_host">response</string>
+    <string name="cancel_order">Cancelar Ordem</string>
 
 </resources>
