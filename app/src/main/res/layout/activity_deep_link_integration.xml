@@ -33,6 +33,16 @@
                 style="@style/PrimaryActionButton"
                 android:text="@string/payment_sample" />
 
+            <Button
+                android:id="@+id/dl_print_text_button"
+                style="@style/PrimaryActionButton"
+                android:text="@string/print_simple_text" />
+
+            <Button
+                android:id="@+id/dl_print_image_button"
+                style="@style/PrimaryActionButton"
+                android:text="@string/print_image" />
+
         </LinearLayout>
 
     </ScrollView>

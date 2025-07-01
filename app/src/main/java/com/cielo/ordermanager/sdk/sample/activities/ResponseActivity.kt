@@ -11,6 +11,7 @@ import com.cielo.ordermanager.sdk.utils.CancelRequest
 import com.cielo.ordermanager.sdk.utils.Order
 import com.cielo.ordermanager.sdk.utils.STOP_SERVICE
 import com.cielo.ordermanager.sdk.utils.addText
+import com.cielo.ordermanager.sdk.utils.callToStopService
 import com.cielo.ordermanager.sdk.utils.deserializeQueryParameter
 import com.cielo.ordermanager.sdk.utils.getBase64
 import com.cielo.ordermanager.sdk.utils.startForegroundServiceAndLaunchDeepLink
@@ -32,9 +33,7 @@ class ResponseActivity : AppCompatActivity() {
         binding = ActivityResponseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val stopServiceIntent = Intent(this, DeepLinkService::class.java)
-        stopServiceIntent.action = STOP_SERVICE
-        startService(stopServiceIntent)
+        callToStopService(this)
 
         intent.deserializeQueryParameter("response", Order::class.java) { json, order ->
             Timber.tag("ResponseActivity").d("Response: $json")
