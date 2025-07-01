@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SDK Tester</string>
+    <string name="app_name">Integration Sample</string>
     <string name="payment_sample">Realizar Pagamento</string>
     <string name="payment_label">Dados do Pagamento:</string>
     <string name="orders_list">Listagem de Ordens</string>
@@ -49,5 +49,7 @@
     <string name="intent_scheme">deeplinksample</string>
     <string name="intent_host">response</string>
     <string name="cancel_order">Cancelar Ordem</string>
+
+    <string name="intent_scheme_same_activity">dlsameactivityscheme</string>
 
 </resources>

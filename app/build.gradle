@@ -15,12 +15,12 @@ buildscript {
 android {
     namespace "com.cielo.ordermanager.sdk"
     lintOptions { abortOnError false }
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.cielo.ordermanager.sdk.sample"
         minSdkVersion 25
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 3
         versionName "2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
