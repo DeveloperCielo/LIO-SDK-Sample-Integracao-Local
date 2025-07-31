@@ -1,3 +1,494 @@
+# Importante
+
+## 🚨Atenção: Atualização obrigatória dos seus apps para a Cielo Smart!
+
+Estamos em processo de migração para a nova geração de terminais Cielo Smart.
+
+Para garantir o funcionamento dos seus aplicativos, é essencial que eles estejam adaptados até **15/10/2025**.
+
+⚠️ Se não houver adaptação, o terminal pode ficar indisponível e não será possível publicar ou atualizar apps antigos. Além disso, em outubro todas as trocas de terminais e novas contratações serão feitas exclusivamente com terminais Cielo Smart.
+
+✅ Para migrar:
+-  Utilize a integração via Deeplink.
+-  Solicite um terminal Smart para testes via Portal do Desenvolvedor.
+-  Em caso de dúvidas, abra um chamado no portal ou envie e-mail para:
+   📧 atendimentosmart@cielo.com.br
+
+## Novo Cielo Smart
+
+Chegou a Cielo Smart, a solução que é a evolução da LIO On e que traz mais eficiência e praticidade para o desenvolvimento dos aplicativos!
+
+Com a Cielo Smart você aproveita:
+
+1. **Compatibilidade ampliada** – use seu app em novos terminais sem desenvolvimento adicional
+2. **Mais robustez e velocidade** – melhor tempo de aprovação nos pagamentos
+3. **Smart First** – todas as melhorias e novas funcionalidades serão implementadas somente na Cielo Smart
+
+> **Atenção:** O uso de WebView não é permitido na nova Cielo Smart
+
+Adapte seus apps com a integração via Deeplink e aproveite novas funcionalidades sem a necessidade de atualizar bibliotecas externas e simplifique suas implementações. Caso já utilize a integração via Deeplink, segue abaixo como se adaptar para o novo Cielo Smart:
+
+**Integração via Deeplink**
+
+- Incluir nova tag no arquivo AndroidManifest.xml para que o App possa ser distribuído corretamente para os terminais no processo de publicação
+
+```html
+<meta-data
+    android:name="cs_integration_type"
+    android:value="uri" />
+```
+
+- Neste projeto contempla exemplo de como inserir o meta-data no AndroidManifest.xml do módulo app.
+
+- Garantir a compatibilidade com o Android 10 (permissões, notificações, criação de intents, etc)
+- Ter o minSdkVersion 24 e o targetSdkVersion 29
+- Se estiver utilizando o SDK Cielo, garanta o uso de uma versão maior ou igual que 2.1.0
+- Se estiver utilizando a integração via DeepLink [confira a documentação aqui](https://developercielo.github.io/manual/cielo-lio#credenciais), ter o metadado declarado no arquivo AndroidManifest.xml
+
+<aside class="warning">Gostaríamos de informar que o SDK foi descontinuado e, a partir de agora, enviaremos apenas patches com correções pontuais. Porém se estiver utilizando o SDK Cielo, garanta o uso de uma versão maior ou igual que 2.1.0.</aside>
+
+## Beneficios da Integração via Deeplink
+
+Recomendamos nossa integração via deeplink, por oferecer vários benefícios como:
+
+1. Independência de Atualizações: Não é necessário aguardar atualizações do SDK do fabricante para corrigir bugs ou adicionar novas funcionalidades.
+2. Menor Tamanho do Aplicativo: Evita adicionar bibliotecas externas, reduzindo o tamanho do aplicativo.
+3. Facilidade de Implementação: Integrações via deeplink geralmente são mais simples e rápidas de implementar.
+4. Flexibilidade: Permite maior flexibilidade para personalizar a integração conforme as necessidades específicas do aplicativo.
+5. Compatibilidade: Reduz problemas de compatibilidade com diferentes versões de SDKs e dispositivos.
+6. Compatibilidade de bibliotecas terceiras: Caso o projeto de integração utilize uma biblioteca de terceiro e o SDK também, dependendo das diferentes versões, podemos ter problema de compatibilidade.
+7. Manutenção Simplificada: Facilita a manutenção do código, pois não depende de atualizações e mudanças no SDK do fabricante.
+8. Desempenho: Pode melhorar o desempenho do aplicativo, evitando a sobrecarga de um SDK adicional.
+9. Segurança: Reduz a superfície de ataque, pois não incorpora código de terceiros diretamente no aplicativo.
+
+Para saber mais, acesse [AQUI](https://developercielo.github.io/manual/cielo-lio#credenciais) a documentação de Integração via Deeplink
+
+![Comunicado LIO ON](https://desenvolvedores.cielo.com.br/api-portal/sites/default/files/comunicado_lio_on.jpg)
+
+- # Integração Via Deeplink
+
+A Cielo LIO Order Manager SDK também permite que você realize pagamentos via deeplink, facilitando a integração com outros aplicativos ou sistemas.
+
+Neste Projeto, é contemplado exemplos de como realizar pagamento, cancelamento e impressão via deeplink.
+
+## Pagamento
+
+É necessário definir um contrato de resposta com a LIO para que a mesma possa responder após o fluxo de pagamento/cancelamento/impressão. Esse contrato deve ser definido no manifest.xml da aplicação conforme o exemplo abaixo:
+
+```html
+<activity android:name=".ResponseActivity">
+  <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <data android:host="response" android:scheme="order" />
+  </intent-filter>
+</activity>
+```
+
+Os nomes “response” e “order” podem ser substituídos pelo que fizer sentido no seu aplicativo. Lembrando que na hora de fazer a chamada de pagamento, você deve informar os mesmos nomes para receber o callback da LIO. Para realizar o pedido de pagamento é preciso criar um json seguindo o formato definido abaixo e converte-lo para BASE64:
+
+```json
+{
+  "accessToken": "Seu Access-token",
+  "clientID": "Seu Client-id",
+  "reference": "Referência do pedido", /* Não obrigatório */
+  "merchantCode": "Em caso de MULTI-EC", /* Não obrigatório */
+  "email": "emaildocliente@email.com",
+  "installments": 0,
+  "items": [
+    {
+      "name": "Geral",
+      "quantity": 1,
+      "sku": "10",
+      "unitOfMeasure": "unidade",
+      "unitPrice": 10
+    }
+  ],
+  "paymentCode": "DEBITO_AVISTA",
+  "value": "10"
+}
+```
+
+### Pedidos de SubAdiquirente
+
+No caso de o pagamento ser feito por Sub Adquirente é necessário colocar as informações necessárias no campo “subAcquirer” do JSON para ser formatado no momento de realizar o pagamento.
+
+```json
+{
+  "accessToken": "Seu Access-token",
+  "clientID": "Seu Client-id",
+  "email": "emaildocliente@email.com",
+  "installments": 0,
+  "items": [
+    	{
+      		"name": "Geral",
+      		"quantity": 1,
+      		"sku": "10",
+      		"unitOfMeasure": "unidade",
+      		"unitPrice": 10
+    	}
+  ],
+  "paymentCode": "DEBITO_AVISTA",
+  "value": "10",
+  "subAcquirer": {
+  	"softDescriptor": "softDescriptorValue",
+  	"terminalId": "terminalIdValue",
+ 	 "merchantCode": "merchantCodeValue",
+  	"city": "cityValue",
+  	"telephone": "telephoneValue",
+  	"state": "stateValue",
+  	"postalCode": "postalCodeValue",
+  	"address": "addressValue",
+  	"identifier": "identifierValue",
+  	"merchantCategoryCode": "merchantCategoryCodeValue",
+  	"countryCode": "countryCodeValue",
+  	"informationType": "informationTypeValue",
+  	"document": "documentValue",
+  	"businessName": "businessName"
+  }
+}
+```
+
+Todos os campos de SubAcquirer são do formato texto (string), e todos devem ser preenchidos, no caso de algum não estar preenchido e o retorno será um erro com as informações:
+
+```json
+{
+    "code": 2,
+    "reason": " Parâmetros inválidos: Json inválido"
+}
+```
+
+
+**Lista de paymentCode**
+
+Disponibilizamos também a lista do campo “paymentCode”:
+
+| PaymentCode                |
+| -------------------------- |
+| DEBITO_AVISTA              |
+| DEBITO_PAGTO_FATURA_DEBITO |
+| CREDITO_AVISTA             |
+| CREDITO_PARCELADO_LOJA     |
+| CREDITO_PARCELADO_ADM      |
+| CREDITO_PARCELADO_BNCO     |
+| PRE_AUTORIZACAO            |
+| CREDITO_PARCELADO_CLIENTE  |
+| CREDITO_CREDIARIO_CREDITO  |
+| VOUCHER_ALIMENTACAO        |
+| VOUCHER_REFEICAO           |
+| VOUCHER_AUTOMOTIVO         |
+| VOUCHER_CULTURA            |
+| VOUCHER_PEDAGIO            |
+| VOUCHER_BENEFICIOS         |
+| VOUCHER_AUTO               |
+| VOUCHER_CONSULTA_SALDO     |
+| VOUCHER_VALE_PEDAGIO       |
+| CREDIARIO_VENDA            |
+| CREDIARIO_SIMULACAO        |
+| CARTAO_LOJA_AVISTA         |
+| CARTAO_LOJA_PARCELADO_LOJA |
+| CARTAO_LOJA_PARCELADO      |
+| CARTAO_LOJA_PARCELADO_BANCO|
+| CARTAO_LOJA_PAGTO_FATURA_CHEQUE|
+| CARTAO_LOJA_PAGTO_FATURA_DINHEIRO|
+| FROTAS                     |
+| PIX                        |
+
+Como explicado anteriormente, é preciso definir o contrato de resposta **(host** e **scheme**), aqui será utilizado essa configuração no parâmetro **urlCallback**. A chamada de pagamento deve ser feita da seguinte forma:
+
+```java
+var base64 = getBase64(jsonString)
+var checkoutUri = "lio://payment?request=$base64&urlCallback=order://response"
+```
+
+Após preparar a URI basta realizar a chamada de **intent** do android utilizando o comando específico da linguagem híbrida.
+
+```java
+var intent = Intent(Intent.ACTION_VIEW, Uri.parse(checkoutUri))
+intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+startActivity(intent)
+```
+
+## Recuperando dados do pagamento
+
+Para recuperar os dados de pagamento basta acessar a intent na activity de resposta e no parâmetro data, acessar a uri, da seguinte forma:
+
+```java
+val responseIntent = intent
+if (Intent.ACTION_VIEW == responseIntent.action) {
+   val uri = responseIntent.data
+   val response = uri.getQueryParameter("response")
+   val data = Base64.decode(response, Base64.DEFAULT)
+   val json = String(data)
+}
+```
+
+Lembrando que o parâmetro “**response**” é o mesmo que foi configurado como resposta na chamada de pagamento.
+
+Com o pagamento finalizado a LIO retornará para a uri configurada inicialmente um JSON seguindo o formato exemplificado abaixo:
+
+```json
+{
+   "createdAt":"Jun 8, 2018 1:51:58 PM",
+   "id":"ba583f85-9252-48b5-8fed-12719ff058b9",
+   "items":[
+      {
+         "description":"",
+         "details":"",
+         "id":"898e7f40-fa21-42d0-94d4-b4e95c4fd615",
+         "name":"cocacola",
+         "quantity":2,
+         "reference":"",
+         "sku":"1234",
+         "unitOfMeasure":"unidade",
+         "unitPrice":250
+      },
+      {
+         "description":"",
+         "details":"",
+         "id":"4baea4c2-5499-4783-accc-0f8904970861",
+         "name":"pepsi",
+         "quantity":2,
+         "reference":"",
+         "sku":"4321",
+         "unitOfMeasure":"unidade",
+         "unitPrice":280
+      }
+   ],
+   "notes":"",
+   "number":"",
+   "paidAmount":1450,
+   "payments":[
+      {
+         "accessKey":"XXXXXXXXXXXXXXX",
+         "amount":1450,
+         "applicationName":"com.ads.lio.uriappclient",
+         "authCode":"140126",
+         "brand":"Visa",
+         "cieloCode":"799871",
+         "description":"",
+         "discountedAmount":0,
+         "externalId":"6d5f6f86-7870-4aed-b79f-0a26d6c61743",
+         "id":"bb9c6305-95e5-4024-8152-503d064c0224",
+         "installments":0,
+         "mask":"424242-4242",
+         "merchantCode":"0000000000000003",
+         "paymentFields":{
+            "isDoubleFontPrintAllowed":"false",
+            "hasPassword":"false",
+            "primaryProductCode":"4",
+            "isExternalCall":"true",
+            "primaryProductName":"CREDITO",
+            "receiptPrintPermission":"1",
+            "isOnlyIntegrationCancelable":"false",
+            "upFrontAmount":"0",
+            "creditAdminTax":"0",
+            "firstQuotaDate":"0",
+            "isFinancialProduct":"true",
+            "hasSignature":"true",
+            "hasPrintedClientReceipt":"false",
+            "hasWarranty":"false",
+            "applicationName":"com.ads.lio.uriappclient",
+            "interestAmount":"0",
+            "changeAmount":"0",
+            "serviceTax":"0",
+            "cityState":"Barueri - SP",
+            "hasSentReference":"false",
+            "v40Code":"4",
+            "secondaryProductName":"A VISTA",
+            "paymentTransactionId":"6d5f6f86-7870-4aed-b79f0a26d6c61743",
+            "avaiableBalance":"0",
+            "pan":"424242-4242",
+            "originalTransactionId":"0",
+            "originalTransactionDate":"08/06/18",
+            "secondaryProductCode":"204",
+            "hasSentMerchantCode":"false",
+            "documentType":"J",
+            "statusCode":"1",
+            "merchantAddress":"Alameda Grajau, 219",
+            "merchantCode":"0000000000000003",
+            "paymentTypeCode":"1",
+            "hasConnectivity":"true",
+            "productName":"CREDITO A VISTA - I",
+            "merchantName":"POSTO ABC",
+            "entranceMode":"141010104080",
+            "firstQuotaAmount":"0",
+            "cardCaptureType":"1",
+            "totalizerCode":"0",
+            "requestDate":"1528476655000",
+            "boardingTax":"0",
+            "applicationId":"cielo.launcher",
+            "numberOfQuotas":"0",
+            "document":"000000000000000"
+         },
+         "primaryCode":"4",
+         "requestDate":"1528476655000",
+         "secondaryCode":"204",
+         "terminal":"69000007"
+      }
+   ],
+"pendingAmount":0,
+"price":1060,
+"reference":"Order",
+"status":"ENTERED",
+"type”:”9”,
+"updatedAt":"Jun 8, 2018 1:51:58 PM"
+}
+```
+
+> **Atenção:** O campo statusCode=0(apenas pagamentos pix) ou 1 indica uma transação de pagamento e statusCode=2 Cancelamento
+
+| Payment Fields - (**atributo do objeto Payment**) |
+| Nome do Campo | Descrição do Campo | Valor Exemplo |
+|--------------------------|--------------------------------------------------------------------|------------------------------------------|
+| clientName | Nome do Portador | VISA ACQUIRER TEST CARD 03 |
+| hasPassword | Validar se a operação pediu senha | true |
+| primaryProductCode | Código do produto primário | 4 |
+| primaryProductName | Nome do produto primário | CREDITO |
+| upFrontAmount | Valor da entrada da transação | 2500 |
+| creditAdminTax | Valor da taxa de administração de crédito | 0 |
+| firstQuotaDate | Data de débito da primeira parcela | 25/12/2018 (dd/MM/yyy) |
+| externalCallMerchantCode | Número do Estabelecimento Comercial | 0010000244470001 |
+| hasSignature | Validar se a operação pediu assinatura | false |
+| hasPrintedClientReceipt | Validar se imprimiu a via do cliente | false |
+| applicationName | Pacote da aplicação | cielo.launcher |
+| interestAmount | Valor de juros | 5000 |
+| changeAmount | Valor de troco | 4500 |
+| serviceTax | Taxa de serviço | 2000 |
+| cityState | Cidade - Estado | Barueri - SP |
+| v40Code | Tipo da transação | 5 (Lista de Tipos de transação abaixo) |
+| secondaryProductName | Nome do produto secundario | PARC. ADM |
+| paymentTransactionId | ID da transação de pagamento | 4c613b44-19b8-497c-b072-60d5dd6807e7 |
+| bin | Número cartão tokenizado (6 primeiros dígitos – 4 últimos dígitos ou 4 últimos) | 476173-0036 ou \*\*\*\*\*\*\*\*\*\*4242 <br> Para transações via QRCode sempre será enviado com o valor "0"|
+| originalTransactionId | ID da transação original, nos casos de cancelamento | 729d32ac-6c8d-4b0c-b670-263552f07000 |
+| cardLabelApplication | Tipo de aplicação utilizada pelo cartão na transação | CREDITO DE VISA |
+| secondaryProductCode | Código do produto secundário | 205 |
+| documentType | (J) = Pessoa Jurídica (F) = Pessoa Física | J |
+| statusCode | Status da transação 0(PIX) ou 1 - Autorizada 2 - Cancelada | 1 |
+| merchantAddress | Endereço do estabelecimento comercial (lojista) | Alameda Grajau, 219 |
+| merchantCode | Número do Estabelecimento Comercial | 0010000244470001 |
+| hasConnectivity | Valida se a transação foi online | true |
+| productName | forma de pagamento compilada | CREDITO PARCELADO ADM - I |
+| merchantName | Nome Fantasia do Estabelecimento Comercial | LOJA ON |
+| firstQuotaAmout | Valor da primeira parcela | 0 |
+| cardCaptureType | Código do tipo de captura do cartão | 0 (Lista de Tipos de Captura abaixo) |
+| requestDate | Data da requisição em milisegundos | 1293857600000 |
+| boardingTax | Taxa de embarque | 1200 |
+| applicationId | Pacote de aplicação | cielo.launcher |
+| numberOfQuotas | Número de parcelas | 2 |
+
+### Exemplos de retorno
+
+Segue exemplos de retorno com sucesso e erro nas operações via intent na integração híbrida.
+Lembrando que em ambos os cenários abaixos é o conteúdo da URI e o campo resonse está em formato base64.
+
+#### Retorno de sucesso:
+
+```html
+order://response?response=eyJjcmVhdGVkQXQiOiJKYW4gMzEsIDIwMjQgMTE6Mzc6MjYgQU0iLCJpZCI6IjFkYjU1NzdmLWZjZDAtNDllOC04Y2FjLTVlMjRhYWZiMjUxZiIsIml0ZW1zIjpbeyJkZXNjcmlwdGlvbiI6IiIsImRl
+dGFpbHMiOiIiLCJpZCI6IjkzMzA5ODkyLWMyMGItNDUyYy1iYTZmLTY4Mjc5NmI0YTk2ZSIsIm5hbWUiOiJwcm9kdXRvIiwicXVhbnRpdHkiOjEsInJlZmVyZW5jZSI6IiIsInNrdSI6IjQ2ODIiLCJ1bml0T2ZNZWFzdXJlIjoidW5pZGFkZSIsInVuaXRQcmljZSI6OTI1fV0sIm5vdGVzIjoiIiwibnVtYmVyIjoiIiwicGFpZEFtb3VudCI6OTI1LCJwYXltZW50cyI6W3siYWNjZXNzS2V5IjoiclNBcU5QR3ZGUEpJIiwiYW1vdW50Ijo5MjUsImFwcGxpY2F0aW9uTmFtZSI6ImNvbS5hZHMubGlvLnVyaWFwcGNsaWVudCIsImF1dGhDb2RlIjoiMTEzNzMwIiwiYnJhbmQiOiIiLCJjaWVsb0NvZGUiOiI4NDcyNjIiLCJkZXNjcmlwdGlvbiI6IiIsImRpc2NvdW50ZWRBbW91bnQiOjAsImV4dGVybmFsSWQiOiI0OGZhNjNjOS05NWVlLTQ4M2UtOWU3Yi1jZTMyNjMzZjEyOWIiLCJpZCI6IjgwY2U1MjhjLTJjY2MtNDgwMC1iZGMxLTViNWRkZGU1OGZiMSIsImluc3RhbGxtZW50cyI6MCwibWFzayI6IioqKioqKioqKioqKjAwMDAiLCJtZXJjaGFudENvZGUiOiIwMDAwMDAwMDAwMDAwMDAzIiwicGF5bWVudEZpZWxkcyI6eyJpc0RvdWJsZUZvbnRQcmludEFsbG93ZWQiOiJmYWxzZSIsImJpbiI6IjAiLCJoYXNQYXNzd29yZCI6ImZhbHNlIiwicHJpbWFyeVByb2R1Y3RDb2RlIjoiNCIsImlzRXh0ZXJuYWxDYWxsIjoidHJ1ZSIsInByaW1hcnlQcm9kdWN0TmFtZSI6IkNSRURJVE8iLCJyZWNlaXB0UHJpbnRQZXJtaXNzaW9uIjoiMSIsImlzT25seUludGVncmF0aW9uQ2FuY2VsYWJsZSI6ImZhbHNlIiwidXBGcm9udEFtb3VudCI6IjAiLCJjcmVkaXRBZG1pblRheCI6IjAiLCJleHRlcm5hbENhbGxNZXJjaGFudENvZGUiOiIwMDAwMDAwMDAwMDAwMDAzIiwiZmlyc3RRdW90YURhdGUiOiIwIiwiaXNGaW5hbmNpYWxQcm9kdWN0IjoidHJ1ZSIsImhhc1ByaW50ZWRDbGllbnRSZWNlaXB0IjoiZmFsc2UiLCJoYXNTaWduYXR1cmUiOiJmYWxzZSIsImFwcGxpY2F0aW9uTmFtZSI6ImNvbS5hZHMubGlvLnVyaWFwcGNsaWVudCIsImhhc1dhcnJhbnR5IjoiZmFsc2UiLCJpbnRlcmVzdEFtb3VudCI6IjAiLCJjaGFuZ2VBbW91bnQiOiIwIiwic2VydmljZVRheCI6IjAiLCJjaXR5U3RhdGUiOiJCYXJ1ZXJpIC0gU1AiLCJoYXNTZW50UmVmZXJlbmNlIjoiZmFsc2UiLCJ2NDBDb2RlIjoiNCIsInNlY29uZGFyeVByb2R1Y3ROYW1lIjoiQSBWSVNUQSIsInBheW1lbnRUcmFuc2FjdGlvbklkIjoiNDhmYTYzYzktOTVlZS00ODNlLTllN2ItY2UzMjYzM2YxMjliIiwiYXZhaWFibGVCYWxhbmNlIjoiMCIsInBhbiI6IioqKioqKioqKioqKjAwMDAiLCJvcmlnaW5hbFRyYW5zYWN0aW9uSWQiOiIwIiwib3JpZ2luYWxUcmFuc2FjdGlvbkRhdGUiOiIzMS8wMS8yNCIsInNlY29uZGFyeVByb2R1Y3RDb2RlIjoiMjA0IiwiZG9jdW1lbnRUeXBlIjoiSiIsImhhc1NlbnRNZXJjaGFudENvZGUiOiJmYWxzZSIsInN0YXR1c0NvZGUiOiIxIiwibWVyY2hhbnRBZGRyZXNzIjoiQWxhbWVkYSBHcmFqYXUsIDIxOSIsIm1lcmNoYW50Q29kZSI6IjAwMDAwMDAwMDAwMDAwMDMiLCJwYXltZW50VHlwZUNvZGUiOiIxIiwiaGFzQ29ubmVjdGl2aXR5IjoidHJ1ZSIsInByb2R1Y3ROYW1lIjoiQ1JFRElUTyBBIFZJU1RBIC0gSSIsIm1lcmNoYW50TmFtZSI6IlBPU1RPIEFCQyIsImVudHJhbmNlTW9kZSI6IjY2MTAxMDEwNzA4MCIsImNhcmRDYXB0dXJlVHlwZSI6IjYiLCJmaXJzdFF1b3RhQW1vdW50IjoiMCIsInRvdGFsaXplckNvZGUiOiIwIiwicmVxdWVzdERhdGUiOiIxNzA2NzEwMzg0NDAyIiwiYXBwbGljYXRpb25JZCI6ImNpZWxvLmxhdW5jaGVyIiwiYm9hcmRpbmdUYXgiOiIwIiwibnVtYmVyT2ZRdW90YXMiOiIwIiwiZG9jdW1lbnQiOiIwMDAwMDAwMDAwMDAwMCJ9LCJwcmltYXJ5Q29kZSI6IjQiLCJyZXF1ZXN0RGF0ZSI6IjE3MDY3MTAzODQ0MDIiLCJzZWNvbmRhcnlDb2RlIjoiMjA0IiwidGVybWluYWwiOiI2MjAwMDExMiJ9XSwicGVuZGluZ0Ftb3VudCI6MCwicHJpY2UiOjkyNSwicmVmZXJlbmNlIjoiUmVmZXJlbmNlIiwic3RhdHVzIjoiRU5URVJFRCIsInR5cGUiOiJQQVlNRU5UIiwidXBkYXRlZEF0IjoiSmFuIDMxLCAyMDI0IDExOjM3OjMxIEFNIn0=&responsecode=0
+```
+
+#### Retorno de erro
+
+Se houver algum erro no pagamento, seja ele cancelado por usuario ou saldo insuficiente continuamos olhando para o campo response onde será retornando um base64 com o motivo do pagamento não realizado com sucesso
+
+```html
+order://response?response=eyJjb2RlIjoxLCJyZWFzb24iOiJDQU5DRUxBRE8gUEVMTyBVU1XDgVJJTyJ9&responsecode=0
+```
+
+```json
+{
+   "code":1,
+   "reason":"CANCELADO PELO USUÁRIO"
+}
+```
+
+## Cancelamento
+
+<aside class="warning">Hoje não é possivel realizar cancelamentos de pagamentos efetuados por PIX via integração.</aside>
+
+Para realizar o cancelamento é preciso criar um json seguindo o formato definido abaixo e converte-lo para BASE64:
+
+```json
+{
+  "id": "id da ordem",
+  "clientID": "seu client ID",
+  "accessToken": "seu access token",
+  "cieloCode": "123",
+  "authCode": "123",
+  "value": 1000
+}
+```
+
+A chamada de cancelamento deve ser feita da seguinte forma. Como explicado anteriormente, é preciso definir o contrato de resposta, aqui será utilizado essa configuração no parâmetro **urlCallback**:
+
+```java
+var base64 = getBase64(jsonString)
+var checkoutUri ="lio://payment-reversal?request=$base64&urlCallback=order://response"
+```
+
+Para recuperar os dados basta acessar a intent na activity de resposta cadastrada em sem Manifest e no parâmetro data, acessar a uri, da seguinte forma:
+
+```java
+val responseIntent = intent
+if (Intent.ACTION_VIEW == responseIntent.action) {
+   val uri = responseIntent.data
+   val response = uri.getQueryParameter("response")
+   val data = Base64.decode(response, Base64.DEFAULT)
+   val json = String(data)
+}
+```
+
+### Exemplos de retorno cancelamento
+
+```html
+order://response?response=eyJjcmVhdGVkQXQiOiJGZWIgOSwgMjAyNCAyOjI5OjE2IFBNIiwiaWQiOiJmN2E4ZjIyNi0yOTQ5LTQwMGItOTc3OC05MTNiMGQxNjkzODkiLCJpdGVtcyI6W3siZGVzY3JpcHRpb24iOiIiLCJkZXRhaWxzIjoiIiwiaWQiOiI0MmQwNTg2Yi1mOWViLTQwNjYtYmQxZi1jNTQyMTg2MzJmMmUiLCJuYW1lIjoicHJvZHV0byIsInF1YW50aXR5Ijo1LCJyZWZlcmVuY2UiOiIiLCJza3UiOiI0OTQ3MyIsInVuaXRPZk1lYXN1cmUiOiJ1bmlkYWRlIiwidW5pdFByaWNlIjo3MjR9XSwibm90ZXMiOiIiLCJudW1iZXIiOiIiLCJwYWlkQW1vdW50IjowLCJwYXltZW50cyI6W3siYWNjZXNzS2V5IjoiclNBcU5QR3ZGUEpJIiwiYW1vdW50IjozNjIwLCJhcHBsaWNhdGlvbk5hbWUiOiJjb20uYWRzLmxpby51cmlhcHBjbGllbnQiLCJhdXRoQ29kZSI6IjE0Mjk0MSIsImJyYW5kIjoiIiwiY2llbG9Db2RlIjoiOTEwNzkyIiwiZGVzY3JpcHRpb24iOiIiLCJkaXNjb3VudGVkQW1vdW50IjowLCJleHRlcm5hbElkIjoiNDFmYzNlZDItYjc4MS00Y2M0LWEyM2EtYWExYTdiN2JjNWQwIiwiaWQiOiIyZTc3YTI3OC0wY2M1LTQ3ODQtYTljNy01Y2Y3M2I5OWRiZjYiLCJpbnN0YWxsbWVudHMiOjAsIm1hc2siOiIqKioqKioqKioqKiowMDAwIiwibWVyY2hhbnRDb2RlIjoiMDAxMDAwMDI0NDQ3MDAwMSIsInBheW1lbnRGaWVsZHMiOnsiaXNEb3VibGVGb250UHJpbnRBbGxvd2VkIjoidHJ1ZSIsImJpbiI6IjAiLCJoYXNQYXNzd29yZCI6ImZhbHNlIiwicHJpbWFyeVByb2R1Y3RDb2RlIjoiNCIsImlzRXh0ZXJuYWxDYWxsIjoidHJ1ZSIsInByaW1hcnlQcm9kdWN0TmFtZSI6IkNSRURJVE8iLCJyZWNlaXB0UHJpbnRQZXJtaXNzaW9uIjoiMSIsImlzT25seUludGVncmF0aW9uQ2FuY2VsYWJsZSI6ImZhbHNlIiwidXBGcm9udEFtb3VudCI6IjAiLCJjcmVkaXRBZG1pblRheCI6IjAiLCJleHRlcm5hbENhbGxNZXJjaGFudENvZGUiOiIwMDEwMDAwMjQ0NDcwMDAxIiwiZmlyc3RRdW90YURhdGUiOiIwIiwiaXNGaW5hbmNpYWxQcm9kdWN0IjoidHJ1ZSIsImhhc1ByaW50ZWRDbGllbnRSZWNlaXB0IjoiZmFsc2UiLCJoYXNTaWduYXR1cmUiOiJmYWxzZSIsImFwcGxpY2F0aW9uTmFtZSI6ImNvbS5hZHMubGlvLnVyaWFwcGNsaWVudCIsImhhc1dhcnJhbnR5IjoiZmFsc2UiLCJpbnRlcmVzdEFtb3VudCI6IjAiLCJjaGFuZ2VBbW91bnQiOiIwIiwic2VydmljZVRheCI6IjAiLCJjaXR5U3RhdGUiOiJCYXJ1ZXJpIC0gU1AiLCJoYXNTZW50UmVmZXJlbmNlIjoiZmFsc2UiLCJ2NDBDb2RlIjoiNCIsInNlY29uZGFyeVByb2R1Y3ROYW1lIjoiQSBWSVNUQSIsInBheW1lbnRUcmFuc2FjdGlvbklkIjoiNDFmYzNlZDItYjc4MS00Y2M0LWEyM2EtYWExYTdiN2JjNWQwIiwiYXZhaWFibGVCYWxhbmNlIjoiMCIsInBhbiI6IioqKioqKioqKioqKjAwMDAiLCJvcmlnaW5hbFRyYW5zYWN0aW9uSWQiOiIwIiwib3JpZ2luYWxUcmFuc2FjdGlvbkRhdGUiOiIwOS8wMi8yNCIsInNlY29uZGFyeVByb2R1Y3RDb2RlIjoiMjA0IiwiZG9jdW1lbnRUeXBlIjoiSiIsImhhc1NlbnRNZXJjaGFudENvZGUiOiJmYWxzZSIsInN0YXR1c0NvZGUiOiIxIiwibWVyY2hhbnRBZGRyZXNzIjoiQWxhbWVkYSBHcmFqYXUsIDIxOSIsIm1lcmNoYW50Q29kZSI6IjAwMTAwMDAyNDQ0NzAwMDEiLCJwYXltZW50VHlwZUNvZGUiOiIxIiwiaGFzQ29ubmVjdGl2aXR5IjoidHJ1ZSIsInByb2R1Y3ROYW1lIjoiQ1JFRElUTyBBIFZJU1RBIC0gSSIsIm1lcmNoYW50TmFtZSI6IkxPSkEgT04iLCJlbnRyYW5jZU1vZGUiOiI2NjEwMTAxMDcwODAiLCJjYXJkQ2FwdHVyZVR5cGUiOiI2IiwiZmlyc3RRdW90YUFtb3VudCI6IjAiLCJ0b3RhbGl6ZXJDb2RlIjoiMCIsInJlcXVlc3REYXRlIjoiMTcwNzQ5OTc2MDI5OSIsImFwcGxpY2F0aW9uSWQiOiJjaWVsby5sYXVuY2hlciIsImJvYXJkaW5nVGF4IjoiMCIsIm51bWJlck9mUXVvdGFzIjoiMCIsImRvY3VtZW50IjoiMDAwMDAwMDAwMDAwMDAifSwicHJpbWFyeUNvZGUiOiI0IiwicmVxdWVzdERhdGUiOiIxNzA3NDk5NzYwMjk5Iiwic2Vjb25kYXJ5Q29kZSI6IjIwNCIsInRlcm1pbmFsIjoiNjIwMDAxMTIifSx7ImFjY2Vzc0tleSI6IiIsImFtb3VudCI6MzYyMCwiYXBwbGljYXRpb25OYW1lIjoiY29tLmFkcy5saW8udXJpYXBwY2xpZW50IiwiYXV0aENvZGUiOiIxNDMwMDUiLCJicmFuZCI6IiIsImNpZWxvQ29kZSI6IjkxMDc5NCIsImRlc2NyaXB0aW9uIjoiIiwiZGlzY291bnRlZEFtb3VudCI6MCwiZXh0ZXJuYWxJZCI6IjczNTFkZWI1LTlkYTgtNGQ4ZC1iN2E5LWRlYWQyZjY3M2RkMSIsImlkIjoiODkwNjliNzEtMTE5ZS00MjFjLTgyODUtYmNjODNlZWU0ZWViIiwiaW5zdGFsbG1lbnRzIjowLCJtYXNrIjoiKioqKioqKioqKioqMjgxMCIsIm1lcmNoYW50Q29kZSI6IjAwMTAwMDAyNDQ0NzAwMDEiLCJwYXltZW50RmllbGRzIjp7ImlzRG91YmxlRm9udFByaW50QWxsb3dlZCI6InRydWUiLCJiaW4iOiIwIiwiaGFzUGFzc3dvcmQiOiJmYWxzZSIsInByaW1hcnlQcm9kdWN0Q29kZSI6IjQiLCJpc0V4dGVybmFsQ2FsbCI6InRydWUiLCJwcmltYXJ5UHJvZHVjdE5hbWUiOiJDUkVESVRPIiwicmVjZWlwdFByaW50UGVybWlzc2lvbiI6IjEiLCJpc09ubHlJbnRlZ3JhdGlvbkNhbmNlbGFibGUiOiJmYWxzZSIsInVwRnJvbnRBbW91bnQiOiIwIiwiY3JlZGl0QWRtaW5UYXgiOiIwIiwiZXh0ZXJuYWxDYWxsTWVyY2hhbnRDb2RlIjoiMDAxMDAwMDI0NDQ3MDAwMSIsImZpcnN0UXVvdGFEYXRlIjoiMCIsImlzRmluYW5jaWFsUHJvZHVjdCI6InRydWUiLCJoYXNQcmludGVkQ2xpZW50UmVjZWlwdCI6ImZhbHNlIiwiaGFzU2lnbmF0dXJlIjoiZmFsc2UiLCJhcHBsaWNhdGlvbk5hbWUiOiJjb20uYWRzLmxpby51cmlhcHBjbGllbnQiLCJoYXNXYXJyYW50eSI6ImZhbHNlIiwiaW50ZXJlc3RBbW91bnQiOiIwIiwiY2hhbmdlQW1vdW50IjoiMCIsInNlcnZpY2VUYXgiOiIwIiwiY2l0eVN0YXRlIjoiQmFydWVyaSAtIFNQIiwiaGFzU2VudFJlZmVyZW5jZSI6ImZhbHNlIiwidjQwQ29kZSI6IjI4Iiwic2Vjb25kYXJ5UHJvZHVjdE5hbWUiOiJBIFZJU1RBIiwicGF5bWVudFRyYW5zYWN0aW9uSWQiOiI0MWZjM2VkMi1iNzgxLTRjYzQtYTIzYS1hYTFhN2I3YmM1ZDAiLCJhdmFpYWJsZUJhbGFuY2UiOiIwIiwicGFuIjoiKioqKioqKioqKioqMjgxMCIsIm9yaWdpbmFsVHJhbnNhY3Rpb25JZCI6IjkxMDc5MiIsIm9yaWdpbmFsVHJhbnNhY3Rpb25EYXRlIjoiMDkvMDIvMjQiLCJzZWNvbmRhcnlQcm9kdWN0Q29kZSI6IjIwNCIsImRvY3VtZW50VHlwZSI6IkoiLCJoYXNTZW50TWVyY2hhbnRDb2RlIjoiZmFsc2UiLCJzdGF0dXNDb2RlIjoiMiIsIm1lcmNoYW50QWRkcmVzcyI6IkFsYW1lZGEgR3JhamF1LCAyMTkiLCJtZXJjaGFudENvZGUiOiIwMDEwMDAwMjQ0NDcwMDAxIiwicGF5bWVudFR5cGVDb2RlIjoiMSIsImhhc0Nvbm5lY3Rpdml0eSI6InRydWUiLCJwcm9kdWN0TmFtZSI6IkNSRURJVE8gQSBWSVNUQSAtIEkiLCJtZXJjaGFudE5hbWUiOiJMT0pBIE9OIiwiZW50cmFuY2VNb2RlIjoiNjYxMDEwMTA3MDgwIiwiY2FyZENhcHR1cmVUeXBlIjoiNiIsImZpcnN0UXVvdGFBbW91bnQiOiIwIiwidG90YWxpemVyQ29kZSI6IjAiLCJyZXF1ZXN0RGF0ZSI6IjE3MDc0OTk3ODA1NTMiLCJhcHBsaWNhdGlvbklkIjoiY29tLmFkcy5saW8udXJpYXBwY2xpZW50IiwiYm9hcmRpbmdUYXgiOiIwIiwibnVtYmVyT2ZRdW90YXMiOiIwIiwiZG9jdW1lbnQiOiIwMDAwMDAwMDAwMDAwMCJ9LCJwcmltYXJ5Q29kZSI6IjQiLCJyZXF1ZXN0RGF0ZSI6IjE3MDc0OTk3ODA1NTMiLCJzZWNvbmRhcnlDb2RlIjoiMjA0IiwidGVybWluYWwiOiI2MjAwMDExMiJ9XSwicGVuZGluZ0Ftb3VudCI6MzYyMCwicHJpY2UiOjM2MjAsInJlZmVyZW5jZSI6IlJlZmVyZW5jZSIsInN0YXR1cyI6IkVOVEVSRUQiLCJ0eXBlIjoiUEFZTUVOVCIsInVwZGF0ZWRBdCI6IkZlYiA5LCAyMDI0IDI6Mjk6NDEgUE0ifQ==&responsecode=0
+```
+
+> **Atenção:** O campo statusCode=1 indica uma transação de pagamento e statusCode=2 Cancelamento. Você pode utilizar esse campo para identificar a transação de cancelamento no JSON recebido.
+
+## Impressão
+
+Para realizar a impressão, basta montar uma URL com o seguinte formato:
+
+```java
+lio://print?request=$base64&urlCallback=order://response
+```
+
+### Segue abaixo, alguns exemplos de impressão:
+
+##### Texto
+
+Para otimizar a performance ao usar o Printer Manager para imprimir textos com múltiplas linhas, é aconselhável evitar a invocação do método de impressão para cada linha individualmente.
+
+Em vez disso, recomenda-se a formatação do texto completo, incluindo todas as linhas, e a realização de uma única chamada a operação `PRINT_TEXT`.
+
+Isso reduz o número de chamadas ao método de impressão, melhorando a eficiência do processo.
+
+```json
+{
+  "operation": "PRINT_TEXT",
+  "styles": [{}],
+  "value": ["TEXTO PARA IMPRIMIR NA PRIMEIRA LINHA\nTEXTO PARA IMPRIMIR NA SEGUNDA LINHA\nTEXTO PARA IMPRIMIR NA TERCEIRA LINHA\n\n"]
+}
+```
+
+Neste exemplo, o texto completo é formatado como uma única string, com cada linha separada por um caractere de nova linha ("\n").
+
+##### Imagem
+
+```json
+{
+  "operation": "PRINT_IMAGE",
+  "styles": [{}],
+  "value": ["/storage/emulated/0/saved_images/Image-5005.jpg"]
+}
+```
+
+Para mais informações sobre como utilizar o deeplink, consulte a [documentação de integração via deeplink](https://developercielo.github.io/manual/cielo-lio#integração-via-deeplink7)
+
+
 - # Integração Local
 
 ## Apresentação
@@ -36,7 +527,7 @@ Este aplicativo funciona como um proxy de todas as chamadas que o SDK enviaria p
 
 Faça o download do .apk do emulador no link abaixo:
 
-[Download do Emulador](https://s3-sa-east-1.amazonaws.com/cielo-lio-store/apps/lio-emulator/1.60.3/lio-emulator.apk)
+[Download do Emulador](https://s3-sa-east-1.amazonaws.com/cielo-lio-store/apps/lio-emulator/1.61.9/lio-emulator.apk)
 
 Para instalar o aplicativo, basta seguir os seguintes passos:
 
@@ -349,7 +840,7 @@ Para realizar um request de pagamento é preciso informar, pelo menos, o OrderId
 ```java
 CheckoutRequest request = new CheckoutRequest.Builder()
                     .orderId(order.getId()) /* Obrigatório */
-                    .amount(123456789) /* Opcional */
+                    .amount(123456789) /* Obrigatório */
                     .ec("999999999999999") /* Opcional (precisa estar habilitado na LIO) */
                     .installments(3) /* Opcional */
                     .email("teste@email.com") /* Opcional */
