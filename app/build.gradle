@@ -71,12 +71,24 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+//    Para facilitar na compilação, as libs .aar estão sendo importadas diretamente da pasta 'libs'
+//    o Processo correto para a integração local é o descrito na documentação abaixo
+    implementation(files("libs/order-manager-2.7.2.aar"))
+    implementation(files("libs/event-tracker-1.0.1.aar"))
+
+    // Dependências do Datadog que são necessárias para o funcionamento do SDK pois são dependencias transitivas do event-tracker
+    // Não necessita dessa parte em seu aplicativo
+    implementation 'com.datadoghq:dd-sdk-android-gradle-plugin:1.14.0'
+    implementation 'com.datadoghq:dd-sdk-android-logs:2.16.0'
+    implementation 'com.datadoghq:dd-sdk-android-trace:2.16.0'
+    implementation 'com.datadoghq:dd-sdk-android-rum:2.16.0'
+
     /*
      * ------------- DEPENDENCIAS NECESSÁRIAS PRO ORDER MANAGER SDK -------------------
      * Seguir o procedimento da nossa documentação para importar a ultima versão da SDK:
      * https://developercielo.github.io/manual/cielo-lio#configurar-m%C3%B3dulos-e-depend%C3%AAncias
     */
-    implementation 'com.cielo.lio:order-manager:2.7.2'
+//    implementation 'com.cielo.lio:order-manager:2.7.2'
     // --------------------------------------------------------------------------- //
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
