@@ -2,19 +2,21 @@ package com.cielo.ordermanager.sdk.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.util.Base64
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.FileProvider
 import com.cielo.ordermanager.sdk.sample.services.DeepLinkService
 import com.google.gson.Gson
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.text.NumberFormat
 import java.util.Locale
-import java.util.Random
 
 const val STOP_SERVICE = "STOP_SERVICE"
 
@@ -71,28 +73,64 @@ fun Intent.deserializeQueryParameter(name: String, block: (String) -> Unit) =
         ?.let { block(it) }
 
 
-fun saveImage(context: Context, finalBitmap: Bitmap): String {
-    val root = context.getExternalFilesDir(null).toString()
-    val myDir = File("$root/saved_images")
-    if (!myDir.exists()) {
-        myDir.mkdirs()
-    }
-    val generator = Random()
-    var n = 10000
-    n = generator.nextInt(n)
-    val fname = "Image-$n.jpg"
-    val file = File(myDir, fname)
-    val path = file.absolutePath
-    if (file.exists())
-        file.delete()
-    try {
-        val out = FileOutputStream(file)
-        finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
-        out.flush()
-        out.close()
+fun saveImage(context: Context, bitmap: Bitmap): Uri {
+    val storageDir = context.getExternalFilesDir(null) ?: Environment.getExternalStorageDirectory()
+    return createImageFile(storageDir, bitmap) { Uri.fromFile(it) }.getOrDefault(Uri.EMPTY)
+}
 
+fun saveImageWithProvider(context: Context, bitmap: Bitmap): Uri {
+    val storageDir = context.filesDir
+    return createImageFile(storageDir, bitmap) { createFileProviderUri(context, it) }.getOrDefault(Uri.EMPTY)
+}
+
+fun createImageFile(storageDir: File, bitmap: Bitmap, toUri: (File) -> Uri) : Result<Uri> {
+    return runCatching {
+        val imageDirectory = File(storageDir, "saved_images").apply {
+            if (!exists()) mkdirs()
+        }
+        val randomSuffix = (1000..9999).random()
+        val fileName = "Image-$$randomSuffix.jpg"
+        val fileImage = File(imageDirectory, fileName).apply {
+            if (exists()) delete()
+        }
+        FileOutputStream(fileImage).use { outputStream ->
+            val compressionSuccess = bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+            if (!compressionSuccess) {
+                throw IOException("Failed to compress bitmap")
+            }
+        }
+        toUri(fileImage)
+    }.onFailure {
+        it.printStackTrace()
+    }
+}
+
+private fun createFileProviderUri(context: Context, file: File): Uri {
+    return try {
+        val authority = "${context.packageName}.fileprovider"
+        FileProvider.getUriForFile(context, authority, file).also { uri ->
+            grantUriPermission(context, uri)
+        }
     } catch (e: Exception) {
         e.printStackTrace()
+        Uri.EMPTY
     }
-    return path
+}
+
+private fun grantUriPermission(context: Context, targetUri: Uri) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("lio://print"))
+    context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        .mapNotNull { it.activityInfo?.packageName }
+        .distinct()
+        .forEach { packageName ->
+            runCatching {
+                context.grantUriPermission(
+                    packageName,
+                    targetUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
 }

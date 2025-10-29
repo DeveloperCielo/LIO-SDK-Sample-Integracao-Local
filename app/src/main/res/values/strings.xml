@@ -13,6 +13,8 @@
     <string name="print_simple_text">Imprimir texto simples</string>
     <string name="print_multi_columns">Imprimir múltplas colunas</string>
     <string name="print_image">Imprimir imagem</string>
+    <string name="print_image_selector_option_1">Caminho Absoluto</string>
+    <string name="print_image_selector_option_2">Content Provider</string>
     <string name="print_qrcode">Imprimir QR Code</string>
     <string name="print_barcode">Imprimir Bar Code</string>
 

@@ -1,8 +1,10 @@
 package com.cielo.ordermanager.sdk.sample.activities
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,9 +18,11 @@ import com.cielo.ordermanager.sdk.utils.callToStopService
 import com.cielo.ordermanager.sdk.utils.deserializeQueryParameter
 import com.cielo.ordermanager.sdk.utils.getBase64
 import com.cielo.ordermanager.sdk.utils.saveImage
+import com.cielo.ordermanager.sdk.utils.saveImageWithProvider
 import com.cielo.ordermanager.sdk.utils.startForegroundServiceAndLaunchDeepLink
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
+import kotlin.reflect.KFunction2
 
 class DeepLinkIntegrationActivity : AppCompatActivity() {
 
@@ -103,11 +107,19 @@ class DeepLinkIntegrationActivity : AppCompatActivity() {
     }
 
     private fun printImage() {
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.cielo)
+        val saveImageFunction = when (binding.dlPrintTypeRadioGroup.checkedRadioButtonId) {
+            binding.dlPrintUsingAbsolutePathRb.id -> ::saveImage
+            binding.dlPrintUsingContentProviderRb.id -> ::saveImageWithProvider
+            else -> throw NotImplementedError("Print type not implemented")
+        }
+        printImage(saveImageFunction)
+    }
 
+    private fun printImage(saveUri: KFunction2<Context, Bitmap, Uri>) {
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.cielo)
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, ByteArrayOutputStream())
 
-        val uri = saveImage(this, bitmap)
+        val uri = saveUri(this, bitmap).toString()
         val styles = ArrayList<Map<String, Int>>()
         styles.add(HashMap())
         val request = PrintRequest("PRINT_IMAGE", arrayOf(uri), styles)
