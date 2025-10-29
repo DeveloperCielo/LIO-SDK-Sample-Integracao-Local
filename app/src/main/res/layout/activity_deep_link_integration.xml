@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="18dp"
         android:layout_marginTop="12dp"
         android:text="@string/select_option"
         android:textSize="16sp"
@@ -38,11 +38,47 @@
                 style="@style/PrimaryActionButton"
                 android:text="@string/print_simple_text" />
 
-            <Button
-                android:id="@+id/dl_print_image_button"
-                style="@style/PrimaryActionButton"
-                android:text="@string/print_image" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rectangle_rounded_borders"
+                android:orientation="vertical">
 
+                <RadioGroup
+                    android:id="@+id/dl_print_type_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/dl_print_using_absolute_path_rb"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="4dp">
+
+                    <RadioButton
+                        android:id="@+id/dl_print_using_absolute_path_rb"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/print_image_selector_option_1" />
+
+                    <RadioButton
+                        android:id="@+id/dl_print_using_content_provider_rb"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/print_image_selector_option_2" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/dl_print_image_button"
+                    style="@style/PrimaryActionButton"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/print_image" />
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

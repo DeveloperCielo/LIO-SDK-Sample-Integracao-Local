@@ -39,13 +39,28 @@ android {
         abortOnError false
     }
 
+    signingConfigs {
+        developmentPositivoL400 {
+            keyAlias "platform"
+            keyPassword "L400Parceiros!@#"
+            storeFile file("../key/positivo_debug_L400.jks")
+            storePassword "L400Parceiros!@#"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debugPositivoL400 {
+            initWith debug
+            matchingFallbacks = ['debug']
+            signingConfig signingConfigs.developmentPositivoL400
+        }
     }
+
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
 
     packagingOptions {
